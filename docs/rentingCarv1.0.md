@@ -1,4 +1,4 @@
-# rentingCar v1.0
+# rentingCar v1
 
 ## UML Data Model
 
@@ -37,30 +37,45 @@ public class Client {
 
 #### CLASS Booking
 
-todo
+```java
+public class Booking {
+
+    private String id;
 
 
+    // constructor, geters, setters, methods and toString
+}
+```
 
 ## UML
 
 ```mermaid
 classDiagram
-   
+
     class Car{
-      String plate
+      - String id
+      - String brand
+      - String model
+      - String plate
+      - int year
+      - double price
     }
     class Client{
-      -int sizeInFeet
-      -canEat()
+      - String id
+      - String name
+      - String lastName
+      - String address
+      - String email
+      - bool premium
     }
     class Booking{
-      +bool isActive
-      +Date init
-      +Date ending
-      Car car
-      Client client
-      int price
-      
+      -bool isActive
+      -Date init
+      -Date ending
+      -Car car
+      -Client client
+      -int price
+
     }
 
     Car --* Booking
