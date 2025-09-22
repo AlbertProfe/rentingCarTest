@@ -9,6 +9,7 @@ public class Car {
     private double price;
 
 
+
     public Car(String id, String brand, String model, String plate, int year, double price) {
         this.id = id;
         this.brand = brand;
@@ -71,6 +72,10 @@ public class Car {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public int carAge() {
+        return 2025 - year;
     }
 
     @Override
