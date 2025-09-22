@@ -17,7 +17,6 @@ public class Car {
 
     // constructor, geters, setters, methods and toString
 }
-
 ```
 
 ### CLASS Client
@@ -41,6 +40,32 @@ public class Client {
 todo
 
 
+
+## UML
+
+```mermaid
+classDiagram
+   
+    class Car{
+      String plate
+    }
+    class Client{
+      -int sizeInFeet
+      -canEat()
+    }
+    class Booking{
+      +bool isActive
+      +Date init
+      +Date ending
+      Car car
+      Client client
+      int price
+      
+    }
+
+    Car --* Booking
+    Client --* Booking
+```
 
 ## Goal
 
@@ -84,5 +109,4 @@ todo
     </dependency>
   </dependencies>
 </project>
-
 ```
