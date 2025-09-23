@@ -86,7 +86,37 @@ public class Booking {
 
 ## Syntetic data & fake objects
 
-todo
+- [GitHub - DiUS/java-faker: Brings the popular ruby faker gem to Java](https://github.com/DiUS/java-faker)
+
+> This library is a port of Ruby's [faker](https://github.com/stympy/faker) gem (as well as Perl's Data::Faker library) that generates fake data. It's useful when you're developing a new project and need some pretty data for showcase.
+
+
+
+Usage
+
+In pom.xml, add the following xml stanza between `<dependencies> ... </dependencies>`
+
+```xml
+<dependency>
+    <groupId>com.github.javafaker</groupId>
+    <artifactId>javafaker</artifactId>
+    <version>1.0.2</version>
+</dependency>
+```
+
+Code example:
+
+```java
+Faker faker = new Faker();
+
+String name = faker.name().fullName(); // Miss Samanta Schmidt
+String firstName = faker.name().firstName(); // Emory
+String lastName = faker.name().lastName(); // Barton
+
+String streetAddress = faker.address().streetAddress(); // 60018 Sawayn Brooks Suite 449
+```
+
+
 
 ## UML
 
