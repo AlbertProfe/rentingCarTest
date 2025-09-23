@@ -20,7 +20,7 @@
 | ------- | ----------------------- | -------------------------------------------- | -------------- |
 | v1.0    | Create project and test | Basic test to create cars: testCar();        | 22/9 - da0e3f1 |
 | v1.1    | Test booking            | Basic test to create booking: testBooking(); | 22/9 - da0e3f1 |
-| v1.2    | Fake cars and list cars | Create HashMap or List to store fake cars    | 23/9 -         |
+| v1.2    | Fake cars and list cars | Create HashMap or List to store fake cars    | 23/9 -c7c49c8  |
 | v1.3    | Main Loop & Scanner     | Create main loop to select options           |                |
 | v1.4    | Fake client             | Create HashMap or List to store fake clients |                |
 
