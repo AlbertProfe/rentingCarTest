@@ -1,30 +1,22 @@
 # rentingCar v1
 
-`version document: v1.2`
-
-
+`version document: v1.3`
 
 ## Goal & Summary
 
 > Rent a car by CLI with client, car, init and ending date, price
 
-
-
 - Reference project: [GitHub - AlbertProfe/restaurant](https://github.com/AlbertProfe/restaurant)
-
- 
 
 ## Version
 
-| Version | Title                   | Description                                  | Status         |
-| ------- | ----------------------- | -------------------------------------------- | -------------- |
-| v1.0    | Create project and test | Basic test to create cars: testCar();        | 22/9 - da0e3f1 |
-| v1.1    | Test booking            | Basic test to create booking: testBooking(); | 22/9 - da0e3f1 |
-| v1.2    | Fake cars and list cars | Create HashMap or List to store fake cars    | 23/9 -c7c49c8  |
-| v1.3    | Main Loop & Scanner     | Create main loop to select options           |                |
-| v1.4    | Fake client             | Create HashMap or List to store fake clients |                |
-
-
+| Version | Title                   | Description                                  | Status  | Date |
+| ------- | ----------------------- | -------------------------------------------- | ------- | ---- |
+| v1.0    | Create project and test | Basic test to create cars: testCar();        | da0e3f1 | 22/9 |
+| v1.1    | Test booking            | Basic test to create booking: testBooking(); | da0e3f1 | 22/9 |
+| v1.2    | Fake cars and list cars | Create HashMap or List to store fake cars    | c7c49c8 | 23/9 |
+| v1.3    | Data store              | Java Class with 3 Lists                      |         | 25/9 |
+| v1.4    | Main Loop & Scanner     | Create main loop to select options           |         |      |
 
 ## UML Data Model
 
@@ -40,7 +32,7 @@ public class Car {
     private String plate;
     private int year;
     private double price;
-    
+
 
     // constructor, geters, setters, methods and toString
 
@@ -84,13 +76,52 @@ public class Booking {
 }
 ```
 
+#### CLASS DataStore
+
+```java
+public class DataStore {
+
+    private final staic String id;
+    private final staic List<Car> cars;
+    private final staic List<Client> clients;
+    private final staic List <Booking> bookings
+    private final static boolean isActive;
+    private final static int creationDate;
+    private final static int lastModification;
+
+    // constructor, geters, setters, methods and toString
+}
+```
+
+## Final & static
+
+> Declaring lists as `final static` in Java means each list is a single, unchangeable reference shared by the entire class, not by individual objects. The content of the list itself can be modified (items can be added or removed), but the list variable can't be reassigned to another list instance.[stackoverflow+1](https://stackoverflow.com/questions/4525642/java-final-arraylist)
+
+#### Why Use `final static` Lists?
+
+- **static**: The field belongs to the class, not to any object, so all objects share the same list.[stackoverflow](https://stackoverflow.com/questions/1415955/private-final-static-attribute-vs-private-final-attribute)
+
+- **final**: The reference to the list can't change (no `list = new ArrayList<>()` after assignment), but the contents can change (e.g., `list.add(obj)` is allowed).[geeksforgeeks+1](https://www.geeksforgeeks.org/java/final-arrays-in-java/)
+
+- This pattern is typical for shared resources or pre-defined, class-wide collections (such as shared configuration data).
+
+
+
+Summary Table
+
+| Modifier                  | What it means                                                                                                                                             | Effect on List           |
+| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| `static List<Type>`       | One list shared by the entire class[stackoverflow](https://stackoverflow.com/questions/1415955/private-final-static-attribute-vs-private-final-attribute) | All objects see the same |
+| `final List<Type>`        | Can't assign the variable again[stackoverflow](https://stackoverflow.com/questions/4525642/java-final-arraylist)                                          | List contents mutable    |
+| `static final List<Type>` | Shared by class, reference unchangeable                                                                                                                   | Contents mutable         |
+
+So, `final static List<Car> cars` means all code sees the same, unchangeable list object reference for all time—but the list can still hold/release different `Car` elements unless further steps (like `Collections.unmodifiableList`) are used to make it truly immutable.[stackoverflow+1](https://stackoverflow.com/questions/9285011/declaring-an-arraylist-object-as-final-for-use-in-a-constants-file)
+
 ## Syntetic data & fake objects
 
 - [GitHub - DiUS/java-faker: Brings the popular ruby faker gem to Java](https://github.com/DiUS/java-faker)
 
 > This library is a port of Ruby's [faker](https://github.com/stympy/faker) gem (as well as Perl's Data::Faker library) that generates fake data. It's useful when you're developing a new project and need some pretty data for showcase.
-
-
 
 Usage
 
@@ -116,12 +147,68 @@ String lastName = faker.name().lastName(); // Barton
 String streetAddress = faker.address().streetAddress(); // 60018 Sawayn Brooks Suite 449
 ```
 
-
-
 ## UML
+
+Here are very brief, concrete `restaurant-related` examples for each **UML** class diagram relationship in [Class diagrams | Mermaid](https://mermaid.js.org/syntax/classDiagram.html):
+
+- **Inheritance (Generalization):**  
+  Chef --|> Employee  
+  Chef is a type of Employee.
+
+- **Composition:**  
+  Menu --* MenuItem  
+  Menu is composed of MenuItems; MenuItems can’t exist without the Menu.
+
+- **Aggregation:**  
+  Restaurant --o Table  
+  Restaurant has Tables, but Tables can exist if the Restaurant is closed.
+
+- **Association:**  
+  Waiter --> Order  
+  Waiter takes Orders.
+
+- **Link (Solid):**  
+  Customer -- Bill  
+  Customer is directly connected to Bill, representing a specific interaction.
+
+- **Dependency:**  
+  Receipt ..> Printer  
+  Receipt depends on Printer (uses it temporarily).
+
+- **Realization:**  
+  CardPayment ..|> PaymentMethod  
+  CardPayment realizes (implements) PaymentMethod interface.
+
+- **Link (Dashed):**  
+  Chef .. Kitchen  
+  Chef is loosely connected to Kitchen (less specific/weak association).
+  
+  
 
 ```mermaid
 classDiagram
+
+Chef --|> Employee : Inheritance
+Menu --* MenuItem : Composition
+Restaurant --o Table : Aggregation
+Waiter --> Order : Association
+Customer -- Bill : Link(Solid)
+Receipt ..> Printer : Dependency
+CardPayment ..|> PaymentMethod : Realization
+Chef .. Kitchen : Link(Dashed)
+
+
+```
+
+
+
+### UML Renting Car
+
+```mermaid
+classDiagram
+    class App {
+    
+    } 
 
     class Car{
       - String id
@@ -151,11 +238,28 @@ classDiagram
 
     }
 
+    class DataStore {
+
+    - String id;
+    - List<Car> cars;
+    - List<Client> clients;
+    - List <Booking> bookings
+    - bool isActive;
+    - int creationDate;
+    - int lastModification;
+
+   
+     }
+
+     
+
+    DataStore ..o App
+    DataStore --* Car
+    DataStore --* Booking
+    DataStore --* Client
     Car --* Booking
     Client --* Booking
 ```
-
-
 
 ## CLI UI
 
@@ -173,8 +277,6 @@ Chose an option (0 to quit):
 
 Option?
 ```
-
-
 
 ## Tech Stack
 
@@ -219,6 +321,7 @@ Option?
   </properties>
 
   <dependencies>
+    <!-- JUnit: tool to test  -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -226,7 +329,7 @@ Option?
       <scope>test</scope>
     </dependency>
 
-    <!-- Java Faker -->
+    <!-- Java Faker: fake data creation -->
     <dependency>
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
@@ -235,5 +338,4 @@ Option?
 
   </dependencies>
 </project>
- 
 ```
