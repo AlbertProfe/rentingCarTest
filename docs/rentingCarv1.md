@@ -107,8 +107,6 @@ public class DataStore {
 
 - This pattern is typical for shared resources or pre-defined, class-wide collections (such as shared configuration data).
 
-
-
 Summary Table
 
 | Modifier                  | What it means                                                                                                                                             | Effect on List           |
@@ -184,8 +182,6 @@ Here are very brief, concrete `restaurant-related` examples for each **UML** cla
 - **Link (Dashed):**  
   Chef .. Kitchen  
   Chef is loosely connected to Kitchen (less specific/weak association).
-  
-  
 
 ```mermaid
 classDiagram
@@ -198,18 +194,14 @@ Customer -- Bill : Link(Solid)
 Receipt ..> Printer : Dependency
 CardPayment ..|> PaymentMethod : Realization
 Chef .. Kitchen : Link(Dashed)
-
-
 ```
-
-
 
 ### UML Renting Car
 
 ```mermaid
 classDiagram
     class App {
-    
+
     } 
 
     class Car{
@@ -250,10 +242,10 @@ classDiagram
     - int creationDate;
     - int lastModification;
 
-   
+
      }
 
-     
+
 
     DataStore ..o App
     DataStore --* Car
@@ -262,6 +254,30 @@ classDiagram
     Car --* Booking
     Client --* Booking
 ```
+
+## Epoch & Unix time java
+
+- https://www.epochconverter.com/
+
+What is epoch time?
+
+> The **Unix epoch** (or **Unix time** or **POSIX time** or **Unix timestamp**) is the number of seconds that have elapsed since January 1, 1970 (midnight UTC/GMT), not counting leap seconds (in ISO 8601: 1970-01-01T00:00:00Z). Literally speaking, the epoch is Unix time 0 (midnight 1/1/1970), but 'epoch' is often used as a synonym for Unix time. Some systems store epoch dates as a signed 32-bit integer, which might cause problems on January 19, 2038 (known as the Year 2038 problem or Y2038). The converter on this page converts timestamps in seconds (10-digit), milliseconds (13-digit) and microseconds (16-digit) to readable dates.
+
+| Human-readable time  | Seconds          |
+| -------------------- | ---------------- |
+| 1 hour               | 3600 seconds     |
+| 1 day                | 86400 seconds    |
+| 1 week               | 604800 seconds   |
+| 1 month (30.44 days) | 2629743 seconds  |
+| 1 year (365.24 days) | 31556926 seconds |
+
+
+
+**How to get the current epoch time in Java**
+
+`long epoch = System.currentTimeMillis()/1000;` Returns epoch in seconds.`
+
+
 
 ## CLI UI
 
