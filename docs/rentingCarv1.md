@@ -15,7 +15,7 @@
 | v1.0    | Create project and test | Basic test to create cars: testCar();        | da0e3f1 | 22/9 |
 | v1.1    | Test booking            | Basic test to create booking: testBooking(); | da0e3f1 | 22/9 |
 | v1.2    | Fake cars and list cars | Create HashMap or List to store fake cars    | c7c49c8 | 23/9 |
-| v1.3    | Data store              | Java Class with 3 Lists                      |         | 25/9 |
+| v1.3    | Data store              | Java Class with 3 Lists                      | 63a7190 | 25/9 |
 | v1.4    | Main Loop & Scanner     | Create main loop to select options           |         |      |
 
 ## UML Data Model
@@ -77,6 +77,8 @@ public class Booking {
 ```
 
 #### CLASS DataStore
+
+This is a draft, we wil not use `final` so far, and `static` will be reserved just for the **Lists**.
 
 ```java
 public class DataStore {
