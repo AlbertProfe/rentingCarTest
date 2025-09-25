@@ -6,12 +6,13 @@ import java.util.List;
 public class DataStore {
 
         private  String id;
+        private  String label;
         private  static List<Car> cars = new ArrayList<>();
         private  static List<Client> clients = new ArrayList<>();
         private  static List <Booking> bookings = new ArrayList<>();
         private   boolean isActive;
-        private   int creationDate;
-        private   int lastModification;
+        private   long creationDate;
+        private   long lastModification;
 
     public DataStore() {
     }
@@ -25,6 +26,14 @@ public class DataStore {
         this.isActive = true;
         this.creationDate = creationDate;
         this.lastModification = lastModification;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getId() {
@@ -60,19 +69,19 @@ public class DataStore {
         isActive = active;
     }
 
-    public int getCreationDate() {
+    public long getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(int creationDate) {
+    public void setCreationDate(long creationDate) {
         this.creationDate = creationDate;
     }
 
-    public int getLastModification() {
+    public long getLastModification() {
         return lastModification;
     }
 
-    public void setLastModification(int lastModification) {
+    public void setLastModification(long lastModification) {
         this.lastModification = lastModification;
     }
 }

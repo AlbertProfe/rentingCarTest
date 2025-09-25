@@ -8,7 +8,7 @@ public class RentingCarTests {
 
     public static void testCar() {
 
-        System.out.println( "Testing car..." );
+        System.out.println("Testing car...");
         int mateo = 2;
         System.out.println("This is mateo: " + mateo);
 
@@ -18,7 +18,7 @@ public class RentingCarTests {
         System.out.println("This is my Mazda: " + bmw002.toString());
 
         // let's print the brand of the first car
-        System.out.println("My brand: "  + bmw001.getBrand());
+        System.out.println("My brand: " + bmw001.getBrand());
 
         Car bmw003 = new Car();
         bmw003.setBrand("BMW");
@@ -49,7 +49,6 @@ public class RentingCarTests {
         System.out.println("This is my booking: " + book001.toString());
 
 
-
     }
 
     public static void TestFaker() {
@@ -61,7 +60,7 @@ public class RentingCarTests {
         System.out.println(name);
     }
 
-    public static void  testList() {
+    public static void testList() {
         ArrayList<Car> cars = new ArrayList<Car>();
 
         Car bmw001 = new Car("1", "BMW", "M3", "1234", 2022, 100.0);
@@ -80,7 +79,7 @@ public class RentingCarTests {
             // create a car object
             Car myCar = new Car();
             // set fake data
-            myCar.setId( String.valueOf (  faker.number().randomNumber()));
+            myCar.setId(String.valueOf(faker.number().randomNumber()));
             myCar.setBrand(faker.company().name());
             myCar.setModel(faker.artist().name());
             myCar.setPlate(faker.code().asin());
@@ -101,5 +100,38 @@ public class RentingCarTests {
             System.out.println("\t" + car);
         }
         System.out.println("\n");
+    }
+
+    public static void myDataStoreTest() {
+
+
+        DataStore myDataStoreTest = new DataStore();
+
+        Car myCar = new Car();
+        myCar.setId("1");
+        myCar.setBrand("BMW");
+        myCar.setModel("M3");
+        myCar.setPlate("A123DFGR4");
+        myCar.setYear(2022);
+
+        Car myCar2 = new Car();
+        myCar2.setId("2");
+        myCar2.setBrand("Mazda");
+        myCar2.setModel("Mazda 3");
+        myCar2.setPlate("B123DFGR4");
+        myCar2.setYear(2021);
+
+        myDataStoreTest.getCars().add(myCar);
+        myDataStoreTest.getCars().add(myCar2);
+
+        CarManagement.printCarList(myDataStoreTest.getCars());
+
+        myDataStoreTest.getCars().get(0).setPlate("1111111");
+
+        CarManagement.printCarList(myDataStoreTest.getCars());
+
+
+
+
     }
 }
