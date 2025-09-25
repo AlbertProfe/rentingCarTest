@@ -81,10 +81,10 @@ public class Booking {
 ```java
 public class DataStore {
 
-    private final staic String id;
-    private final staic List<Car> cars;
-    private final staic List<Client> clients;
-    private final staic List <Booking> bookings
+    private final static String id;
+    private final static List<Car> cars;
+    private final static List<Client> clients;
+    private final static List <Booking> bookings
     private final static boolean isActive;
     private final static int creationDate;
     private final static int lastModification;
