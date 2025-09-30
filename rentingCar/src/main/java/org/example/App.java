@@ -1,6 +1,4 @@
 package org.example;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class App 
 {
@@ -21,10 +19,10 @@ public class App
         // Why? For What? we need data to init the app
         FakeDataDBPopulator.populateDBByCars(myDataStore);
 
-        CarManager.printCarList(myDataStore.getCars());
+        //CarManager.printCarList(myDataStore.getCars());
 
 
-
+        RentalMainMenu.runner(myDataStore);
 
 
         System.out.println("Finished!");

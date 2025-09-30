@@ -7,6 +7,8 @@
 > Rent a car by CLI with client, car, init and ending date, price
 
 - Reference project: [GitHub - AlbertProfe/restaurant](https://github.com/AlbertProfe/restaurant)
+- Epoch code sandbod: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
+- How to name classes, example: [rentingCarTest/docs/namingTheLoopClass. · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/namingTheLoopClass.md)
 
 ## Version
 

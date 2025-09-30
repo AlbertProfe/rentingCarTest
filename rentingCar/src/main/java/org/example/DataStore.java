@@ -48,9 +48,17 @@ public class DataStore {
         return cars;
     }
 
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
+    }
+
 
     public  List<Client> getClients() {
         return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
     }
 
 

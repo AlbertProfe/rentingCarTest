@@ -1,12 +1,15 @@
 package org.example;
 
 import com.github.javafaker.Faker;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FakeDataDBPopulator {
 
     public static void populateDBByCars(DataStore myDataStore) {
 
         Faker faker = new Faker();
+        List<Car> cars = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
             Car myCar = new Car();
@@ -15,11 +18,39 @@ public class FakeDataDBPopulator {
             myCar.setModel(faker.artist().name());
             myCar.setPlate(faker.code().asin());
             myCar.setYear(faker.number().numberBetween(1980, 2024));
-            myCar.setPrice(faker.number().numberBetween(20, 250));
+            //myCar.setPrice(faker.number().numberBetween(20, 250));
+            myCar.setPrice(faker.number().randomDouble(2, 20, 250));
 
             // add fake car to the DB list
-            myDataStore.getCars().add(myCar);
+            cars.add(myCar);
+
+            //myDataStore.getCars().add(myCar);
         }
+
+        myDataStore.setCars(cars);
+
+    }
+
+    public static void populateDBByClients(DataStore myDataStore) {
+
+        Faker faker = new Faker();
+        List<Client> clients = new ArrayList<>();
+
+        for (int i = 0; i < 100; i++) {
+            Client myClient = new Client();
+            myClient.setId(String.valueOf(faker.number().randomNumber()));
+            myClient.setName(faker.name().firstName());
+            myClient.setLastName(faker.name().lastName());
+            myClient.setAddress(faker.address().fullAddress());
+            myClient.setEmail(faker.internet().emailAddress());
+            myClient.setPremium(faker.bool().bool());
+            myClient.setAge(faker.number().numberBetween(18, 80));
+
+            // add fake client to the DB list
+            clients.add(myClient);
+        }
+
+        myDataStore.setClients(clients);
 
     }
 }
