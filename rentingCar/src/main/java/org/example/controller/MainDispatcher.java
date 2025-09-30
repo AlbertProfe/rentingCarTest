@@ -1,8 +1,12 @@
-package org.example;
+package org.example.controller;
+
+import org.example.dataStore.DataStore;
+import org.example.utilities.Utilities;
+import org.example.views.MainMenuView;
 
 import java.util.Scanner;
 
-public class RentalMainMenu {
+public class MainDispatcher {
 
         public static void runner(DataStore myDataStore ) {
 

@@ -1,6 +1,10 @@
-package org.example;
+package org.example.utilities;
 
 import com.github.javafaker.Faker;
+import org.example.managers.CarManager;
+import org.example.dataStore.DataStore;
+import org.example.model.Booking;
+import org.example.model.Car;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

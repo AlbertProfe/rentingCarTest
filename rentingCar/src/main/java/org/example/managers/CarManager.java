@@ -1,4 +1,6 @@
-package org.example;
+package org.example.managers;
+
+import org.example.model.Car;
 
 import java.util.List;
 

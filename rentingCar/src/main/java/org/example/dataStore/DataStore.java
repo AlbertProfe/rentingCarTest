@@ -1,4 +1,8 @@
-package org.example;
+package org.example.dataStore;
+
+import org.example.model.Booking;
+import org.example.model.Car;
+import org.example.model.Client;
 
 import java.util.ArrayList;
 import java.util.List;
