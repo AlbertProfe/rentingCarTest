@@ -1,6 +1,6 @@
 # rentingCar v1
 
-`version document: v1.3.3`
+`version document: v1.4`
 
 ## Goal & Summary
 
@@ -22,13 +22,13 @@
 
 ### Week #02
 
-| Version | Title                         | Description                        | Status | Date |
-| ------- | ----------------------------- | ---------------------------------- | ------ | ---- |
-| v1.4    | Refractor directories         | Create main loop to select options |        |      |
-| v1.5    | Main Loop & Scanner           | Create main loop to select options |        |      |
-| v1.5.1  | Main Menu                     |                                    |        |      |
-| v1.6    | BookingManager, createBooking |                                    |        |      |
-| v1.7    | CarManger improvement         |                                    |        |      |
+| Version  | Title                         | Description                        | Status | Date |
+| -------- | ----------------------------- | ---------------------------------- | ------ | ---- |
+| **v1.4** | Main Loop & Scanner           | Create main loop to select options |        | 30/9 |
+| v1.5     | Refractor directories         |                                    |        |      |
+| v1.5.1   | Main Menu & Utilities         |                                    |        |      |
+| v1.6     | BookingManager, createBooking |                                    |        |      |
+| v1.7     | CarManger improvement         |                                    |        |      |
 
 ## UML Data Model
 
@@ -44,7 +44,6 @@ public class Car {
     private String plate;
     private int year;
     private double price;
-
 
     // constructor, geters, setters, methods and toString
 
@@ -95,13 +94,13 @@ This is a draft, we wil not use `final` so far, and `static` will be reserved ju
 ```java
 public class DataStore {
 
-    private final static String id;
-    private final static List<Car> cars;
-    private final static List<Client> clients;
-    private final static List <Booking> bookings
-    private final static boolean isActive;
-    private final static int creationDate;
-    private final static int lastModification;
+    private String id;
+    private List<Car> cars;
+    private static List<Client> clients;
+    private static List <Booking> bookings
+    private boolean isActive;
+    private int creationDate;
+    private int lastModification;
 
     // constructor, geters, setters, methods and toString
 }
@@ -302,7 +301,6 @@ What is epoch time?
 
 ```shell
 Starting code...
-
 
 Chose an option (0 to quit):
 0. Quit
