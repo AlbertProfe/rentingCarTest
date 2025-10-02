@@ -42,8 +42,6 @@
 |         |                       |             |        |      |
 |         |                       |             |        |      |
 
-
-
 ## Debt Tech & Efficiency
 
 - v1.5.0: MainDispatcher too much coupled: view + bussines logic
