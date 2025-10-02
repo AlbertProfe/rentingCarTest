@@ -3,7 +3,7 @@ package org.example.model;
 public class Booking {
 
     private String id;
-    //private Client client;
+    private Client client;
     private Car car;
     private int days;
     private double price;
@@ -57,6 +57,14 @@ public class Booking {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     @Override

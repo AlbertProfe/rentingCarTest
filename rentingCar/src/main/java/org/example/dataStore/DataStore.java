@@ -9,17 +9,18 @@ import java.util.List;
 
 public class DataStore {
 
-        private  String id;
-        private  String label;
-        private  static List<Car> cars = new ArrayList<>();
-        private  static List<Client> clients = new ArrayList<>();
-        private  static List <Booking> bookings = new ArrayList<>();
-        private   boolean isActive;
-        private   long creationDate;
-        private   long lastModification;
+        private String id;
+        private String label;
+        private static List<Car> cars = new ArrayList<>();
+        private static List<Client> clients = new ArrayList<>();
+        private static List <Booking> bookings = new ArrayList<>();
+        private boolean isActive;
+        private long creationDate;
+        private long lastModification;
         private Client loggedClient;
 
     public DataStore() {
+        this.loggedClient = null;
     }
 
     public DataStore (String id, List<Car> cars, List<Client> clients, List<Booking> bookings,  int creationDate, int lastModification ){

@@ -24,14 +24,24 @@ public class App
         // How? with a static method we add fake data to the list of cars
         // Why? For What? we need data to init the app
         FakeDataDBPopulator.populateDBByCars(myDataStore);
-
+        //CarManager.printCarList(myDataStore.getCars());
         FakeDataDBPopulator.populateDBByClients(myDataStore);
 
-        //CarManager.printCarList(myDataStore.getCars());
+        // Let's create a
+        // super-hardcoded logged client
+        // to evaluate the sandbox code app
+        // todo: implement view
+        // todo: implement login
+        // todo: implement logout
+        // we are using a hardcode client for now
+        // client: albertprofe@gmail.com / albert
         Client loggedClient;
         loggedClient = ClientManger.loginClient();
         myDataStore.setLoggedClient(loggedClient);
 
+        // What? run the app
+        // How? with a static method we run the app
+        // Why? For What? we need to run the app to test it
         MainDispatcher.runner(myDataStore);
 
 
