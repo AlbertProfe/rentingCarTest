@@ -42,7 +42,9 @@ public class BookingManager {
 
         System.out.println("Booking created: " + booking.toString());
 
-
+        // todo: implement error handling
+        // todo: add are you sure?
+        // todo: add booking to the list
 
         //String option = Utilities.ask(scanner, "Option? ");
 

@@ -4,6 +4,9 @@ public class MainMenuView {
 
     public static void showMainMenu() {
 
+        // todo: when clint is logged in, show different menu
+        // todo: when clint is not logged in, show different menu
+
         System.out.println("\n");
         System.out.println("Main Menu");
         System.out.println("-------------------------");
@@ -15,7 +18,6 @@ public class MainMenuView {
         System.out.println("\n");
 
     }
-
 
     public static void template() {
         System.out.println("\n");
