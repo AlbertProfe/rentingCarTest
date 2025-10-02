@@ -29,8 +29,8 @@
 | v1.4       | Main Loop & Scanner, `Dispatcher`     | Create main loop to select options     | 1ecf4b2 | 30/9  |
 | v1.4.1     | Refractor directories                 | Main Menu & Utilities                  | 3144476 | 30/9  |
 | v1.5       | `BookingManager`, createBooking draft | Harcoded Login client                  | 5c0eb83 | 02/10 |
-| **v1.5.1** | Implement createBooking               | select car with fake logged client     |         | 02/10 |
-| v1.5.2     | Implement createBooking               | check bugs and add loop, are you sure? |         | 03/10 |
+| **v1.5.1** | Implement createBooking               | select car with fake logged client     | 366d19d | 02/10 |
+| v1.5.2     | check createBooking                   | check bugs and add loop, are you sure? |         | 03/10 |
 | v1.6       | Implement Login                       |                                        |         | 03/10 |
 |            |                                       |                                        |         |       |
 
