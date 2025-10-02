@@ -2,6 +2,8 @@ package org.example;
 
 import org.example.dataStore.DataStore;
 import org.example.controller.MainDispatcher;
+import org.example.managers.ClientManger;
+import org.example.model.Client;
 import org.example.utilities.FakeDataDBPopulator;
 
 public class App
@@ -23,8 +25,12 @@ public class App
         // Why? For What? we need data to init the app
         FakeDataDBPopulator.populateDBByCars(myDataStore);
 
-        //CarManager.printCarList(myDataStore.getCars());
+        FakeDataDBPopulator.populateDBByClients(myDataStore);
 
+        //CarManager.printCarList(myDataStore.getCars());
+        Client loggedClient;
+        loggedClient = ClientManger.loginClient();
+        myDataStore.setLoggedClient(loggedClient);
 
         MainDispatcher.runner(myDataStore);
 

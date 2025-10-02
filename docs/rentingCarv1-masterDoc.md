@@ -1,6 +1,6 @@
 # rentingCar v1
 
-`version document: v1.4`
+`version document: v1.5.0`
 
 ## Goal & Summary
 
@@ -24,13 +24,27 @@
 
 ### Week #02
 
-| Version  | Title                         | Description                        | Status | Date |
-| -------- | ----------------------------- | ---------------------------------- | ------ | ---- |
-| **v1.4** | Main Loop & Scanner           | Create main loop to select options |        | 30/9 |
-| v1.5     | Refractor directories         |                                    |        |      |
-| v1.5.1   | Main Menu & Utilities         |                                    |        |      |
-| v1.6     | BookingManager, createBooking |                                    |        |      |
-| v1.7     | CarManger improvement         |                                    |        |      |
+| Version   | Title                               | Description                        | Status | Date  |
+| --------- | ----------------------------------- | ---------------------------------- | ------ | ----- |
+| v1.4      | Main Loop & Scanner                 | Create main loop to select options |        | 30/9  |
+| v1.4.1    | Refractor directories               | Main Menu & Utilities              |        | 30/9  |
+| **v1.5*** | BookingManager, createBooking draft | Harcoded Login client              |        | 02/10 |
+| v1.5.1    | Implement createBooking             |                                    |        | 02/10 |
+| v1.5.2    | Implement createBooking             |                                    |        |       |
+| v1.6      | Implement Login                     |                                    |        |       |
+| v1.7      | CarManger improvement               |                                    |        |       |
+
+## Debt Tech & Efficiency
+
+- v1.5.0: MainDispatcher too much coupled: view + bussines logic
+
+- v1.5.0: MainDispatcher: elseif vs. Switch
+
+- v1.5.0 add UUID: 
+  
+  - [UUID (Java Platform SE 8 )](https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html)
+  
+  - [random - Create a GUID / UUID in Java - Stack Overflow](https://stackoverflow.com/questions/2982748/create-a-guid-uuid-in-java)
 
 ## UML Data Model
 

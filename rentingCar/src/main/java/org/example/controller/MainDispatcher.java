@@ -1,6 +1,9 @@
 package org.example.controller;
 
 import org.example.dataStore.DataStore;
+import org.example.managers.BookingManager;
+import org.example.managers.CarManager;
+import org.example.utilities.RentingCarTests;
 import org.example.utilities.Utilities;
 import org.example.views.MainMenuView;
 
@@ -20,13 +23,15 @@ public class MainDispatcher {
                 if (option.equals("0")) {
                     break;
                 } else if (option.equals("1")){
-                    // option #1;
+                    RentingCarTests.testCar();
                 } else if (option.equals("2")){
-                    // option #3;
+                    CarManager.printCarList(myDataStore.getCars());
                 } else if (option.equals("3")){
                     // option #3;
                 } else if (option.equals("4")){
-                    // option #4;
+                    if (myDataStore.getLoggedClient() == null)
+                        System.out.println("Please login first");
+                    else  BookingManager.createBooking(myDataStore, scanner);
                 } else {
                     System.out.println("Unknown word");
                 }

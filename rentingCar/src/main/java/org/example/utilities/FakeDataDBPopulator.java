@@ -17,6 +17,8 @@ public class FakeDataDBPopulator {
 
         for (int i = 0; i < 100; i++) {
             Car myCar = new Car();
+
+
             myCar.setId(String.valueOf(faker.number().randomNumber()));
             myCar.setBrand(faker.company().name());
             myCar.setModel(faker.artist().name());
