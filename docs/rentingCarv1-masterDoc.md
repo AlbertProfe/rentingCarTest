@@ -7,8 +7,11 @@
 > Rent a car by CLI with client, car, init and ending date, price
 
 - Reference project: [GitHub - AlbertProfe/restaurant](https://github.com/AlbertProfe/restaurant)
-- Epoch code sandbod: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
+- `Epoch` code sandbod: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
 - How to name classes, example: [rentingCarTest/docs/namingTheLoopClass. · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/namingTheLoopClass.md)
+- `Records` in Java from Java 14:
+  - [Java Record Keyword | Baeldung](https://www.baeldung.com/java-record-keyword)
+  - [Record Classes](https://docs.oracle.com/en/java/javase/17/language/records.html)
 
 ## Version
 
@@ -44,12 +47,10 @@ public class Car {
     // constructor, geters, setters, methods and toString
 
     private int carAge ()
-
-
 }
 ```
 
-#### CLASS Client
+#### CLASS Client & MinimalClient
 
 ```java
 public class Client {
@@ -64,7 +65,25 @@ public class Client {
 
     // constructor, geters, setters, methods and toString
 }
+
+
+public class MinimalClient {
+
+    private String password;
+    private String email;
+
+    public MinimalClient() {
+    }
+
+    // constructor, geters, setters, methods and toString
+}
+   
+      
 ```
+
+
+
+
 
 #### CLASS Booking
 
@@ -101,6 +120,30 @@ public class DataStore {
     // constructor, geters, setters, methods and toString
 }
 ```
+
+## Why MinimalClient is used in ClientManager
+
+- **Focused login data model**  
+  MinimalClient (in src/main/java/org/example/model/MinimalClient.java) only carries `email` and `password`, which are the only fields needed for authentication.
+
+- **Separation of concerns**  
+  In ClientManager.loginClient(...) (src/main/java/org/example/managers/ClientManager.java), the UI layer `LoginView.showLoginView(scanner)` returns a MinimalClient. This decouples the login input from the full Client domain model.
+
+- **Security and privacy**  
+  Avoids passing around full Client objects (with id, name, address, etc.) when unnecessary, reducing exposure of personal data during the login flow.
+
+- **Simpler validation**  
+  ClientManager.validateLogin(MinimalClient, DataStore) compares minimalClient.getEmail() and minimalClient.getPassword() against stored Client records, keeping validation logic straightforward.
+
+- **Lightweight DTO for the view**  
+  Acts as a small, serializable DTO between `LoginView` and ClientManager, improving testability and reducing coupling to Client.
+
+Where it’s used
+
+- `ClientManager`.`loginClient(DataStore, Scanner)`
+  - Gets MinimalClient from `LoginView.showLoginView(scanner)`.
+  - Calls validateLogin(minimalClient, myDataStore) to find a matching Client.
+  - On success, sets the logged-in Client via `myDataStore.setLoggedClient(validatedClient)`.
 
 ## Final & static
 
