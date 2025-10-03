@@ -36,9 +36,9 @@ public class ClientManager {
 
 
     public static Client validateLogin(MinimalClient minimalClient, DataStore myDataStore){
-
+        // get clients from data store
         List<Client> clients = myDataStore.getClients();
-
+        // validate minimal client
         for (Client client : clients) {
             if (client.getEmail().equals(minimalClient.getEmail()) && client.getPassword().equals(minimalClient.getPassword())) {
                 return client;
