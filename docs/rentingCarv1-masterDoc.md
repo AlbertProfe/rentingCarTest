@@ -7,7 +7,7 @@
 > Rent a car by CLI with client, car, init and ending date, price
 
 - Reference project: [GitHub - AlbertProfe/restaurant](https://github.com/AlbertProfe/restaurant)
-- `Epoch` code sandbod: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
+- `Epoch` code sandbox: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
 - How to name classes, example: [rentingCarTest/docs/namingTheLoopClass. · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/namingTheLoopClass.md)
 - `Records` in Java from Java 14:
   - [Java Record Keyword | Baeldung](https://www.baeldung.com/java-record-keyword)
@@ -62,6 +62,7 @@ public class Client {
     private String email;
     private boolean premium;
     private int age;
+    private String password;
 
     // constructor, geters, setters, methods and toString
 }
@@ -69,21 +70,15 @@ public class Client {
 
 public class MinimalClient {
 
-    private String password;
     private String email;
+private String password;
 
     public MinimalClient() {
     }
 
     // constructor, geters, setters, methods and toString
 }
-   
-      
 ```
-
-
-
-
 
 #### CLASS Booking
 

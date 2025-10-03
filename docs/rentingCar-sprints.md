@@ -1,6 +1,6 @@
 # rentingCar sprints
 
-`version document: v1.6`
+`version document: v1.6.1`
 
 ## Version
 
@@ -23,16 +23,17 @@
 | v1.5       | `BookingManager`, createBooking draft | Harcoded Login client                              | 5c0eb83  | 02/10     |
 | v1.5.1     | Implement createBooking               | select car with fake logged client                 | 366d19d  | 02/10     |
 | ~~v1.5.2~~ | ~~check createBooking~~               | ~~check errors, bugs and add loop, are you sure?~~ |          | ~~03/10~~ |
-| **v1.6**   | Implement Login                       | decoupled: loginView, validateLogin                | e470b2f8 | 03/10     |
+| v1.6       | Implement Login                       | decoupled: loginView, validateLogin                | e470b2f8 | 03/10     |
+| **v1.6.1** | print Clients and Bookings            |                                                    | 1e68aa46 | 03/10     |
 
 ### Week #03
 
-| Version | Title                 | Description                            | Status | Date |
-| ------- | --------------------- | -------------------------------------- | ------ | ---- |
-| v1.5.2  | check createBooking   | check bugs and add loop, are you sure? |        |      |
-| v1.7    | CarManger improvement |                                        |        |      |
-| v1.8    | logout                |                                        |        |      |
-| v1.9    | printClients          |                                        |        |      |
+| Version | Title                                   | Description                            | Status | Date |
+| ------- | --------------------------------------- | -------------------------------------- | ------ | ---- |
+| v1.6.3  | check createBooking                     | check bugs and add loop, are you sure? |        |      |
+| v1.7    | CarManger and ClientManager improvement |                                        |        |      |
+| v1.8    | logout                                  |                                        |        |      |
+|         |                                         |                                        |        |      |
 
 ## Debt Tech & Efficiency
 
