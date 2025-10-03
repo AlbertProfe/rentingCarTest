@@ -53,6 +53,7 @@ public class FakeDataDBPopulator {
             myClient.setEmail(faker.internet().emailAddress());
             myClient.setPremium(faker.bool().bool());
             myClient.setAge(faker.number().numberBetween(18, 80));
+            myClient.setPassword(faker.internet().password());
 
             // add fake client to the DB list
             clients.add(myClient);

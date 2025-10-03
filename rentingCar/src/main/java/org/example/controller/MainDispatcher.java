@@ -33,6 +33,10 @@ public class MainDispatcher {
                     if (myDataStore.getLoggedClient() == null)
                         System.out.println("Please login first");
                     else  BookingManager.createBooking(myDataStore, scanner);
+                } else if (option.equals("5")){
+                    BookingManager.printBookingList(myDataStore.getBookings());
+                } else if (option.equals("6")){
+                    ClientManager.printClientList(myDataStore.getClients());
                 } else {
                     System.out.println("Unknown word");
                 }

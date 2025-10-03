@@ -3,15 +3,30 @@ package org.example.managers;
 import org.example.dataStore.DataStore;
 import org.example.model.Booking;
 import org.example.model.Car;
+import org.example.model.Client;
 import org.example.utilities.Utilities;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BookingManager {
-    // todo: implement view: where? /views, bookingView
-    // todo: implement controller: where? /controllers, bookingController
-    // todo: implement dispatcher: where? /dispatchers, bookingDispatcher
-    // todo: implement runner: where? /runners, bookingRunner
+
+    public static void printBookingList(List<Booking> bookings) {
+
+        System.out.println("Bookings from DB: ");
+        System.out.println("-------------------------");
+        System.out.println("Size DB: " + bookings.size());
+        // print each car on a separate line with index
+        int index = 1;
+        for (Booking booking : bookings) {
+            System.out.println("\t" + index + ". " + booking);
+            index++;
+        }
+
+        System.out.println("\n");
+
+    }
+
     public static void createBooking(DataStore myDataStore, Scanner scanner) {
         // todo
         System.out.println("Welcome to Booking Manager");
@@ -42,14 +57,12 @@ public class BookingManager {
         booking.setPrice(intDaysRented * selectedCar.getPrice());
         booking.setCar(selectedCar);
 
+        myDataStore.getBookings().add(booking);
+
         System.out.println("Booking created: " + booking.toString());
 
         // todo: implement error handling
         // todo: add are you sure?
-        // todo: add booking to the list
-
-        //String option = Utilities.ask(scanner, "Option? ");
-
 
     }
 }

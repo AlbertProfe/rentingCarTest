@@ -14,6 +14,8 @@ public class MainMenuView {
         System.out.println("2. Print all cars");
         System.out.println("3. Fake Login client");
         System.out.println("4. Rent a car, create booking");
+        System.out.println("5. Print all bookings");
+        System.out.println("6. Print all clients");
         System.out.println("0. Exit");
         System.out.println("\n");
 

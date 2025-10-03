@@ -4,8 +4,6 @@ import org.example.dataStore.DataStore;
 import org.example.model.Client;
 import org.example.model.MinimalClient;
 import org.example.views.LoginView;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,9 +11,19 @@ public class ClientManager {
 
     public static void printClientList(List<Client> clients) {
 
-        // todo: implement view: where? /views, clientListView
-    }
+        System.out.println("Clients from DB: ");
+        System.out.println("-------------------------");
+        System.out.println("Size DB: " + clients.size());
+        // print each car on a separate line with index
+        int index = 1;
+        for (Client client : clients) {
+            System.out.println("\t" + index + ". " + client);
+            index++;
+        }
 
+        System.out.println("\n");
+
+    }
 
     //public static Client loginClient(String email, String password) {
     public static Client loginClient(DataStore myDataStore, Scanner scanner){
@@ -33,7 +41,6 @@ public class ClientManager {
 
         return null;
     }
-
 
     public static Client validateLogin(MinimalClient minimalClient, DataStore myDataStore){
         // get clients from data store
