@@ -12,35 +12,7 @@
 
 ## Version
 
-### Week #01
-
-| Version          | Title                                        | Description                                      | Status  | Date |
-| ---------------- | -------------------------------------------- | ------------------------------------------------ | ------- | ---- |
-| v1.0             | Create project and test                      | Basic test to create cars: testCar();            | da0e3f1 | 22/9 |
-| v1.1             | Test booking                                 | Basic test to create booking: testBooking();     | da0e3f1 | 22/9 |
-| v1.2             | Fake cars and list cars                      | Create HashMap or List to store fake cars        | c7c49c8 | 23/9 |
-| v1.3.0           | Data store                                   | Java Class with 3 Lists                          | 63a7190 | 25/9 |
-| v.1.3.1 - v1.3.3 | Fake data populator & CarManager `printList` | Fake data populator to populate  **myDataStore** | e849d8a | 26/9 |
-
-### Week #02
-
-| Version    | Title                                 | Description                                        | Status   | Date      |
-| ---------- | ------------------------------------- | -------------------------------------------------- | -------- | --------- |
-| v1.4       | Main Loop & Scanner, `Dispatcher`     | Create main loop to select options                 | 1ecf4b2  | 30/9      |
-| v1.4.1     | Refractor directories                 | Main Menu & Utilities                              | 3144476  | 30/9      |
-| v1.5       | `BookingManager`, createBooking draft | Harcoded Login client                              | 5c0eb83  | 02/10     |
-| v1.5.1     | Implement createBooking               | select car with fake logged client                 | 366d19d  | 02/10     |
-| ~~v1.5.2~~ | ~~check createBooking~~               | ~~check errors, bugs and add loop, are you sure?~~ |          | ~~03/10~~ |
-| **v1.6**   | Implement Login                       | decoupled: loginView, validateLogin                | e470b2f8 | 03/10     |
-
-### Week #03
-
-| Version | Title                 | Description                            | Status | Date |
-| ------- | --------------------- | -------------------------------------- | ------ | ---- |
-| v1.5.2  | check createBooking   | check bugs and add loop, are you sure? |        |      |
-| v1.7    | CarManger improvement |                                        |        |      |
-| v1.8    | logout                |                                        |        |      |
-| v1.9    | printClients          |                                        |        |      |
+- [rentingCarTest/docs/rentingCar-sprints.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/rentingCar-sprints.md)
 
 ## Debt Tech & Efficiency
 
