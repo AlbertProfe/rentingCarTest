@@ -33,6 +33,8 @@ public class FakeDataDBPopulator {
             //myDataStore.getCars().add(myCar);
         }
 
+
+
         myDataStore.setCars(cars);
 
     }
@@ -56,7 +58,20 @@ public class FakeDataDBPopulator {
             clients.add(myClient);
         }
 
-        myDataStore.setClients(clients);
+        Client hardcodedClient = new Client();
+        hardcodedClient.setId("1000001");
+        hardcodedClient.setName("Albert");
+        hardcodedClient.setLastName("Doe");
+        hardcodedClient.setAddress("123 Main St");
+        hardcodedClient.setEmail("albertprofe@gmail.com");
+        hardcodedClient.setPremium(true);
+        hardcodedClient.setAge(30);
+        hardcodedClient.setPassword("1234");
+
+        clients.add(hardcodedClient);
+
+
+    myDataStore.setClients(clients);
 
     }
 }

@@ -2,8 +2,6 @@ package org.example;
 
 import org.example.dataStore.DataStore;
 import org.example.controller.MainDispatcher;
-import org.example.managers.ClientManger;
-import org.example.model.Client;
 import org.example.utilities.FakeDataDBPopulator;
 
 public class App
@@ -33,11 +31,7 @@ public class App
         // todo: implement view
         // todo: implement login
         // todo: implement logout
-        // we are using a hardcode client for now
-        // client: albertprofe@gmail.com / albert
-        Client loggedClient;
-        loggedClient = ClientManger.loginClient();
-        myDataStore.setLoggedClient(loggedClient);
+
 
         // What? run the app
         // How? with a static method we run the app

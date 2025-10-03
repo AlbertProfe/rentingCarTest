@@ -9,8 +9,9 @@ public class Client {
     private String email;
     private boolean premium;
     private int age;
+    private String password;
 
-    public Client(String id, String name, String lastName, String address, String email, boolean premium, int age) {
+    public Client(String id, String name, String lastName, String address, String email, boolean premium, int age, String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -18,6 +19,7 @@ public class Client {
         this.email = email;
         this.premium = premium;
         this.age = age;
+        this.password = password;
     }
 
     public Client(){}
@@ -78,6 +80,14 @@ public class Client {
         this.age = age;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -88,6 +98,7 @@ public class Client {
                 ", email='" + email + '\'' +
                 ", premium=" + premium +
                 ", age=" + age +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

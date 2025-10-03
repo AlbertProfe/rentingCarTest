@@ -8,8 +8,10 @@ import org.example.utilities.Utilities;
 import java.util.Scanner;
 
 public class BookingManager {
-
-
+    // todo: implement view: where? /views, bookingView
+    // todo: implement controller: where? /controllers, bookingController
+    // todo: implement dispatcher: where? /dispatchers, bookingDispatcher
+    // todo: implement runner: where? /runners, bookingRunner
     public static void createBooking(DataStore myDataStore, Scanner scanner) {
         // todo
         System.out.println("Welcome to Booking Manager");

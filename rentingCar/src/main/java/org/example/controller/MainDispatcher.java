@@ -3,6 +3,7 @@ package org.example.controller;
 import org.example.dataStore.DataStore;
 import org.example.managers.BookingManager;
 import org.example.managers.CarManager;
+import org.example.managers.ClientManager;
 import org.example.utilities.RentingCarTests;
 import org.example.utilities.Utilities;
 import org.example.views.MainMenuView;
@@ -27,7 +28,7 @@ public class MainDispatcher {
                 } else if (option.equals("2")){
                     CarManager.printCarList(myDataStore.getCars());
                 } else if (option.equals("3")){
-                    // option #3;
+                    ClientManager.loginClient(myDataStore, scanner);
                 } else if (option.equals("4")){
                     if (myDataStore.getLoggedClient() == null)
                         System.out.println("Please login first");
