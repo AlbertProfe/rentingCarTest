@@ -7,14 +7,15 @@
 > Rent a car by CLI with client, car, init and ending date, price with Spring Boot
 
 - Reference project: [Spring Boot: H2 DB and Thymeleaf – albertprofe wiki](https://albertprofe.dev/springboot/boot-what-create-th-h2.html)
+- Quickstart: https://spring.io/quickstart
 
 ## Version
 
-- 
+- [rentingCarTest/docs/rentingCar-sprints.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/rentingCar-sprints.md)
 
 ## Debt Tech & Efficiency
 
-- 
+- Debts
 
 ## UML Data Model
 
@@ -200,8 +201,6 @@ classDiagram
     Car --* Booking
     Client --* Booking
 ```
-
-
 
 ## Tech Stack
 
