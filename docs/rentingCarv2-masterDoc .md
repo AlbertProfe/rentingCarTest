@@ -7,15 +7,48 @@
 > Rent a car by CLI with client, car, init and ending date, price with Spring Boot
 
 - Reference project: [Spring Boot: H2 DB and Thymeleaf – albertprofe wiki](https://albertprofe.dev/springboot/boot-what-create-th-h2.html)
+- Microservices: https://spring.io/
+- Spring Boot is open-source: [GitHub - spring-projects/spring-boot: Spring Boot helps you to create Spring-powered, production-grade applications and services with absolute minimum fuss.](https://github.com/spring-projects/spring-boot)
 - Quickstart: https://spring.io/quickstart
 
 ## Version
 
 - [rentingCarTest/docs/rentingCar-sprints.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/rentingCar-sprints.md)
 
-## Debt Tech & Efficiency
+## Tree
 
-- Debts
+```
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── dev
+│   │   │       └── app
+│   │   │           └── rentingCar_boot
+│   │   │               └── RentingCarBootApplication.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       └── templates
+│   └── test
+│       └── java
+│           └── dev
+│               └── app
+│                   └── rentingCar_boot
+│                       └── RentingCarBootApplicationTests.java
+└── target
+    ├── classes
+    │   ├── application.properties
+    │   └── dev
+    │       └── app
+    │           └── rentingCar_boot
+    │               └── RentingCarBootApplication.class
+    └── generated-sources
+        └── annotations
+```
 
 ## UML Data Model
 
@@ -59,7 +92,7 @@ public class Client {
 public class MinimalClient {
 
     private String email;
-private String password;
+    private String password;
 
     public MinimalClient() {
     }
@@ -85,23 +118,36 @@ public class Booking {
 }
 ```
 
-#### CLASS DataStore
+## H2
 
-This is a draft, we wil not use `final` so far, and `static` will be reserved just for the **Lists**.
+> Welcome to H2, the Java SQL database. The main features of H2 are:
+> 
+> - Very fast, open source, JDBC API
+> - Embedded and server modes; in-memory databases
+> - Browser based Console application
+> - Small footprint: around 2.5 MB jar file size
 
-```java
-public class DataStore {
+- https://h2database.com/html/installation.html
 
-    private String id;
-    private List<Car> cars;
-    private static List<Client> clients;
-    private static List <Booking> bookings
-    private boolean isActive;
-    private int creationDate;
-    private int lastModification;
+#### Config application.properties
 
-    // constructor, geters, setters, methods and toString
-}
+```properties
+spring.application.name=rentingCar-boot
+
+
+#spring.datasource.url=jdbc:h2:tcp://localhost/~/MyProjects/Sandbox/rentingCarTest/dataBase/rentingCar.db
+spring.datasource.url=jdbc:h2:/home/albert/MyProjects/Sandbox/rentingCarTest/dataBase/rentingCar
+#spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=albert
+#spring.datasource.username=sa
+spring.datasource.password=1234
+#spring.datasource.password=
+
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.show-sql=true
+#spring.jpa.hibernate.ddl-auto=create
+spring.jpa.hibernate.ddl-auto=update
 ```
 
 ## Syntetic data & fake objects
@@ -138,9 +184,7 @@ String streetAddress = faker.address().streetAddress(); // 60018 Sawayn Brooks S
 
 ```mermaid
 classDiagram
-    class App {
 
-    } 
 
     class Car{
       - String id
@@ -170,34 +214,7 @@ classDiagram
 
     }
 
-    class FakeDataDBPopulator {
-    }
 
-    class CarManager {
-
-     - printCars()
-
-    }
-
-    class DataStore {
-
-    - String id;
-    - List<Car> cars;
-    - List<Client> clients;
-    - List <Booking> bookings
-    - bool isActive;
-    - int creationDate;
-    - int lastModification;
-
-
-     }
-
-
-    App --> FakeDataDBPopulator
-    DataStore ..o App
-    DataStore --* Car
-    DataStore --* Booking
-    DataStore --* Client
     Car --* Booking
     Client --* Booking
 ```
@@ -216,7 +233,7 @@ classDiagram
 
 - Maven Project from https://start.spring.io/
   
-  - Dependencies: Spring Web, H2, DevTools, Thymeleaf
+  - Dependencies: Spring Web, H2, DevTools, Thymeleaf, JPA
 
 ## POM.XML
 
@@ -236,7 +253,6 @@ classDiagram
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
   <dependencies>
     <!-- JUnit: tool to test  -->
     <dependency>

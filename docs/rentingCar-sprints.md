@@ -16,26 +16,27 @@
 
 ### Week #02
 
-| Version    | Title                                 | Description                                        | Status   | Date      |
-| ---------- | ------------------------------------- | -------------------------------------------------- | -------- | --------- |
-| v1.4       | Main Loop & Scanner, `Dispatcher`     | Create main loop to select options                 | 1ecf4b2  | 30/9      |
-| v1.4.1     | Refractor directories                 | Main Menu & Utilities                              | 3144476  | 30/9      |
-| v1.5       | `BookingManager`, createBooking draft | Harcoded Login client                              | 5c0eb83  | 02/10     |
-| v1.5.1     | Implement createBooking               | select car with fake logged client                 | 366d19d  | 02/10     |
-| ~~v1.5.2~~ | ~~check createBooking~~               | ~~check errors, bugs and add loop, are you sure?~~ |          | ~~03/10~~ |
-| v1.6       | Implement Login                       | decoupled: loginView, validateLogin                | e470b2f8 | 03/10     |
-| **v1.6.1** | print Clients and Bookings            |                                                    | 1e68aa46 | 03/10     |
+| Version    | Title                                   | Description                                        | Status   | Date      |
+| ---------- | --------------------------------------- | -------------------------------------------------- | -------- | --------- |
+| v1.4       | Main Loop & Scanner, `Dispatcher`       | Create main loop to select options                 | 1ecf4b2  | 30/9      |
+| v1.4.1     | Refractor directories                   | Main Menu & Utilities                              | 3144476  | 30/9      |
+| v1.5       | `BookingManager`, createBooking draft   | Harcoded Login client                              | 5c0eb83  | 02/10     |
+| v1.5.1     | Implement createBooking                 | select car with fake logged client                 | 366d19d  | 02/10     |
+| ~~v1.5.2~~ | ~~check createBooking~~                 | ~~check errors, bugs and add loop, are you sure?~~ |          | ~~03/10~~ |
+| v1.6       | Implement Login                         | decoupled: loginView, validateLogin                | e470b2f8 | 03/10     |
+| v1.6.1     | print Clients and Bookings              |                                                    | 1e68aa46 | 03/10     |
+| v1.7       | check createBooking                     | check bugs and add loop, are you sure?             |          |           |
+| v1.8       | CarManger and ClientManager improvement |                                                    |          |           |
+| v1.9       | logout                                  |                                                    |          |           |
 
 ### Week #03
 
-| Version | Title                                   | Description                            | Status | Date |
-| ------- | --------------------------------------- | -------------------------------------- | ------ | ---- |
-| v1.6.3  | check createBooking                     | check bugs and add loop, are you sure? |        |      |
-| v1.7    | CarManger and ClientManager improvement |                                        |        |      |
-| v1.8    | logout                                  |                                        |        |      |
-|         |                                         |                                        |        |      |
+| Version | Title                           | Description     | Status   | Date       |
+| ------- | ------------------------------- | --------------- | -------- | ---------- |
+| v2.0    | create project with repo and H2 | test create Car | 86fa570d | 06/10/2025 |
+|         |                                 |                 |          |            |
 
-## Debt Tech & Efficiency
+## Debt Tech & Efficiency v1
 
 - v1.5.0: MainDispatcher too much coupled: view + bussines logic
 
