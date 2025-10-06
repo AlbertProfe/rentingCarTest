@@ -1,8 +1,19 @@
 # rentingCar sprints
 
-`version document: v1.6.1`
+`version document: v2.0`
 
-## Version
+## Version Boot
+
+### Week #03
+
+| Version | Title                                      | Description     | Status   | Date       |
+| ------- | ------------------------------------------ | --------------- | -------- | ---------- |
+| v2.0    | create project with repository and H2      | test create Car | 86fa570d | 06/10/2025 |
+| v2.1    | CarService test CRUD                       |                 |          |            |
+| v2.2    | JPA relationships: @oneToMany, @ManyToMany |                 |          |            |
+| v2.3    | @ManyToMany                                |                 |          |            |
+
+## Version Quickstart Maven
 
 ### Week #01
 
@@ -28,13 +39,6 @@
 | v1.7       | check createBooking                     | check bugs and add loop, are you sure?             |          |           |
 | v1.8       | CarManger and ClientManager improvement |                                                    |          |           |
 | v1.9       | logout                                  |                                                    |          |           |
-
-### Week #03
-
-| Version | Title                           | Description     | Status   | Date       |
-| ------- | ------------------------------- | --------------- | -------- | ---------- |
-| v2.0    | create project with repo and H2 | test create Car | 86fa570d | 06/10/2025 |
-|         |                                 |                 |          |            |
 
 ## Debt Tech & Efficiency v1
 
