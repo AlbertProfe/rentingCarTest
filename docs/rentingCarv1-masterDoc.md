@@ -29,6 +29,12 @@
   
   - [random - Create a GUID / UUID in Java - Stack Overflow](https://stackoverflow.com/questions/2982748/create-a-guid-uuid-in-java)
 
+- Handle errors at input data `scanner` and arrays
+  
+  - Add try and catch
+  
+  - Add control index out of bounds in arrays
+
 ## UML Data Model
 
 #### CLASS Car

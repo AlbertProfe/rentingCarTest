@@ -57,12 +57,14 @@ public class BookingManager {
         booking.setPrice(intDaysRented * selectedCar.getPrice());
         booking.setCar(selectedCar);
 
+        // todo: add are you sure?
+
         myDataStore.getBookings().add(booking);
 
         System.out.println("Booking created: " + booking.toString());
 
-        // todo: implement error handling
-        // todo: add are you sure?
+
+
 
     }
 }
