@@ -13,11 +13,11 @@ public class CarController {
     @Autowired
     CarRepository carRepository;
 
-    @GetMapping("/cars")
-    public String listCars(Model model) {
+    @GetMapping("/cars-nocss-data")
+    public String listCarsNoCssData(Model model) {
         model.addAttribute("cars", carRepository.findAll());
-        System.out.println("Cars (controller/cars): " + carRepository.findAll());
-        return "cars";
+        System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
+        return "cars-nocss-data";
     }
 
     @GetMapping("/cars-nocss")
@@ -26,4 +26,15 @@ public class CarController {
         System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
         return "cars-nocss";
     }
+
+    @GetMapping("/cars")
+    public String listCars(Model model) {
+        model.addAttribute("cars", carRepository.findAll());
+        System.out.println("Cars (controller/cars): " + carRepository.findAll());
+        return "cars";
+    }
+
+
+
+
 }
