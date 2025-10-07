@@ -19,4 +19,11 @@ public class CarController {
         System.out.println("Cars: " + carRepository.findAll());
         return "cars";
     }
+
+    @GetMapping("/cars-nocss")
+    public String listCarsNoCss(Model model) {
+        model.addAttribute("cars", carRepository.findAll());
+        System.out.println("Cars: " + carRepository.findAll());
+        return "cars-nocss";
+    }
 }
