@@ -3,6 +3,8 @@ package dev.app.rentingCar_boot.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Car {
@@ -16,7 +18,13 @@ public class Car {
     private int year;
     private double price;
 
+    // todo: configure annotations
+    @OneToMany
+    private List<CarExtras> carExtras;
 
+
+
+    public Car() {}
 
     public Car(String id, String brand, String model, String plate, int year, double price) {
         this.id = id;
@@ -27,8 +35,6 @@ public class Car {
         this.price = price;
 
     }
-
-    public Car() {}
 
     public Car(String id) {
         this.id = id;
