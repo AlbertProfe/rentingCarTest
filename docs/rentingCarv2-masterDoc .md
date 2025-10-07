@@ -1,6 +1,6 @@
 # rentingCar v2
 
-`version document: v2.0`
+`version document: v2.1`
 
 ## Goal & Summary
 
@@ -67,9 +67,11 @@
 │   │   │               │   └── CarRestController.java
 │   │   │               ├── model
 │   │   │               │   ├── Car.java
+│   │   │               │   ├── CarExtras.java
 │   │   │               │   └── Client.java
 │   │   │               ├── RentingCarBootApplication.java
 │   │   │               ├── repository
+│   │   │               │   ├── CarExtrasRepository.java
 │   │   │               │   └── CarRepository.java
 │   │   │               └── service
 │   │   │                   └── CarService.java
@@ -86,8 +88,6 @@
 │                   └── rentingCar_boot
 │                       └── RentingCarBootApplicationTests.java
 └── target
-   
-
 ```
 
 ## UML Data Model
@@ -157,6 +157,53 @@ public class Booking {
     // constructor, geters, setters, methods and toString
 }
 ```
+
+## CarExtras Model Features
+
+- **@Entity**: JPA entity for database persistence
+- **Properties**:
+  - `id`: Unique identifier
+  - `name`: Extra name (e.g., "Ski Rack", "Baby Seat")
+  - `description`: Detailed description of the extra
+  - `dailyPrice`: Cost per day for the extra
+  - `available`: Whether the extra is currently available
+  - `category`: Category grouping (e.g., "Sports", "Child Safety", "Comfort")
+
+Example Usage
+
+This model supports extras like:
+
+- **Sports**: Ski rack, bike rack, surfboard carrier
+- **Child Safety**: Baby seat, booster seat, child locks
+- **Comfort**: GPS navigation, premium sound system, WiFi hotspot
+- **Utility**: Roof box, trailer hitch, snow chains
+
+```java
+CarExtras {
+
+    @Id
+    private String id;
+    private String name;
+    private String description;
+    private double dailyPrice;
+    private boolean available;
+    private String category;
+
+    public CarExtras() {}
+
+    // constructor, geters, setters, methods and toString
+}
+```
+
+## JPA
+
+- [Spring Boot: JPA Relationships – albertprofe wiki](https://albertprofe.dev/springboot/boot-concepts-jpa-3.html)
+
+
+
+![](https://albertprofe.dev/images/springboot/labsb08/labsb08-4-onetomay.png)
+
+
 
 ## H2 & application.properties
 
