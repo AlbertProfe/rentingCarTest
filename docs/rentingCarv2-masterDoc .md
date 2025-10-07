@@ -48,6 +48,46 @@
     │               └── RentingCarBootApplication.class
     └── generated-sources
         └── annotations
+
+
+// basic domains created
+.
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── dev
+│   │   │       └── app
+│   │   │           └── rentingCar_boot
+│   │   │               ├── controller
+│   │   │               │   ├── CarController.java
+│   │   │               │   └── CarRestController.java
+│   │   │               ├── model
+│   │   │               │   ├── Car.java
+│   │   │               │   └── Client.java
+│   │   │               ├── RentingCarBootApplication.java
+│   │   │               ├── repository
+│   │   │               │   └── CarRepository.java
+│   │   │               └── service
+│   │   │                   └── CarService.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       └── templates
+│   │           ├── cars.html
+│   │           └── cars-nocss.html
+│   └── test
+│       └── java
+│           └── dev
+│               └── app
+│                   └── rentingCar_boot
+│                       └── RentingCarBootApplicationTests.java
+└── target
+   
+
 ```
 
 ## UML Data Model
