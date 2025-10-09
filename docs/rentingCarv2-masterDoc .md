@@ -199,11 +199,7 @@ CarExtras {
 
 - [Spring Boot: JPA Relationships – albertprofe wiki](https://albertprofe.dev/springboot/boot-concepts-jpa-3.html)
 
-
-
 ![](https://albertprofe.dev/images/springboot/labsb08/labsb08-4-onetomay.png)
-
-
 
 ## H2 & application.properties
 

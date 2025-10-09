@@ -6,14 +6,19 @@
 
 ### Week #03
 
-| Version | Title                                      | Description                                   | Status   | Date  |
-| ------- | ------------------------------------------ | --------------------------------------------- | -------- | ----- |
-| v2.0    | create project with repository and H2      | test create Car                               | 86fa570d | 06/10 |
-| v2.1    | JPA CarExtras 1:n                          | just the dradt, pending configure annotatoins | eb3217d0 | 07/10 |
-| v2.2.1  | JPA CarExtras 1:n                          | implement the draft                           |          | 09/10 |
-| V2.2    | CarService test CRUD                       | Implement CarService                          | eb3217d0 | 07/10 |
-| v2.3    | JPA relationships: @OneToMany, @ManyToMany |                                               |          |       |
-| v2.3    | @ManyToMany                                |                                               |          |       |
+| Version | Title                                 | Description                                               | Status   | Date  |
+| ------- | ------------------------------------- | --------------------------------------------------------- | -------- | ----- |
+| v2.0    | create project with repository and H2 | test create Car                                           | 86fa570d | 06/10 |
+| v2.1    | JPA CarExtras 1:n                     | just the dradt, pending configure annotatoins             | eb3217d0 | 07/10 |
+| v2.2.1  | JPA CarExtras 1:n                     | implement the draft and fake cars (uuid-4 digit for cars) | 8f4d22cb | 09/10 |
+| V2.2    | CarService test CRUD                  | Implement CarService                                      | eb3217d0 | 07/10 |
+
+### Week #04
+
+| Version | Title                                      | Description | Status | Date |
+| ------- | ------------------------------------------ | ----------- | ------ | ---- |
+| v2.3    | JPA relationships: @OneToMany, @ManyToMany |             |        |      |
+| v2.3    | @ManyToMany                                |             |        |      |
 
 ## Version Quickstart Maven
 
