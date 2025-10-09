@@ -1,6 +1,6 @@
 # rentingCar v2
 
-`version document: v2.1`
+`version document: v2.2`
 
 ## Goal & Summary
 
@@ -199,7 +199,70 @@ CarExtras {
 
 - [Spring Boot: JPA Relationships – albertprofe wiki](https://albertprofe.dev/springboot/boot-concepts-jpa-3.html)
 
-![](https://albertprofe.dev/images/springboot/labsb08/labsb08-4-onetomay.png)
+<img title="" src="https://albertprofe.dev/images/springboot/labsb08/labsb08-4-onetomay.png" alt="" width="459" data-align="center">
+
+### Car/CarExtras: @OneToMany bidirectional
+
+This version implements a **one-to-many bidirectional relationship** between [Car](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:7:0-121:1) and [CarExtras](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/CarExtras.java:4:0-12:30) entities using JPA annotations.
+
+**Car Entity:**
+
+- Primary entity with auto-generated 4-digit UUID as `@Id`
+- Contains basic car information: brand, model, plate, year, and daily price
+- Uses `@OneToMany(mappedBy="carFK", cascade=CascadeType.ALL)` to establish parent relationship
+- Automatically initializes `carExtras` list to prevent null pointer exceptions
+- Cascade operations ensure when a car is deleted, all associated extras are removed
+
+**CarExtras Entity:**
+
+- Represents additional car features/services (GPS, insurance, etc.)
+- Contains pricing and availability information for each extra
+- Uses `@ManyToOne(fetch=FetchType.EAGER)` with `@JoinColumn(name="CAR_FK")` for foreign key relationship
+- Eager fetching ensures car data loads immediately with extras
+
+**Key Features:**
+
+- Bidirectional mapping allows navigation from both entities
+- Proper JPA annotations ensure database integrity
+- Supports rental business logic with pricing and availability tracking
+- Clean separation of concerns between base car and optional extras
+
+```java
+@Entity
+public class Car {
+
+    @Id
+    private String id;
+    private String brand;
+    private String model;
+    private String plate;
+    @Column(name = "car_year")
+    private int year;
+    private double price;
+
+    @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL)
+    private List<CarExtras> carExtras = new ArrayList<>();
+
+}
+
+
+@Entity
+public class CarExtras {
+
+    @Id
+    private String id;
+    private String name;
+    private String description;
+    private double dailyPrice;
+    private boolean available;
+    private String category;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CAR_FK")
+    private Car carFK;
+
+}
+```
 
 ## H2 & application.properties
 

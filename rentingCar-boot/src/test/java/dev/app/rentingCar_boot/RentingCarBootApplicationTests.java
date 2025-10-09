@@ -67,7 +67,9 @@ class RentingCarBootApplicationTests {
     void testAssignCarToCarExtras(){
     //void testAssignCarExtraToCar(){
 
-        CarExtras myCarExtras = new CarExtras("1", "GPS", "High precission GPS", 50.0, true, "ELECTRONIC"  );
+        CarExtras myCarExtras = new CarExtras(
+                "1", "GPS", "High precission GPS",
+                50.0, true, "ELECTRONIC"  );
         carExtrasRepository.save(myCarExtras);
         System.out.println("CarExtras -object-: " + carExtrasRepository.findById("1").get());
 

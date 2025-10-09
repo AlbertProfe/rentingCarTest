@@ -828,3 +828,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: /home/albert/MyP
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 141 more
+2025-10-09 10:59:56.708426+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM CAR CAR_EXTRAS [*]CAR_EXTRAS"; SQL statement:
+SELECT * FROM CAR CAR_EXTRAS CAR_EXTRAS [42000-232]
