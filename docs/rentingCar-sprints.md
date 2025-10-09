@@ -1,6 +1,6 @@
 # rentingCar sprints
 
-`version document: v2.1`
+`version document: v2.2`
 
 ## Version Boot
 
