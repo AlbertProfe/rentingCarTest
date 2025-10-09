@@ -26,8 +26,6 @@ public class CarService {
         return foundCard;
     }
 
-
-
     public Optional<Car> findCarById (String id) {
 
         Optional<Car> foundCar = carRepository.findById(id);
@@ -39,7 +37,6 @@ public class CarService {
         return foundCar;
     }
 
-
     public void deleteCarById (String id) {
 
         carRepository.deleteById(id);
@@ -50,7 +47,6 @@ public class CarService {
         else System.out.println("Car found and deleted: " + foundCar);
 
     }
-
 
     public void deleteAllCard (){
 

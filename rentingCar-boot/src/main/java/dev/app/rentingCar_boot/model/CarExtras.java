@@ -1,8 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 
 @Entity
 public class CarExtras {
@@ -15,14 +13,9 @@ public class CarExtras {
     private boolean available;
     private String category;
 
-
-    // todo: configure annotations
-    @ManyToOne
-    private Car car;
-
-
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CAR_FK")
+    private Car carFK;
 
     public CarExtras() {}
 
@@ -81,6 +74,14 @@ public class CarExtras {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public Car getCarFK() {
+        return carFK;
+    }
+
+    public void setCarFK(Car carFK) {
+        this.carFK = carFK;
     }
 
     @Override

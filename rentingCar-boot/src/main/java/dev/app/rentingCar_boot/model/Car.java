@@ -1,10 +1,10 @@
 package dev.app.rentingCar_boot.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Entity
 public class Car {
@@ -18,26 +18,35 @@ public class Car {
     private int year;
     private double price;
 
-    // todo: configure annotations
-    @OneToMany
-    private List<CarExtras> carExtras;
+    @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL)
+    private List<CarExtras> carExtras = new ArrayList<>();
 
+    /**
+     * Generates a 4-digit UUID for the car
+     * @return A 4-digit string ID
+     */
+    private String generateFourDigitUuid() {
+        Random random = new Random();
+        int uuid = 1000 + random.nextInt(9000); // Generates number between 1000-9999
+        return String.valueOf(uuid);
+    }
 
+    public Car() {
+        this.id = generateFourDigitUuid();
+    }
 
-    public Car() {}
-
-    public Car(String id, String brand, String model, String plate, int year, double price) {
-        this.id = id;
+    public Car(String brand, String model, String plate, int year, double price) {
+        this.id = generateFourDigitUuid();
         this.brand = brand;
         this.model = model;
         this.plate = plate;
         this.year = year;
         this.price = price;
-
     }
 
     public Car(String id) {
         this.id = id;
+        this.carExtras = new ArrayList<>();
     }
 
     public String getId() {
@@ -90,6 +99,14 @@ public class Car {
 
     public int carAge() {
         return 2025 - year;
+    }
+
+    public List<CarExtras> getCarExtras() {
+        return carExtras;
+    }
+
+    public void setCarExtras(List<CarExtras> carExtras) {
+        this.carExtras = carExtras;
     }
 
     @Override
