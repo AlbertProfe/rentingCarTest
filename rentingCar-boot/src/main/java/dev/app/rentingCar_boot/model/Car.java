@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,14 @@ public class Car {
     private int year;
     private double price;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "inssurance_cia_id")
+    private InssuranceCia inssuranceCia;
+
     @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL)
     private List<CarExtras> carExtras = new ArrayList<>();
+
 
     /**
      * Generates a 4-digit UUID for the car
@@ -106,6 +113,14 @@ public class Car {
 
     public void setCarExtras(List<CarExtras> carExtras) {
         this.carExtras = carExtras;
+    }
+
+    public InssuranceCia getInssuranceCia() {
+        return inssuranceCia;
+    }
+
+    public void setInssuranceCia(InssuranceCia inssuranceCia) {
+        this.inssuranceCia = inssuranceCia;
     }
 
     @Override

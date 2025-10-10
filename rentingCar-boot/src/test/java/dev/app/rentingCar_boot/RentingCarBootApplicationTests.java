@@ -2,8 +2,10 @@ package dev.app.rentingCar_boot;
 
 import dev.app.rentingCar_boot.model.Car;
 import dev.app.rentingCar_boot.model.CarExtras;
+import dev.app.rentingCar_boot.model.InssuranceCia;
 import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
+import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
 import dev.app.rentingCar_boot.service.CarService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ class RentingCarBootApplicationTests {
 
     @Autowired
     CarExtrasRepository carExtrasRepository;
+
+    @Autowired
+    InssuranceCiaRepository inssuranceCiaRepository;
 
 	@Test
 	void contextLoads() {
@@ -86,6 +91,44 @@ class RentingCarBootApplicationTests {
         carExtrasRepository.save(myCarExtras);
 
     }
+
+    @Test
+    void testAssignCarExtraToCarAndCarToInsurance() {
+
+        // todo
+        // create a car extras: myCarExtras
+        CarExtras myCarExtras = new CarExtras(
+                "2", "GPS", "High precission GPS",
+                50.0, true, "ELECTRONIC"  );
+        carExtrasRepository.save(myCarExtras);
+        System.out.println("CarExtras -object-: " + carExtrasRepository.findById("1").get());
+
+        System.out.println("CarExtras --from db-: " + myCarExtras);
+
+        // create an insurance cia: myInssuranceCia
+        InssuranceCia myInssuranceCia = new InssuranceCia();
+        myInssuranceCia.setId("1");
+        myInssuranceCia.setName("alliance");
+        myInssuranceCia.setActive(true);
+        myInssuranceCia.setQtyEmployee(1000);
+        inssuranceCiaRepository.save(myInssuranceCia);
+        System.out.println("InssuranceCia -object-: " + inssuranceCiaRepository.findById("1").get());
+
+        // fetch a car: id="6157"
+        Optional<Car> myOpCar = carService.findCarById("6157");
+        System.out.println("Car: " + myOpCar.get());
+
+        // assign to manay side: carExtras to car
+        myCarExtras.setCarFK(myOpCar.get());
+        carExtrasRepository.save(myCarExtras);
+        // save carExtras
+        // assign to many side: car to insurance
+        myOpCar.get().setInssuranceCia(myInssuranceCia);
+        // save car
+        carRepository.save(myOpCar.get());
+
+    }
+
 
 
 

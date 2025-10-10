@@ -23,21 +23,21 @@ public class CarController {
     @GetMapping("/cars-nocss-data")
     public String listCarsNoCssData(Model model) {
         model.addAttribute("cars", carRepository.findAll());
-        System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
+        //System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
         return "cars-nocss-data";
     }
 
     @GetMapping("/cars-nocss")
     public String listCarsNoCss(Model model) {
         model.addAttribute("cars", carRepository.findAll());
-        System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
+        //System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
         return "cars-nocss";
     }
 
     @GetMapping("/cars")
     public String listCars(Model model) {
         model.addAttribute("cars", carRepository.findAll());
-        System.out.println("Cars (controller/cars): " + carRepository.findAll());
+        //System.out.println("Cars (controller/cars): " + carRepository.findAll());
         return "cars";
     }
 
