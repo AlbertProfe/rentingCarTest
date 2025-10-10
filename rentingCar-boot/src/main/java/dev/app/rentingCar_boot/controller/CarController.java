@@ -41,7 +41,7 @@ public class CarController {
         return "cars";
     }
 
-    @GetMapping("/cars/generate")
+    /*@GetMapping("/cars/generate")
     public String generateCars(@RequestParam int qtyCars) {
         List<Car> generatedCars = new ArrayList<>();
         Random random = new Random();
@@ -76,6 +76,6 @@ public class CarController {
             plate.append(random.nextInt(10));
         }
         return plate.toString();
-    }
+    }*/
 
 }

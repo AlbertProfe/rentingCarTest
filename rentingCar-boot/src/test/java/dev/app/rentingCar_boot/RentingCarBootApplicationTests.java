@@ -7,6 +7,7 @@ import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
 import dev.app.rentingCar_boot.service.CarService;
+import dev.app.rentingCar_boot.utils.PopulateCar;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +28,9 @@ class RentingCarBootApplicationTests {
 
     @Autowired
     InssuranceCiaRepository inssuranceCiaRepository;
+
+    @Autowired
+    PopulateCar populateCar;
 
 	@Test
 	void contextLoads() {
@@ -130,6 +134,10 @@ class RentingCarBootApplicationTests {
     }
 
 
+    @Test
+    void testPopulateCar() {
+        populateCar.populateCar(10);
+    }
 
 
 }
