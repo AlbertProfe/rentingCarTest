@@ -14,6 +14,7 @@
 | V2.2    | CarService test CRUD                  | Implement CarService                                      | eb3217d0 | 07/10 |
 | v2.3    | JPA InsuranceCia n:1                  | Implement class and test it                               | 12d87982 | 10/10 |
 | v2.4    | populate and assign cars to carExtras | implement part 1/2                                        | 56966f3d | 10/10 |
+| v2.5    | populate and assign cars to carExtras | implement part 2/2                                        | b8dd7b9d | 10/10 |
 
 ### Week #04
 
