@@ -2,8 +2,10 @@ package dev.app.rentingCar_boot.utils;
 
 import dev.app.rentingCar_boot.model.Car;
 import dev.app.rentingCar_boot.model.CarExtras;
+import dev.app.rentingCar_boot.model.InssuranceCia;
 import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
+import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import java.util.ArrayList;
@@ -19,11 +21,16 @@ public class PopulateCar {
     @Autowired
     private CarExtrasRepository carExtrasRepository;
 
+    @Autowired
+    private InssuranceCiaRepository inssuranceCiaRepository;
+
     public void populateCar(int qty) {
         List<Car> cars = generateCars(qty);
         List<CarExtras> carExtrass = generateCarExtras(qty);
+        List<InssuranceCia> inssuranceCias = generateInssuranceCias(qty);
 
         assignCarToCarExtras(cars, carExtrass);
+        assignInssuranceCiaToCar(cars, inssuranceCias);
     }
 
     public List<CarExtras> generateCarExtras(int qtyCars) {
@@ -90,6 +97,48 @@ public class PopulateCar {
         return generatedCars;
     }
 
+    public List<InssuranceCia> generateInssuranceCias(int qty){
+        List<InssuranceCia> generatedInssuranceCias = new ArrayList<>();
+        Random random = new Random();
+
+        String[] companyNames = {"State Farm", "Geico", "Progressive", "Allstate", "Liberty Mutual", 
+                                "USAA", "Farmers", "Nationwide", "American Family", "Travelers"};
+        
+        String[] descriptions = {
+            "Comprehensive auto insurance with excellent customer service",
+            "Affordable car insurance with 24/7 claims support",
+            "Innovative insurance solutions with competitive rates",
+            "Full coverage auto insurance with roadside assistance",
+            "Trusted insurance provider with nationwide coverage",
+            "Premium insurance services for military families",
+            "Local insurance expertise with personal touch",
+            "Reliable coverage with accident forgiveness programs",
+            "Family-focused insurance with multi-policy discounts",
+            "Professional insurance services with quick claims processing"
+        };
+
+        for (int i = 0; i < qty; i++) {
+            InssuranceCia inssuranceCia = new InssuranceCia();
+            
+            String id = "INS" + String.format("%04d", i + 1);
+            String name = companyNames[random.nextInt(companyNames.length)];
+            String description = descriptions[random.nextInt(descriptions.length)];
+            int qtyEmployee = 50 + random.nextInt(950); // Between 50-1000 employees
+            boolean isActive = random.nextBoolean();
+
+            inssuranceCia.setId(id);
+            inssuranceCia.setName(name);
+            inssuranceCia.setDescription(description);
+            inssuranceCia.setQtyEmployee(qtyEmployee);
+            inssuranceCia.setActive(isActive);
+
+            generatedInssuranceCias.add(inssuranceCia);
+            inssuranceCiaRepository.save(inssuranceCia);
+        }
+
+        return generatedInssuranceCias;
+    }
+
     public static String generateRandomPlate(Random random) {
         StringBuilder plate = new StringBuilder();
         // Generate 3 letters
@@ -110,6 +159,16 @@ public class PopulateCar {
             Car car = cars.get(random.nextInt(cars.size()));
             carExtras.setCarFK(car);
             carExtrasRepository.save(carExtras);
+        }
+    }
+
+    public void assignInssuranceCiaToCar(List<Car> cars, List<InssuranceCia> inssuranceCias) {
+        Random random = new Random();
+
+        for (Car car : cars) {
+            InssuranceCia inssuranceCia = inssuranceCias.get(random.nextInt(inssuranceCias.size()));
+            car.setInssuranceCia(inssuranceCia);
+            carRepository.save(car);
         }
     }
 
