@@ -6,10 +6,12 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.repository.BookingRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.ClientRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+@Transactional
 @SpringBootTest
 public class BookingTests {
 
@@ -26,7 +28,7 @@ public class BookingTests {
     void bookingTest(){
 
         Client client = new Client(
-                "00013", "Nil", "Gasol",
+                "00018", "Nil", "Gasol",
                 "Carrer de laitat", "nil.gasol@gmail.com",
                 false, 25, "1234");
 
@@ -35,7 +37,7 @@ public class BookingTests {
         Car car = carRepository.findById("7580").get();
 
         Booking myBooking = new Booking();
-        myBooking.setId("B004");
+        myBooking.setId("B009");
         myBooking.setBookingDate(1760344181);
         myBooking.setQtyDays(5);
         myBooking.setTotalAmount(100.26);
@@ -48,8 +50,11 @@ public class BookingTests {
 
         System.out.println("Booking: " + myBooking);
 
-        bookingRepository.findById("B004").get();
-        System.out.println("Booking --from db--: " + bookingRepository.findById("B001").get());
+        //Booking myTetBooking = bookingRepository.findById("B008").get();
+        //System.out.println("Booking id: "  + myTetBooking.getId());
+        //System.out.println("Car id: "  + myTetBooking.getCar().getBrand());
+
+        System.out.println("Booking --from db--: " + bookingRepository.findById("B009").get());
 
         //bookingRepository.delete(myBooking);
         //System.out.println("Booking deleted: " + myBooking);

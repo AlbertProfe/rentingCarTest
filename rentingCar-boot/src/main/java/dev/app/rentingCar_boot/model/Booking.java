@@ -13,11 +13,11 @@ public class Booking {
     private boolean isActive;
 
     @JoinColumn(name = "CAR_FK")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Car car;
 
     @JoinColumn(name = "CLIENT_FK")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Client client;
 
     public Booking() {

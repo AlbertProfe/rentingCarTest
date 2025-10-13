@@ -19,7 +19,7 @@ public class Car {
     private double price;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "inssurance_cia_id")
     private InssuranceCia inssuranceCia;
 
