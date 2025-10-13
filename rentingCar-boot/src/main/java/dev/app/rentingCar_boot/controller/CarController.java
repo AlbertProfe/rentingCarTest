@@ -20,7 +20,7 @@ public class CarController {
     @Autowired
     CarRepository carRepository;
 
-    @GetMapping("/cars-nocss-data")
+    @GetMapping("/cars-nocss-data/")
     public String listCarsNoCssData(Model model) {
         model.addAttribute("cars", carRepository.findAll());
         //System.out.println("Cars (controller/cars-nocss): " + carRepository.findAll());
