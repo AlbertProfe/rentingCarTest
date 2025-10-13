@@ -41,6 +41,20 @@ public class CarController {
         return "cars";
     }
 
+    @GetMapping("/cars-relation")
+    public String listCarsRelated(Model model) {
+        Iterable<Car> carsIterable = carRepository.findAll();
+        List<Car> cars = new ArrayList<>();
+        carsIterable.forEach(cars::add);
+        
+        model.addAttribute("cars", cars);
+        model.addAttribute("rentalCompany", "Premium Car Rental");
+        model.addAttribute("totalCars", cars.size());
+        model.addAttribute("fleetStatus", "Active Fleet with Relations");
+        //System.out.println("Cars with relations (controller/cars-relation): " + cars);
+        return "cars-relation";
+    }
+
     /*@GetMapping("/cars/generate")
     public String generateCars(@RequestParam int qtyCars) {
         List<Car> generatedCars = new ArrayList<>();

@@ -13,15 +13,15 @@
 | v2.2.1  | JPA CarExtras 1:n                     | implement the draft and fake cars (uuid-4 digit for cars) | 8f4d22cb | 09/10 |
 | V2.2    | CarService test CRUD                  | Implement CarService                                      | eb3217d0 | 07/10 |
 | v2.3    | JPA InsuranceCia n:1                  | Implement class and test it                               | 12d87982 | 10/10 |
-| v2.4    | populate and assign cars to carExtras | implement part 1/2                                        | 56966f3d | 10/10 |
-| v2.5    | populate and assign cars to carExtras | implement part 2/2                                        | b8dd7b9d | 10/10 |
+| v2.4.1  | populate and assign cars to carExtras | implement part 1/2                                        | 56966f3d | 10/10 |
+| v2.4.2  | populate and assign cars to carExtras | implement part 2/2                                        | b8dd7b9d | 10/10 |
 
 ### Week #04
 
-| Version | Title                                      | Description | Status | Date |
-| ------- | ------------------------------------------ | ----------- | ------ | ---- |
-| v2.4    | JPA relationships: @OneToMany, @ManyToMany |             |        |      |
-| v2.5    | @ManyToMany                                |             |        |      |
+| Version | Title                          | Description | Status | Date |
+| ------- | ------------------------------ | ----------- | ------ | ---- |
+| v2.4.3  | th view Car related            |             |        |      |
+| v2.5    | JPA relationships: @ManyToMany |             |        |      |
 
 ## Version Quickstart Maven
 
