@@ -32,10 +32,10 @@ public class BookingTests {
 
         clientRepository.save(client);
 
-        Car car = carRepository.findById("6659").get();
+        Car car = carRepository.findById("7580").get();
 
         Booking myBooking = new Booking();
-        myBooking.setId("B003");
+        myBooking.setId("B004");
         myBooking.setBookingDate(1760344181);
         myBooking.setQtyDays(5);
         myBooking.setTotalAmount(100.26);
@@ -48,8 +48,8 @@ public class BookingTests {
 
         System.out.println("Booking: " + myBooking);
 
-        //bookingRepository.findById("B001").get();
-        //System.out.println("Booking --from db--: " + bookingRepository.findById("B001").get());
+        bookingRepository.findById("B004").get();
+        System.out.println("Booking --from db--: " + bookingRepository.findById("B001").get());
 
         //bookingRepository.delete(myBooking);
         //System.out.println("Booking deleted: " + myBooking);
