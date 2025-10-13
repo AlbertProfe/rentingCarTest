@@ -313,6 +313,45 @@ public class Booking {
 }
 ```
 
+### Lazy/Eager configuration
+
+**Session Management**: whty Lazy crushes
+
+- **LAZY loading** requires an **active Hibernate session** to fetch related entities
+- When you call `bookingRepository.findById("B001").get()`, the session might be **closed**
+- **Related entities** (Car, Client) are loaded as **proxies** that need the session to fetch actual data
+
+ **LazyInitializationException**
+
+```java
+// This fails with LAZY because session is closed when toString() tries to access car/client
+System.out.println("Booking --from db--: " + bookingRepository.findById("B001").get());
+```
+
+**🚀 Why EAGER Loading Works:** Immediate Fetching
+
+- **EAGER loading** fetches **all related entities** immediately when the main entity is loaded
+- **No proxy objects** - actual data is loaded upfront
+- **No session dependency** for accessing related data
+
+#### **@Transactional & Join**
+
+```java
+@Test
+@Transactional  // Keeps session open during test
+void bookingTest() {
+    // Your code here - LAZY will work
+}
+
+//Fetch Joins in Repository
+
+public interface BookingRepository extends CrudRepository<Booking, String> {
+    @Query("SELECT b FROM Booking b JOIN FETCH b.car JOIN FETCH b.client WHERE b.id = :id")
+    Optional<Booking> findByIdWithRelations(@Param("id") String id);
+}
+
+```
+
 ## H2 & application.properties
 
 > Welcome to H2, the Java SQL database. The main features of H2 are:
