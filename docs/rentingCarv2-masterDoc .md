@@ -1,6 +1,6 @@
 # rentingCar v2
 
-`version document: v2.2`
+`version document: v2.5`
 
 ## Goal & Summary
 
@@ -203,7 +203,7 @@ CarExtras {
 
 ### Car/CarExtras: @OneToMany bidirectional
 
-This version implements a **one-to-many bidirectional relationship** between [Car](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:7:0-121:1) and [CarExtras](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/CarExtras.java:4:0-12:30) entities using JPA annotations.
+> This version implements a **one-to-many bidirectional relationship** between [Car](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:7:0-121:1) and [CarExtras](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/CarExtras.java:4:0-12:30) entities using JPA annotations.
 
 **Car Entity:**
 
@@ -261,6 +261,55 @@ public class CarExtras {
     @JoinColumn(name = "CAR_FK")
     private Car carFK;
 
+}
+```
+
+### Booking/Car/Client n:m : @ManyToOne unidirectional
+
+> **Many-to-Many relationships** occur when multiple entities of one type can be associated with multiple entities of another type. In your car rental system, a classic N:M relationship would be between **Car** and **Client** entities through bookings.
+
+<img title="" src="https://albertprofe.dev/images/ifcd0021-1-25/n-m-uni.png" alt="" width="459" data-align="center">
+
+**Key Characteristics:**
+
+- **Multiple cars** can be rented by **multiple clients**
+- **Multiple clients** can rent **multiple cars** over time
+- Requires an **intermediate entity** (like [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1)) to manage the relationship
+
+**Implementation Approaches:**
+
+1. **Junction Table**: Use `@ManyToMany` with `@JoinTable` annotation
+2. **Bridge Entity**: Create a separate entity (like your [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1)) with `@ManyToOne` relationships
+
+**Our Current Design** uses the **Bridge Entity** approach, which is preferred because:
+
+- **Additional attributes** can be stored (bookingDate, qtyDays, totalAmount)
+- **Better control** over the relationship lifecycle
+- **Clearer business logic** representation
+- **Easier querying** and reporting
+
+The [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1) entity effectively transforms the N:M relationship into two **1:N relationships**: Car(1) → Booking(N) and Client(1) → Booking(N), providing flexibility and maintaining referential integrity while capturing booking-specific data.
+
+```java
+@Entity
+public class Booking {
+
+    @Id
+    private String id;
+    private int bookingDate;
+    private int qtyDays;
+    private double totalAmount;
+    private boolean isActive;
+
+    @JoinColumn(name = "CAR_FK")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Car car;
+
+    @JoinColumn(name = "CLIENT_FK")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Client client;
+
+    public Booking()
 }
 ```
 

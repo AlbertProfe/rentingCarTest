@@ -18,10 +18,11 @@
 
 ### Week #04
 
-| Version | Title                          | Description | Status | Date |
-| ------- | ------------------------------ | ----------- | ------ | ---- |
-| v2.4.3  | th view Car related            |             |        |      |
-| v2.5    | JPA relationships: @ManyToMany |             |        |      |
+| Version | Title                                                 | Description                           | Status | Date |
+| ------- | ----------------------------------------------------- | ------------------------------------- | ------ | ---- |
+| v2.4.3  | th view Car related                                   | View with car and its related objects |        |      |
+| v2.5.1  | JPA relationships: n:m with @ManyToOne unidirectional | Booking entity with Car/Client        |        |      |
+|         |                                                       |                                       |        |      |
 
 ## Version Quickstart Maven
 
