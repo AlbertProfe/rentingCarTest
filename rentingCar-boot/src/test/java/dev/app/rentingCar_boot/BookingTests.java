@@ -28,6 +28,7 @@ public class BookingTests {
     @Autowired
     PopulateBooking populateBooking;
 
+
     @Test
     void bookingTest(){
 

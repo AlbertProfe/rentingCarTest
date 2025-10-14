@@ -71,13 +71,13 @@ public class PopulateBooking {
         List<Car> availableCars = (List<Car>) carRepository.findAll();
         List<Client> availableClients = (List<Client>) clientRepository.findAll();
         
-        if (availableCars.isEmpty()) {
+        /*if (availableCars.isEmpty()) {
             throw new RuntimeException("No cars available in database. Please populate cars first.");
         }
         
         if (availableClients.isEmpty()) {
             throw new RuntimeException("No clients available in database. Please populate clients first.");
-        }
+        }*/
 
         for (Booking booking : bookings) {
             // Assign random car
@@ -91,6 +91,9 @@ public class PopulateBooking {
             bookingRepository.save(booking);
         }
     }
+
+
+    //------------------------------------- UTILS ----------------------------------------------
 
     /*public List<Booking> generateBookingsForSpecificCar(String carId, int qtyBookings) {
         List<Booking> generatedBookings = new ArrayList<>();
