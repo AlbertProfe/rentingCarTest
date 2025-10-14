@@ -6,6 +6,7 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.repository.BookingRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.ClientRepository;
+import dev.app.rentingCar_boot.utils.PopulateBooking;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class BookingTests {
 
     @Autowired
     CarRepository carRepository;
+
+    @Autowired
+    PopulateBooking populateBooking;
 
     @Test
     void bookingTest(){
@@ -54,9 +58,10 @@ public class BookingTests {
         System.out.println("Booking --from db--: " + bookingRepository.findById("B019").get());
         System.out.println("Car --from db--: " + carRepository.findById("5225").get());
 
+    }
 
-
-
-
+    @Test
+    void populateBookingTest(){
+        populateBooking.populateBooking(10);
     }
 }

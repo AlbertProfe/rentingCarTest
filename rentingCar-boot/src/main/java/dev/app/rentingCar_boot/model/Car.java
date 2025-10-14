@@ -1,10 +1,10 @@
 package dev.app.rentingCar_boot.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Entity
 public class Car {
@@ -31,22 +31,14 @@ public class Car {
     @OneToMany(mappedBy= "car" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Booking> bookings = new ArrayList<>();
 
-    /**
-     * Generates a 4-digit UUID for the car
-     * @return A 4-digit string ID
-     */
-    private String generateFourDigitUuid() {
-        Random random = new Random();
-        int uuid = 1000 + random.nextInt(9000); // Generates number between 1000-9999
-        return String.valueOf(uuid);
-    }
+
 
     public Car() {
-        this.id = generateFourDigitUuid();
+        this.id = GenerateUUID.generateFourDigitUuid();
     }
 
     public Car(String brand, String model, String plate, int year, double price) {
-        this.id = generateFourDigitUuid();
+        this.id = GenerateUUID.generateFourDigitUuid();
         this.brand = brand;
         this.model = model;
         this.plate = plate;

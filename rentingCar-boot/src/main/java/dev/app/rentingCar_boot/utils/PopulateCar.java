@@ -28,9 +28,13 @@ public class PopulateCar {
         List<Car> cars = generateCars(qty);
         List<CarExtras> carExtrass = generateCarExtras(qty);
         List<InssuranceCia> inssuranceCias = generateInssuranceCias(qty);
-
+        // let s assign the entities
         assignCarToCarExtras(cars, carExtrass);
         assignInssuranceCiaToCar(cars, inssuranceCias);
+        // let s create some entities NOT assigned
+        generateCars(10);
+        generateCarExtras(10);
+        generateInssuranceCias(10);
     }
 
     public List<CarExtras> generateCarExtras(int qtyCars) {
