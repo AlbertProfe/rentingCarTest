@@ -19,13 +19,17 @@ public class Car {
     private double price;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "inssurance_cia_id")
     private InssuranceCia inssuranceCia;
 
-    @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CarExtras> carExtras = new ArrayList<>();
 
+    //@ElementCollection(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy= "car" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Booking> bookings = new ArrayList<>();
 
     /**
      * Generates a 4-digit UUID for the car
@@ -53,6 +57,14 @@ public class Car {
     public Car(String id) {
         this.id = id;
         this.carExtras = new ArrayList<>();
+    }
+
+    public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 
     public String getId() {
@@ -132,6 +144,11 @@ public class Car {
                 ", plate='" + plate + '\'' +
                 ", year=" + year +
                 ", price=" + price +
+                ", carAge=" + carAge() +
+                ", inssuranceCia=" + (inssuranceCia != null ? inssuranceCia.getName() : "null") +
+                ", carExtras=" + carExtras.size() + " extras" +
+                ", bookings=" + bookings.size() + " bookings [" +
+                String.join(", ", bookings.stream().map(Booking::getId).toList()) + "]" +
                 '}';
     }
 }

@@ -13,11 +13,11 @@ public class Booking {
     private boolean isActive;
 
     @JoinColumn(name = "CAR_FK")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Car car;
 
     @JoinColumn(name = "CLIENT_FK")
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Client client;
 
     public Booking() {
@@ -97,8 +97,8 @@ public class Booking {
                 ", qtyDays=" + qtyDays +
                 ", totalAmount=" + totalAmount +
                 ", isActive=" + isActive +
-                ", car=" + car +
-                ", client=" + client +
+                ", car=" + (car != null ? car.getBrand() + " " + car.getModel() + " (" + car.getId() + ")" : "null") +
+                ", client=" + (client != null ? client.getName() + " " + client.getLastName() + " (" + client.getId() + ")" : "null") +
                 '}';
     }
 }
