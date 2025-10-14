@@ -458,6 +458,64 @@ Now we define a **bidirectional One-to-Many/Many-to-One relationship** between [
 - Bidirectional navigation: [car.getBookings()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:61:4-63:5) and [booking.getCar()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:75:4-77:5)
 - Automatic relationship management through JPA annotations
 
+## **@JoinTable Example with Client Entity**
+
+Here's an example of a **Many-to-Many relationship** using `@JoinTable` with the Client entity:
+
+### **New Entity: Course (Driving Courses)**
+
+```java
+@Entity
+public class Course {
+    @Id
+    private String id;
+    private String name;
+    private String description;
+    private double price;
+    private int durationHours;
+}
+```
+
+### **Client Entity with @JoinTable**
+
+```java
+@Entity
+public class Client {
+    @Id
+    private String id;
+    // ... other fields
+
+    @ManyToMany
+    @JoinTable(
+        name = "client_course",           // Junction table name
+        joinColumns = @JoinColumn(name = "client_id"),     // FK to Client
+        inverseJoinColumns = @JoinColumn(name = "course_id") // FK to Course
+    )
+    private Set<Course> enrolledCourses = new HashSet<>();
+}
+```
+
+### **Course Entity (Bidirectional)**
+
+```java
+@Entity
+public class Course {
+    // ... fields
+
+    @ManyToMany(mappedBy = "enrolledCourses")
+    private Set<Client> enrolledClients = new HashSet<>();
+}
+```
+
+**Real-World Scenario:**
+
+- **Multiple clients** can enroll in **multiple driving courses**
+- **Multiple courses** can have **multiple clients** enrolled
+- **Junction table** `client_course` stores the relationships
+- **No additional attributes** needed (just the relationship)
+
+This is pure N:M without extra data, unlike our Booking approach which stores additional booking information.
+
 ## H2 & application.properties
 
 > Welcome to H2, the Java SQL database. The main features of H2 are:
