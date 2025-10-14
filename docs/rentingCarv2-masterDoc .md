@@ -279,7 +279,7 @@ public class CarExtras {
 **Implementation Approaches:**
 
 1. **Junction Table**: Use `@ManyToMany` with `@JoinTable` annotation
-2. **Bridge Entity**: Create a separate entity (like your [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1)) with `@ManyToOne` relationships
+2. **Bridge Entity**: Create a separate entity (like our [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1)) with `@ManyToOne` relationships
 
 **Our Current Design** uses the **Bridge Entity** approach, which is preferred because:
 
@@ -313,15 +313,17 @@ public class Booking {
 }
 ```
 
-### Lazy/Eager configuration
+#### Lazy/Eager configuration
 
 **Session Management**: whty Lazy crushes
 
 - **LAZY loading** requires an **active Hibernate session** to fetch related entities
-- When you call `bookingRepository.findById("B001").get()`, the session might be **closed**
-- **Related entities** (Car, Client) are loaded as **proxies** that need the session to fetch actual data
 
- **LazyInitializationException**
+- When you call `bookingRepository.findById("B001").get()`, the session might be **closed**
+
+- **Related entities** (Car, Client) are loaded as **proxies** that need the session to fetch actual data
+  
+  **LazyInitializationException**
 
 ```java
 // This fails with LAZY because session is closed when toString() tries to access car/client
@@ -349,8 +351,112 @@ public interface BookingRepository extends CrudRepository<Booking, String> {
     @Query("SELECT b FROM Booking b JOIN FETCH b.car JOIN FETCH b.client WHERE b.id = :id")
     Optional<Booking> findByIdWithRelations(@Param("id") String id);
 }
-
 ```
+
+### Booking/Car/Client n:m : @ManyToOne bidirectional
+
+Code:
+
+```java
+@Entity
+public class Car {
+
+    @Id
+    private String id;
+    private String brand;
+    private String model;
+    private String plate;
+    @Column(name = "car_year")
+    private int year;
+    private double price;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "inssurance_cia_id")
+    private InssuranceCia inssuranceCia;
+
+    @OneToMany(mappedBy= "carFK" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CarExtras> carExtras = new ArrayList<>();
+
+    //@ElementCollection(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy= "car" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Booking> bookings = new ArrayList<>();
+
+    public Car(){}    
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id='" + id + '\'' +
+                ", brand='" + brand + '\'' +
+                ", model='" + model + '\'' +
+                ", plate='" + plate + '\'' +
+                ", year=" + year +
+                ", price=" + price +
+                ", carAge=" + carAge() +
+                ", inssuranceCia=" + (inssuranceCia != null ? inssuranceCia.getName() : "null") +
+                ", carExtras=" + carExtras.size() + " extras" +
+                ", bookings=" + bookings.size() + " bookings [" +
+                String.join(", ", bookings.stream().map(Booking::getId).toList()) + "]" +
+                '}';
+    }
+}
+
+@Entity
+public class Booking {
+
+    @Id
+    private String id;
+    private int bookingDate;
+    private int qtyDays;
+    private double totalAmount;
+    private boolean isActive;
+
+    @JoinColumn(name = "CAR_FK")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Car car;
+
+    @JoinColumn(name = "CLIENT_FK")
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Client client;
+
+    public Booking (){}
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id='" + id + '\'' +
+                ", bookingDate=" + bookingDate +
+                ", qtyDays=" + qtyDays +
+                ", totalAmount=" + totalAmount +
+                ", isActive=" + isActive +
+                ", car=" + (car != null ? car.getBrand() + " " + car.getModel() + " (" + car.getId() + ")" : "null") +
+                ", client=" + (client != null ? client.getName() + " " + client.getLastName() + " (" + client.getId() + ")" : "null") +
+                '}';
+    }
+```
+
+Now we define a **bidirectional One-to-Many/Many-to-One relationship** between [Car](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:8:0-153:1) and [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1) entities using JPA/Hibernate.
+
+**Car Side (One-to-Many):**
+
+- `@OneToMany(mappedBy="car")` indicates one car can have multiple bookings
+- `mappedBy="car"` means [Booking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:4:0-103:1) entity owns the relationship via its `car` field
+- `@JsonIgnore` prevents infinite JSON serialization loops
+
+**Booking Side (Many-to-One):**
+
+- `@ManyToOne` indicates many bookings can belong to one car
+- `@JoinColumn(name="CAR_FK")` creates foreign key column in booking table
+- This side owns the relationship and manages the foreign key
+
+**Key Features:**
+
+- `EAGER` fetching loads related data immediately
+- [toString()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:1:4-15:5) methods avoid circular references by showing only essential info
+- Bidirectional navigation: [car.getBookings()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:61:4-63:5) and [booking.getCar()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:75:4-77:5)
+- Automatic relationship management through JPA annotations
 
 ## H2 & application.properties
 
@@ -411,36 +517,6 @@ JPA/Hibernate Settings
 - **`spring.jpa.database-platform=org.hibernate.dialect.H2Dialect`** - Tells Hibernate to use H2-specific SQL syntax
 - **`spring.jpa.show-sql=true`** - Enables SQL query logging for debugging
 - **`spring.jpa.hibernate.ddl-auto=update`** - Automatically updates database schema without dropping existing data (safer than `create` which recreates tables)
-
-## Syntetic data & fake objects
-
-- [GitHub - DiUS/java-faker: Brings the popular ruby faker gem to Java](https://github.com/DiUS/java-faker)
-
-> This library is a port of Ruby's [faker](https://github.com/stympy/faker) gem (as well as Perl's Data::Faker library) that generates fake data. It's useful when you're developing a new project and need some pretty data for showcase.
-
-Usage
-
-In pom.xml, add the following xml stanza between `<dependencies> ... </dependencies>`
-
-```xml
-<dependency>
-    <groupId>com.github.javafaker</groupId>
-    <artifactId>javafaker</artifactId>
-    <version>1.0.2</version>
-</dependency>
-```
-
-Code example:
-
-```java
-Faker faker = new Faker();
-
-String name = faker.name().fullName(); // Miss Samanta Schmidt
-String firstName = faker.name().firstName(); // Emory
-String lastName = faker.name().lastName(); // Barton
-
-String streetAddress = faker.address().streetAddress(); // 60018 Sawayn Brooks Suite 449
-```
 
 ## UML Renting Car
 
