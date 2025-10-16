@@ -93,14 +93,14 @@ public class PopulateDrivingCourse {
         // Fetch all clients from database
         List<Client> allClients = new ArrayList<>();
         clientRepository.findAll().forEach(allClients::add);
-        
+        // defensive programming: check if there are clients in the database
         if (allClients.isEmpty()) {
             System.out.println("No clients found in database. Cannot assign clients to driving courses.");
             return;
         }
         
         Random random = new Random();
-        
+        // loop: for each driving course
         for (DrivingCourse drivingCourse : drivingCourses) {
             // Determine number of clients to assign (between 5 and 10)
             int numClientsToAssign = 5 + random.nextInt(6); // 5 to 10 clients
@@ -108,6 +108,8 @@ public class PopulateDrivingCourse {
             List<Client> clientsToAdd = new ArrayList<>();
             
             // Add random clients without duplicates
+            // clientsToAdd.size() < numClientsToAssign: until we have assigned the required number of clients
+            // clientsToAdd.size() < allClients.size(): until we run out of clients
             while (clientsToAdd.size() < numClientsToAssign && clientsToAdd.size() < allClients.size()) {
                 // Get a random client from allClients
                 Client randomClient = allClients.get(random.nextInt(allClients.size()));
