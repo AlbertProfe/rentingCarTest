@@ -98,7 +98,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "\n Client{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +

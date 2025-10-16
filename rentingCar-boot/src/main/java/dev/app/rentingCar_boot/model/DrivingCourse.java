@@ -20,7 +20,7 @@ public class DrivingCourse {
     private boolean isActive;
     private String location;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "client_driving_course",
             joinColumns = @JoinColumn(name = "driving_course_id"),
             inverseJoinColumns = @JoinColumn(name = "client_id"))
@@ -146,6 +146,7 @@ public class DrivingCourse {
                 ", maxStudents=" + maxStudents +
                 ", isActive=" + isActive +
                 ", location='" + location + '\'' +
+                ", clients=" + clients +
                 '}';
     }
 }
