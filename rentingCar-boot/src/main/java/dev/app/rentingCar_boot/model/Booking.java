@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
+import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,10 +22,11 @@ public class Booking {
     private Client client;
 
     public Booking() {
+        this.id = GenerateUUID.generateFourDigitUuid();
     }
 
-    public Booking(String id, int bookingDate, int qtyDays, double totalAmount, boolean isActive, Car car, Client client) {
-        this.id = id;
+    public Booking(int bookingDate, int qtyDays, double totalAmount, boolean isActive, Car car, Client client) {
+        this.id = GenerateUUID.generateFourDigitUuid();
         this.bookingDate = bookingDate;
         this.qtyDays = qtyDays;
         this.totalAmount = totalAmount;

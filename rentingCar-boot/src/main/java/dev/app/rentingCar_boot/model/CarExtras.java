@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
+import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,10 +18,13 @@ public class CarExtras {
     @JoinColumn(name = "CAR_FK")
     private Car carFK;
 
-    public CarExtras() {}
+    public CarExtras() {
+        this.id = GenerateUUID.generateFourDigitUuid();
+    }
 
-    public CarExtras(String id, String name, String description, double dailyPrice, boolean available, String category) {
-        this.id = id;
+    public CarExtras(String name, String description, double dailyPrice,
+                     boolean available, String category) {
+        this.id = GenerateUUID.generateFourDigitUuid();
         this.name = name;
         this.description = description;
         this.dailyPrice = dailyPrice;

@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
+import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -16,8 +17,8 @@ public class Client {
     private int age;
     private String password;
 
-    public Client(String id, String name, String lastName, String address, String email, boolean premium, int age, String password) {
-        this.id = id;
+    public Client(String name, String lastName, String address, String email, boolean premium, int age, String password) {
+        this.id = GenerateUUID.generateFourDigitUuid();
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -27,7 +28,9 @@ public class Client {
         this.password = password;
     }
 
-    public Client(){}
+    public Client(){
+        this.id = GenerateUUID.generateFourDigitUuid();
+    }
 
     public String getId() {
         return id;

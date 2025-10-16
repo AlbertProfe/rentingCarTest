@@ -56,7 +56,7 @@ public class PopulateBooking {
             // Random active status (80% chance of being active)
             boolean isActive = random.nextDouble() < 0.8;
 
-            Booking booking = new Booking(id, bookingDate, qtyDays, totalAmount, isActive, null, null);
+            Booking booking = new Booking(bookingDate, qtyDays, totalAmount, isActive, null, null);
             generatedBookings.add(booking);
             bookingRepository.save(booking);
         }

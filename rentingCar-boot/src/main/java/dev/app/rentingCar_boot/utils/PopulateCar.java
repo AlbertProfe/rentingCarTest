@@ -66,11 +66,11 @@ public class PopulateCar {
             String name = extraNames[random.nextInt(extraNames.length)];
             String description = descriptions[random.nextInt(descriptions.length)];
             String category = categories[random.nextInt(categories.length)];
-            String id = "EXT" + String.format("%04d", i + 1);
+            //String id = "EXT" + String.format("%04d", i + 1);
             double dailyPrice = 5.0 + (random.nextDouble() * 45.0); // Price between 5-50
             boolean available = random.nextBoolean();
 
-            CarExtras carExtra = new CarExtras(id, name, description, dailyPrice, available, category);
+            CarExtras carExtra = new CarExtras(name, description, dailyPrice, available, category);
             generatedCarExtras.add(carExtra);
             carExtrasRepository.save(carExtra);
         }
@@ -124,13 +124,13 @@ public class PopulateCar {
         for (int i = 0; i < qty; i++) {
             InssuranceCia inssuranceCia = new InssuranceCia();
             
-            String id = "INS" + String.format("%04d", i + 1);
+            //String id = "INS" + String.format("%04d", i + 1);
             String name = companyNames[random.nextInt(companyNames.length)];
             String description = descriptions[random.nextInt(descriptions.length)];
             int qtyEmployee = 50 + random.nextInt(950); // Between 50-1000 employees
             boolean isActive = random.nextBoolean();
 
-            inssuranceCia.setId(id);
+            //inssuranceCia.setId(id);
             inssuranceCia.setName(name);
             inssuranceCia.setDescription(description);
             inssuranceCia.setQtyEmployee(qtyEmployee);

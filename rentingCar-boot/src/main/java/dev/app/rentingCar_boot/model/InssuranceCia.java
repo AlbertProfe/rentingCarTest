@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot.model;
 
+import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -22,6 +23,7 @@ public class InssuranceCia {
     private List<Car> cars;
 
     public InssuranceCia() {
+        this.id = GenerateUUID.generateFourDigitUuid();
     }
 
     public String getId() {
