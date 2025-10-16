@@ -487,9 +487,13 @@ public class Client {
 
     @ManyToMany
     @JoinTable(
-        name = "client_course",           // Junction table name
-        joinColumns = @JoinColumn(name = "client_id"),     // FK to Client
-        inverseJoinColumns = @JoinColumn(name = "course_id") // FK to Course
+        // Junction table name
+        name = "client_course",  
+        // FK to Client         
+        joinColumns = @JoinColumn(name = "client_id"),
+        // FK to Course    
+        inverseJoinColumns = @JoinColumn(name = "course_id") 
+
     )
     private Set<Course> enrolledCourses = new HashSet<>();
 }
@@ -580,39 +584,112 @@ JPA/Hibernate Settings
 
 ```mermaid
 classDiagram
+    direction LR
 
-
-    class Car{
-      - String id
-      - String brand
-      - String model
-      - String plate
-      - int year
-      - double price
-    }
-    class Client{
-      - String id
-      - String name
-      - String lastName
-      - String address
-      - String email
-      - bool premium
-      - int age
-    }
-    class Booking{
-      - bool isActive
-      - LocalDate bookingDate
-      - int days
-      - Car car
-      - Client client
-      - double price
-      - bool isActive  
-
+    class Client {
+        -String id
+        -String name
+        -String lastName
+        -String address
+        -String email
+        -boolean premium
+        -int age
+        -String password
+        +getId() String
+        +getName() String
+        +getLastName() String
+        +getAddress() String
+        +getEmail() String
+        +isPremium() boolean
+        +getAge() int
+        +getPassword() String
     }
 
+    class Car {
+        -String id
+        -String brand
+        -String model
+        -String plate
+        -int year
+        -double price
+        +getId() String
+        +getBrand() String
+        +getModel() String
+        +getPlate() String
+        +getYear() int
+        +getPrice() double
+        +carAge() int
+    }
 
-    Car --* Booking
-    Client --* Booking
+    class Booking {
+        -String id
+        -int bookingDate
+        -int qtyDays
+        -double totalAmount
+        -boolean isActive
+        +getId() String
+        +getBookingDate() int
+        +getQtyDays() int
+        +getTotalAmount() double
+        +isActive() boolean
+    }
+
+    class CarExtras {
+        -String id
+        -String name
+        -String description
+        -double dailyPrice
+        -boolean available
+        -String category
+        +getId() String
+        +getName() String
+        +getDescription() String
+        +getDailyPrice() double
+        +isAvailable() boolean
+        +getCategory() String
+    }
+
+    class InssuranceCia {
+        -String id
+        -String name
+        -String description
+        -int qtyEmployee
+        -boolean isActive
+        +getId() String
+        +getName() String
+        +getDescription() String
+        +getQtyEmployee() int
+        +isActive() boolean
+    }
+
+    class DrivingCourse {
+        -String id
+        -String courseName
+        -String description
+        -String instructor
+        -int durationHours
+        -double price
+        -String category
+        -int maxStudents
+        -boolean isActive
+        -String location
+        +getId() String
+        +getCourseName() String
+        +getDescription() String
+        +getInstructor() String
+        +getDurationHours() int
+        +getPrice() double
+        +getCategory() String
+        +getMaxStudents() int
+        +isActive() boolean
+        +getLocation() String
+    }
+
+    Client --o Booking
+    Car --o Booking
+    Car --o CarExtras
+    InssuranceCia --o Car
+    DrivingCourse o--o Client
 ```
 
 ## Tech Stack
