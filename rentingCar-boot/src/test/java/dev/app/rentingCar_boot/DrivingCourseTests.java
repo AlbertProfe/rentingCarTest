@@ -4,6 +4,7 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.model.DrivingCourse;
 import dev.app.rentingCar_boot.repository.ClientRepository;
 import dev.app.rentingCar_boot.repository.DrivingCourseRepository;
+import dev.app.rentingCar_boot.utils.PopulateDrivingCourse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,9 @@ public class DrivingCourseTests {
 
     @Autowired
     private ClientRepository clientRepository;
+
+    @Autowired
+    PopulateDrivingCourse populateDrivingCourse;
 
     @Test
     void assignClientsToDrivingCourses() {
@@ -48,5 +52,10 @@ public class DrivingCourseTests {
             System.out.println(drivingCourseToprint + "\n");
         }
 
+    }
+
+    @Test
+    void populateBookingTest(){
+        populateDrivingCourse.populateDrivingCourse(10);
     }
 }

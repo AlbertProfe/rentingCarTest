@@ -1,11 +1,14 @@
 package dev.app.rentingCar_boot.utils;
 
+import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.model.DrivingCourse;
+import dev.app.rentingCar_boot.repository.ClientRepository;
 import dev.app.rentingCar_boot.repository.DrivingCourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +17,9 @@ public class PopulateDrivingCourse {
 
     @Autowired
     private DrivingCourseRepository drivingCourseRepository;
+
+    @Autowired
+    private ClientRepository clientRepository;
 
     public void populateDrivingCourse(int qty) {
      // let s populate this table: Driving Course
@@ -83,6 +89,43 @@ public class PopulateDrivingCourse {
     }
 
     public void assignClientsToDrivingCourses(ArrayList<DrivingCourse> drivingCourses){
-        // to do
+        // Fetch all clients from database
+        List<Client> allClients = new ArrayList<>();
+        clientRepository.findAll().forEach(allClients::add);
+        
+        if (allClients.isEmpty()) {
+            System.out.println("No clients found in database. Cannot assign clients to driving courses.");
+            return;
+        }
+        
+        Random random = new Random();
+        
+        for (DrivingCourse drivingCourse : drivingCourses) {
+            // Determine number of clients to assign (between 5 and 10)
+            int numClientsToAssign = 5 + random.nextInt(6); // 5 to 10 clients
+
+            List<Client> clientsToAdd = new ArrayList<>();
+            
+            // Add random clients without duplicates
+            while (clientsToAdd.size() < numClientsToAssign && clientsToAdd.size() < allClients.size()) {
+                // Get a random client from allClients
+                Client randomClient = allClients.get(random.nextInt(allClients.size()));
+                
+                // Check if this client is already in clientsToAdd
+                if (!clientsToAdd.contains(randomClient)) {
+                    clientsToAdd.add(randomClient);
+                }
+            }
+            
+            // Add all selected clients to the driving course
+            drivingCourse.getClients().addAll(clientsToAdd);
+            
+            // Save the updated driving course with assigned clients
+            drivingCourseRepository.save(drivingCourse);
+            
+            System.out.println("Assigned " + clientsToAdd.size() + " clients to course: '" + drivingCourse.getCourseName() +
+                             "' (ID: " + drivingCourse.getId() + ", Instructor: " + drivingCourse.getInstructor() + 
+                             ", Max Students: " + drivingCourse.getMaxStudents() + ")");
+        }
     }
 }
