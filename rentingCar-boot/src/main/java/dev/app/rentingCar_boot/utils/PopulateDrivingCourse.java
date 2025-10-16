@@ -89,6 +89,7 @@ public class PopulateDrivingCourse {
     }
 
     public void assignClientsToDrivingCourses(ArrayList<DrivingCourse> drivingCourses){
+        //List<Client> allClients = (List<Client>) clientRepository.findAll();
         // Fetch all clients from database
         List<Client> allClients = new ArrayList<>();
         clientRepository.findAll().forEach(allClients::add);
