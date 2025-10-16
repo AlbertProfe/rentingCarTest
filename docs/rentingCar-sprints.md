@@ -1,6 +1,6 @@
 # rentingCar sprints
 
-`version document: v2.2`
+`version document: v2.7`
 
 ## Version Boot
 
@@ -25,7 +25,8 @@
 | v2.6    | Booking and Car bidirectional: List<Bookings>         | JPA relationships: n:m with @ManyToOne | b7a01b33 | 14/10 |
 | v2.7    | @Entity Driving Course n:m                            | Implement with @joinTable              | bf2f0dc  | 14/10 |
 | v2.7.1  | generateUUI for all entities                          |                                        |          | 16/10 |
-| v2.7.2  | populate all tables                                   |                                        |          | 17/10 |
+| v2.7.2  | Client with List<String>                              | @ElementCollection                     |          | 17/10 |
+| v2.7.3  | populate all tables                                   |                                        |          | 17/10 |
 
 ## Version Quickstart Maven
 

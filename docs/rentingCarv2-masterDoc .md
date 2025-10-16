@@ -1,6 +1,6 @@
 # rentingCar v2
 
-`version document: v2.5`
+`version document: v2.7`
 
 ## Goal & Summary
 
@@ -458,11 +458,11 @@ Now we define a **bidirectional One-to-Many/Many-to-One relationship** between [
 - Bidirectional navigation: [car.getBookings()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:61:4-63:5) and [booking.getCar()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:75:4-77:5)
 - Automatic relationship management through JPA annotations
 
-## **@JoinTable Example with Client Entity**
+### **@JoinTable Example with Client Entity**
 
 Here's an example of a **Many-to-Many relationship** using `@JoinTable` with the Client entity:
 
-### **New Entity: Course (Driving Courses)**
+#### **New Entity: Course (Driving Courses)**
 
 ```java
 @Entity
@@ -476,7 +476,7 @@ public class Course {
 }
 ```
 
-### **Client Entity with @JoinTable**
+#### **Client Entity with @JoinTable**
 
 ```java
 @Entity
@@ -495,7 +495,7 @@ public class Client {
 }
 ```
 
-### **Course Entity (Bidirectional)**
+#### **Course Entity (Bidirectional)**
 
 ```java
 @Entity
