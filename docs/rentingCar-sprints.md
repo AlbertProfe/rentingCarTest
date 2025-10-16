@@ -22,7 +22,10 @@
 | ------- | ----------------------------------------------------- | -------------------------------------- | -------- | ----- |
 | v2.4.3  | th view Car related                                   | View with car and its related objects  | 62b5c184 | 13/10 |
 | v2.5.1  | JPA relationships: n:m with @ManyToOne unidirectional | Booking entity with Car/Client         | 62b5c184 | 13/10 |
-| v2.6    | Booking and Client bidirectional                      | JPA relationships: n:m with @ManyToOne | b7a01b33 | 14/10 |
+| v2.6    | Booking and Car bidirectional: List<Bookings>         | JPA relationships: n:m with @ManyToOne | b7a01b33 | 14/10 |
+| v2.7    | @Entity Driving Course n:m                            | Implement with @joinTable              | bf2f0dc  | 14/10 |
+| v2.7.1  | generateUUI for all entities                          |                                        |          | 16/10 |
+| v2.7.2  | populate all tables                                   |                                        |          | 17/10 |
 
 ## Version Quickstart Maven
 
