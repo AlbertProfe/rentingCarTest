@@ -107,17 +107,22 @@ public class PopulateDrivingCourse {
 
             List<Client> clientsToAdd = new ArrayList<>();
             
+            // Create a copy of all clients that we can modify
+            List<Client> availableClients = new ArrayList<>(allClients);
+            
             // Add random clients without duplicates
             // clientsToAdd.size() < numClientsToAssign: until we have assigned the required number of clients
-            // clientsToAdd.size() < allClients.size(): until we run out of clients
-            while (clientsToAdd.size() < numClientsToAssign && clientsToAdd.size() < allClients.size()) {
-                // Get a random client from allClients
-                Client randomClient = allClients.get(random.nextInt(allClients.size()));
+            // availableClients.size() > 0: until we run out of available clients
+            while (clientsToAdd.size() < numClientsToAssign && availableClients.size() > 0) {
+                // Get a random client from availableClients
+                int randomIndex = random.nextInt(availableClients.size());
+                Client randomClient = availableClients.get(randomIndex);
                 
-                // Check if this client is already in clientsToAdd
-                if (!clientsToAdd.contains(randomClient)) {
-                    clientsToAdd.add(randomClient);
-                }
+                // Add the client to our selection
+                clientsToAdd.add(randomClient);
+                
+                // Remove the selected client from available clients to avoid duplicates
+                availableClients.remove(randomIndex);
             }
             
             // Add all selected clients to the driving course
