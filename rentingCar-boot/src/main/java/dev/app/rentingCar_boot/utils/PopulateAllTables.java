@@ -21,14 +21,14 @@ public class PopulateAllTables {
     public String populateAllTables(int qty) {
 
         // let s populate cars first
-        PopulateStatus populateCarStatus = populateCar.populateCar(10);
+        PopulateStatus populateCarStatus = populateCar.populateCar(qty);
         System.out.println("\nPopulate Car operations: " + populateCarStatus.getQty() +
                 " \n" + populateCarStatus.getMessage());
 
         // let s populate clients
         PopulateStatus populateClientStatus = null;
         if (populateCarStatus.isStatus()) {
-        populateClientStatus = populateClient.populateClient(10);
+        populateClientStatus = populateClient.populateClient(qty);
         System.out.println("\nPopulate Client operations: " + populateClientStatus.getQty() +
                 " \n" + populateClientStatus.getMessage());
         } else return "Populate Car operations failed";
@@ -37,7 +37,7 @@ public class PopulateAllTables {
         // once cars are populated, let s populate bookings
         PopulateStatus populateBookingStatus = null;
         if (populateClientStatus.isStatus()) {
-        populateBookingStatus = populateBooking.populateBooking(10);
+        populateBookingStatus = populateBooking.populateBooking(qty);
         System.out.println("\nPopulate Booking operations: " + populateBookingStatus.getQty() +
                 " \n" + populateBookingStatus.getMessage());
         } else return "Populate Client operations failed";
@@ -45,7 +45,7 @@ public class PopulateAllTables {
         // once bookings are populated, let s populate driving courses
         PopulateStatus populateDrivingCourseStatus = null;
         if (populateBookingStatus.isStatus()){
-        populateDrivingCourseStatus = populateDrivingCourse.populateDrivingCourse(10);
+        populateDrivingCourseStatus = populateDrivingCourse.populateDrivingCourse(qty);
         System.out.println("\nPopulate DrivingCourse operations: " + populateDrivingCourseStatus.getQty() +
                 " \n" + populateDrivingCourseStatus.getMessage());
         } else return "Populate Booking operations failed";

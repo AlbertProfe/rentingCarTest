@@ -49,7 +49,8 @@ public class PopulateTests {
 
     @Test
     void populateAllTablesAtOnce () {
-        String result = populateAllTables.populateAllTables(100);
+
+        String result = populateAllTables.populateAllTables(1000);
         System.out.println(result);
     }
 
