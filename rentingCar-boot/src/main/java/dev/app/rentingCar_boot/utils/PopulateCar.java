@@ -3,6 +3,7 @@ package dev.app.rentingCar_boot.utils;
 import dev.app.rentingCar_boot.model.Car;
 import dev.app.rentingCar_boot.model.CarExtras;
 import dev.app.rentingCar_boot.model.InssuranceCia;
+import dev.app.rentingCar_boot.model.PopulateStatus;
 import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
@@ -24,17 +25,87 @@ public class PopulateCar {
     @Autowired
     private InssuranceCiaRepository inssuranceCiaRepository;
 
-    public void populateCar(int qty) {
-        List<Car> cars = generateCars(qty);
-        List<CarExtras> carExtrass = generateCarExtras(qty);
-        List<InssuranceCia> inssuranceCias = generateInssuranceCias(qty);
-        // let s assign the entities
-        assignCarToCarExtras(cars, carExtrass);
-        assignInssuranceCiaToCar(cars, inssuranceCias);
-        // let s create some entities NOT assigned
-        generateCars(10);
-        generateCarExtras(10);
-        generateInssuranceCias(10);
+    public PopulateStatus populateCar(int qty) {
+        StringBuilder messageBuilder = new StringBuilder();
+        boolean[] operationResults = new boolean[8];
+        int operationIndex = 0;
+        
+        try {
+            // Operation 1: Generate Cars (main)
+            List<Car> cars = generateCars(qty);
+            operationResults[operationIndex] = cars != null && cars.size() == qty;
+            messageBuilder.append(" Operation 1: Generated ").append(cars != null ? cars.size() : 0)
+                         .append(" cars (requested: ").append(qty).append(")\n");
+            operationIndex++;
+            
+            // Operation 2: Generate CarExtras (main)
+            List<CarExtras> carExtrass = generateCarExtras(qty);
+            operationResults[operationIndex] = carExtrass != null && carExtrass.size() == qty;
+            messageBuilder.append(" Operation 2: Generated ").append(carExtrass != null ? carExtrass.size() : 0)
+                         .append(" car extras (requested: ").append(qty).append(")\n");
+            operationIndex++;
+            
+            // Operation 3: Generate InssuranceCias (main)
+            List<InssuranceCia> inssuranceCias = generateInssuranceCias(qty);
+            operationResults[operationIndex] = inssuranceCias != null && inssuranceCias.size() == qty;
+            messageBuilder.append(" Operation 3: Generated ").append(inssuranceCias != null ? inssuranceCias.size() : 0)
+                         .append(" insurance companies (requested: ").append(qty).append(")\n");
+            operationIndex++;
+            
+            // Operation 4: Assign CarExtras to Cars
+            assignCarToCarExtras(cars, carExtrass);
+            operationResults[operationIndex] = true; // Assume success if no exception
+            messageBuilder.append(" Operation 4: Assigned car extras to cars successfully\n");
+            operationIndex++;
+            
+            // Operation 5: Assign InssuranceCias to Cars
+            assignInssuranceCiaToCar(cars, inssuranceCias);
+            operationResults[operationIndex] = true; // Assume success if no exception
+            messageBuilder.append(" Operation 5: Assigned insurance companies to cars successfully\n");
+            operationIndex++;
+            
+            // Operation 6: Generate additional Cars (unassigned)
+            List<Car> additionalCars = generateCars(10);
+            operationResults[operationIndex] = additionalCars != null && additionalCars.size() == 10;
+            messageBuilder.append(" Operation 6: Generated ").append(additionalCars != null ? additionalCars.size() : 0)
+                         .append(" additional cars (requested: 10)\n");
+            operationIndex++;
+            
+            // Operation 7: Generate additional CarExtras (unassigned)
+            List<CarExtras> additionalCarExtras = generateCarExtras(10);
+            operationResults[operationIndex] = additionalCarExtras != null && additionalCarExtras.size() == 10;
+            messageBuilder.append(" Operation 7: Generated ").append(additionalCarExtras != null ? additionalCarExtras.size() : 0)
+                         .append(" additional car extras (requested: 10)\n");
+            operationIndex++;
+            
+            // Operation 8: Generate additional InssuranceCias (unassigned)
+            List<InssuranceCia> additionalInssuranceCias = generateInssuranceCias(10);
+            operationResults[operationIndex] = additionalInssuranceCias != null && additionalInssuranceCias.size() == 10;
+            messageBuilder.append(" Operation 8: Generated ").append(additionalInssuranceCias != null ? additionalInssuranceCias.size() : 0)
+                         .append(" additional insurance companies (requested: 10)\n");
+            
+        } catch (Exception e) {
+            // Mark current and remaining operations as failed
+            for (int i = operationIndex; i < 8; i++) {
+                operationResults[i] = false;
+            }
+            messageBuilder.append("Error occurred during operation ").append(operationIndex + 1)
+                         .append(": ").append(e.getMessage()).append("\n");
+        }
+        
+        // Check if all operations succeeded
+        boolean allSuccess = true;
+        for (boolean result : operationResults) {
+            if (!result) {
+                allSuccess = false;
+                break;
+            }
+        }
+        
+        // Calculate total quantity (main qty + 30 additional entities)
+        int totalQty = qty * 3 + 30; // 3 types of entities * qty + 30 additional
+        
+        return new PopulateStatus(allSuccess, messageBuilder.toString().trim(), totalQty);
     }
 
     public List<CarExtras> generateCarExtras(int qtyCars) {

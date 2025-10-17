@@ -1,5 +1,6 @@
 package dev.app.rentingCar_boot;
 
+import dev.app.rentingCar_boot.model.PopulateStatus;
 import dev.app.rentingCar_boot.utils.PopulateBooking;
 import dev.app.rentingCar_boot.utils.PopulateCar;
 import dev.app.rentingCar_boot.utils.PopulateClient;
@@ -26,13 +27,17 @@ public class PopulateTests {
     @Test
     void populateAllTables () {
         // let s populate cars first
-        populateCar.populateCar(10);
+        PopulateStatus populateCarStatus = populateCar.populateCar(10);
+        System.out.println("Populate Car operations: " + populateCarStatus.getQty() + " \n" + populateCarStatus.getMessage());
+
         // let s populate clients
-        populateClient.populateClient(10);
+        //populateClient.populateClient(10);
+
         // once cars are populated, let s populate bookings
-        populateBooking.populateBooking(10);
+        //populateBooking.populateBooking(10);
+
         // once bookings are populated, let s populate driving courses
-        populateDrivingCourse.populateDrivingCourse(10);
+        //populateDrivingCourse.populateDrivingCourse(10);
     }
 
 }

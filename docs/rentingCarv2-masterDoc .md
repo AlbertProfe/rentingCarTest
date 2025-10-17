@@ -588,8 +588,6 @@ JPA/Hibernate Settings
 
 - [rentingCarTest/docs/masterdocappends/ElementCollection.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/ElementCollection.md)
 
-
-
 ## UML Renting Car
 
 ```mermaid
