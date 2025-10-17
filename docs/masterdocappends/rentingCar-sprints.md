@@ -28,8 +28,8 @@
 | v2.7.2  | test Driving Course n:m populate @JoinTable draft     | skeleton populate DrivingCourse and test assignClientsToDrivingCourses | dedce7d1 | 16/10 |
 | v2.7.3  | generateDrivingCourses                                | implement                                                              | c12ab9cc | 16/10 |
 | v2.7.4  | assignClientsToDrivingCourses                         | implement                                                              | b006f597 | 16/10 |
-| v2.7.5  | Client with List<String>                              | @ElementCollection                                                     |          | 17/10 |
-| v2.7.6  | populate all tables: populateCarStatus                | populateStatus to return status after populatoin operations            |          | 17/10 |
+| v2.7.5  | Client with List<String>                              | @ElementCollection                                                     | 252f3238 | 17/10 |
+| v2.7.6  | populate all tables: populateCarStatus                | populateStatus to return status after populatoin operations            | 5f4354d0 | 17/10 |
 
 ## Version Quickstart Maven
 

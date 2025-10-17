@@ -582,9 +582,11 @@ JPA/Hibernate Settings
 - **`spring.jpa.show-sql=true`** - Enables SQL query logging for debugging
 - **`spring.jpa.hibernate.ddl-auto=update`** - Automatically updates database schema without dropping existing data (safer than `create` which recreates tables)
 
-## @ElementCollection
+## Refactor: @ElementCollection for addresses
 
-- `@ElementCollection` provides a clean, simple way to store multiple addresses per client without the overhead of creating a separate Address entity. It's perfect for basic collections that are tightly coupled to their parent entity.
+Client address refactor to addresses: List<String> with `@ElementCollection`
+
+> `@ElementCollection` provides a clean, simple way to store multiple addresses per client without the overhead of creating a separate Address entity. It's perfect for basic collections that are tightly coupled to their parent entity.
 
 - [rentingCarTest/docs/masterdocappends/ElementCollection.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/ElementCollection.md)
 
