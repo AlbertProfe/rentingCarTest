@@ -2,6 +2,7 @@ package dev.app.rentingCar_boot;
 
 import dev.app.rentingCar_boot.utils.PopulateBooking;
 import dev.app.rentingCar_boot.utils.PopulateCar;
+import dev.app.rentingCar_boot.utils.PopulateClient;
 import dev.app.rentingCar_boot.utils.PopulateDrivingCourse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,15 @@ public class PopulateTests {
     @Autowired
     PopulateDrivingCourse populateDrivingCourse;
 
+    @Autowired
+    PopulateClient populateClient;
+
     @Test
     void populateAllTables () {
         // let s populate cars first
         populateCar.populateCar(10);
+        // let s populate clients
+        populateClient.populateClient(10);
         // once cars are populated, let s populate bookings
         populateBooking.populateBooking(10);
         // once bookings are populated, let s populate driving courses

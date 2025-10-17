@@ -33,8 +33,8 @@ public class BookingTests {
     void bookingTest(){
 
         Client client = new Client(
-                "Nil", "Gasol",
-                "Carrer de laitat", "nil.gasol@gmail.com",
+                "Nil", "Gasol"
+                , "nil.gasol@gmail.com",
                 false, 25, "1234");
 
         clientRepository.save(client);

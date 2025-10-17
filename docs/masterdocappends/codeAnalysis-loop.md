@@ -1,5 +1,11 @@
 ## Code Analysis: Loop & while
 
+## Object
+
+> We need to add some random `clients` to our `DrivingCourses` to test our n:m relationship with **@JoinTable**.
+> 
+> We should limit the clients number assigned cause to make it real-world apporach. For example in this exercise it would be betwwen 5 and 10.
+
 ## **Comparison: `availableClients` vs `contains()` Approach**
 
 | **Aspect**                      | **availableClients Approach**                        | **contains() with if Check**                         |

@@ -1,8 +1,10 @@
 package dev.app.rentingCar_boot.model;
 
 import dev.app.rentingCar_boot.utils.GenerateUUID;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Client {
@@ -11,22 +13,20 @@ public class Client {
     private String id;
     private String name;
     private String lastName;
-    private String address;
     private String email;
     private boolean premium;
     private int age;
     private String password;
 
-    //@ElementCollection
-    //@CollectionTable(name = "client_addresses", joinColumns = @JoinColumn(name = "client_id"))
-    //@Column(name = "address")
-    //private List<String> addresses = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "CLIENT_ADDRESSES", joinColumns = @JoinColumn(name = "CLIENT_FK"))
+    @Column(name = "ADDRESS")
+    private List<String> addresses = new ArrayList<>();
 
-    public Client(String name, String lastName, String address, String email, boolean premium, int age, String password) {
+    public Client(String name, String lastName,  String email, boolean premium, int age, String password) {
         this.id = GenerateUUID.generateFourDigitUuid();
         this.name = name;
         this.lastName = lastName;
-        this.address = address;
         this.email = email;
         this.premium = premium;
         this.age = age;
@@ -61,14 +61,6 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -101,17 +93,25 @@ public class Client {
         this.password = password;
     }
 
+    public List<String> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<String> addresses) {
+        this.addresses = addresses;
+    }
+
     @Override
     public String toString() {
         return "\n Client{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
                 ", email='" + email + '\'' +
                 ", premium=" + premium +
                 ", age=" + age +
                 ", password='" + password + '\'' +
+                ", addresses=" + addresses +
                 '}';
     }
 }
