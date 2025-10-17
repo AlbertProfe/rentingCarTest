@@ -1,10 +1,6 @@
 package dev.app.rentingCar_boot;
 
-import dev.app.rentingCar_boot.utils.PopulateStatus;
-import dev.app.rentingCar_boot.utils.PopulateBooking;
-import dev.app.rentingCar_boot.utils.PopulateCar;
-import dev.app.rentingCar_boot.utils.PopulateClient;
-import dev.app.rentingCar_boot.utils.PopulateDrivingCourse;
+import dev.app.rentingCar_boot.utils.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,8 +20,12 @@ public class PopulateTests {
     @Autowired
     PopulateClient populateClient;
 
+    @Autowired
+    PopulateAllTables populateAllTables;
+
     @Test
     void populateAllTables () {
+
         // let s populate cars first
         PopulateStatus populateCarStatus = populateCar.populateCar(10);
         System.out.println("\nPopulate Car operations: " + populateCarStatus.getQty() +
@@ -45,6 +45,12 @@ public class PopulateTests {
         PopulateStatus populateDrivingCourseStatus = populateDrivingCourse.populateDrivingCourse(10);
         System.out.println("\nPopulate DrivingCourse operations: " + populateDrivingCourseStatus.getQty() +
                 " \n" + populateDrivingCourseStatus.getMessage());
+    }
+
+    @Test
+    void populateAllTablesAtOnce () {
+        String result = populateAllTables.populateAllTables(100);
+        System.out.println(result);
     }
 
 }
