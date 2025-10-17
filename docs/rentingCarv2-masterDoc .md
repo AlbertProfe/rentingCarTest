@@ -10,7 +10,7 @@
 - Microservices: https://spring.io/
 - Code Analysis Loop: [rentingCarTest/docs/codeAnalysis-loop.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/codeAnalysis-loop.md)
 - Spring Boot is open-source: [GitHub - spring-projects/spring-boot: Spring Boot helps you to create Spring-powered, production-grade applications and services with absolute minimum fuss.](https://github.com/spring-projects/spring-boot)
-- 
+- Spring Boot Guides / Academy: https://spring.io/guides / https://spring.academy/courses
 - Quickstart: https://spring.io/quickstart
 
 ## Version
