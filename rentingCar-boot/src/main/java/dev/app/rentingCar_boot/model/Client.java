@@ -17,6 +17,11 @@ public class Client {
     private int age;
     private String password;
 
+    //@ElementCollection
+    //@CollectionTable(name = "client_addresses", joinColumns = @JoinColumn(name = "client_id"))
+    //@Column(name = "address")
+    //private List<String> addresses = new ArrayList<>();
+
     public Client(String name, String lastName, String address, String email, boolean premium, int age, String password) {
         this.id = GenerateUUID.generateFourDigitUuid();
         this.name = name;
