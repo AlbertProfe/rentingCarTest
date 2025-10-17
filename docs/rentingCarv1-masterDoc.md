@@ -7,15 +7,15 @@
 > Rent a car by CLI with client, car, init and ending date, price
 
 - Reference project: [GitHub - AlbertProfe/restaurant](https://github.com/AlbertProfe/restaurant)
-- `Epoch` code sandbox: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/epochSandbox.md)
-- How to name classes, example: [rentingCarTest/docs/namingTheLoopClass. · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/namingTheLoopClass.md)
+- `Epoch` code sandbox: [rentingCarTest/docs/epochSandbox.md at master · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/epochSandbox.md)
+- How to name classes, example: [rentingCarTest/docs/namingTheLoopClass. · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/namingTheLoopClass.md)
 - `Records` in Java from Java 14:
   - [Java Record Keyword | Baeldung](https://www.baeldung.com/java-record-keyword)
   - [Record Classes](https://docs.oracle.com/en/java/javase/17/language/records.html)
 
 ## Version
 
-- [rentingCarTest/docs/rentingCar-sprints.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/rentingCar-sprints.md)
+- [rentingCarTest/docs/rentingCar-sprints.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/rentingCar-sprints.md)
 
 ## Debt Tech & Efficiency
 
