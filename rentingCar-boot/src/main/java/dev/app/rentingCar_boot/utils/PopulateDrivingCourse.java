@@ -4,6 +4,7 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.model.DrivingCourse;
 import dev.app.rentingCar_boot.repository.ClientRepository;
 import dev.app.rentingCar_boot.repository.DrivingCourseRepository;
+import dev.app.rentingCar_boot.utils.PopulateStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,12 +22,43 @@ public class PopulateDrivingCourse {
     @Autowired
     private ClientRepository clientRepository;
 
-    public void populateDrivingCourse(int qty) {
-     // let s populate this table: Driving Course
-     // generate qty driving courses using generateDrivingCourses method
-     ArrayList<DrivingCourse> drivingCourses = generateDrivingCourses(qty);
-     // assign clients to driving courses using assignClientsToDrivingCourses method
-     assignClientsToDrivingCourses(drivingCourses);
+    public PopulateStatus populateDrivingCourse(int qty) {
+        StringBuilder messageBuilder = new StringBuilder();
+        boolean[] operationResults = new boolean[2];
+        int operationIndex = 0;
+        
+        try {
+            // Operation 1: Generate Driving Courses
+            ArrayList<DrivingCourse> drivingCourses = generateDrivingCourses(qty);
+            operationResults[operationIndex] = drivingCourses != null && drivingCourses.size() == qty;
+            messageBuilder.append(" Operation 1: Generated ").append(drivingCourses != null ? drivingCourses.size() : 0)
+                         .append(" driving courses (requested: ").append(qty).append(")\n");
+            operationIndex++;
+            
+            // Operation 2: Assign Clients to Driving Courses
+            assignClientsToDrivingCourses(drivingCourses);
+            operationResults[operationIndex] = true; // Assume success if no exception
+            messageBuilder.append(" Operation 2: Assigned clients to driving courses successfully\n");
+            
+        } catch (Exception e) {
+            // Mark current and remaining operations as failed
+            for (int i = operationIndex; i < 2; i++) {
+                operationResults[i] = false;
+            }
+            messageBuilder.append("Error occurred during operation ").append(operationIndex + 1)
+                         .append(": ").append(e.getMessage()).append("\n");
+        }
+        
+        // Check if all operations succeeded
+        boolean allSuccess = true;
+        for (boolean result : operationResults) {
+            if (!result) {
+                allSuccess = false;
+                break;
+            }
+        }
+        
+        return new PopulateStatus(allSuccess, messageBuilder.toString().trim(), qty);
     }
 
     public ArrayList<DrivingCourse> generateDrivingCourses(int qty) {

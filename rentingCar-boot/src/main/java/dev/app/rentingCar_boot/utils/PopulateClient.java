@@ -2,6 +2,7 @@ package dev.app.rentingCar_boot.utils;
 
 import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.repository.ClientRepository;
+import dev.app.rentingCar_boot.utils.PopulateStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,9 +16,28 @@ public class PopulateClient {
     @Autowired
     private ClientRepository clientRepository;
 
-    public void populateClient(int qty){
-        // let s populate this table: Client
-        List<Client> clients = generateClients(qty);
+    public PopulateStatus populateClient(int qty){
+        StringBuilder messageBuilder = new StringBuilder();
+        boolean[] operationResults = new boolean[1];
+        int operationIndex = 0;
+        
+        try {
+            // Operation 1: Generate Clients
+            List<Client> clients = generateClients(qty);
+            operationResults[operationIndex] = clients != null && clients.size() == qty;
+            messageBuilder.append(" Operation 1: Generated ").append(clients != null ? clients.size() : 0)
+                         .append(" clients (requested: ").append(qty).append(")\n");
+            
+        } catch (Exception e) {
+            // Mark operation as failed
+            operationResults[operationIndex] = false;
+            messageBuilder.append("Error occurred during operation 1: ").append(e.getMessage()).append("\n");
+        }
+        
+        // Check if operation succeeded
+        boolean allSuccess = operationResults[0];
+        
+        return new PopulateStatus(allSuccess, messageBuilder.toString().trim(), qty);
     }
 
     public List<Client> generateClients(int qty){

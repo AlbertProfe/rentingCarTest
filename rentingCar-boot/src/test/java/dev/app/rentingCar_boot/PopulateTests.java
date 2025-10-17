@@ -28,17 +28,23 @@ public class PopulateTests {
     void populateAllTables () {
         // let s populate cars first
         PopulateStatus populateCarStatus = populateCar.populateCar(10);
-        System.out.println("Populate Car operations: " + populateCarStatus.getQty() +
+        System.out.println("\nPopulate Car operations: " + populateCarStatus.getQty() +
                 " \n" + populateCarStatus.getMessage());
 
         // let s populate clients
-        populateClient.populateClient(10);
+        PopulateStatus populateClientStatus = populateClient.populateClient(10);
+        System.out.println("\nPopulate Client operations: " + populateClientStatus.getQty() +
+                " \n" + populateClientStatus.getMessage());
 
         // once cars are populated, let s populate bookings
-        populateBooking.populateBooking(10);
+        PopulateStatus populateBookingStatus = populateBooking.populateBooking(10);
+        System.out.println("\nPopulate Booking operations: " + populateBookingStatus.getQty() +
+                " \n" + populateBookingStatus.getMessage());
 
         // once bookings are populated, let s populate driving courses
-        populateDrivingCourse.populateDrivingCourse(10);
+        PopulateStatus populateDrivingCourseStatus = populateDrivingCourse.populateDrivingCourse(10);
+        System.out.println("\nPopulate DrivingCourse operations: " + populateDrivingCourseStatus.getQty() +
+                " \n" + populateDrivingCourseStatus.getMessage());
     }
 
 }

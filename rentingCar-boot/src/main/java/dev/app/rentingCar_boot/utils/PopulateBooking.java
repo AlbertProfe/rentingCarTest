@@ -6,6 +6,7 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.repository.BookingRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.ClientRepository;
+import dev.app.rentingCar_boot.utils.PopulateStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -27,9 +28,43 @@ public class PopulateBooking {
     @Autowired
     private ClientRepository clientRepository;
 
-    public void populateBooking(int qty) {
-        List<Booking> bookings = generateBookings(qty);
-        assignCarsAndClientsToBookings(bookings);
+    public PopulateStatus populateBooking(int qty) {
+        StringBuilder messageBuilder = new StringBuilder();
+        boolean[] operationResults = new boolean[2];
+        int operationIndex = 0;
+        
+        try {
+            // Operation 1: Generate Bookings
+            List<Booking> bookings = generateBookings(qty);
+            operationResults[operationIndex] = bookings != null && bookings.size() == qty;
+            messageBuilder.append(" Operation 1: Generated ").append(bookings != null ? bookings.size() : 0)
+                         .append(" bookings (requested: ").append(qty).append(")\n");
+            operationIndex++;
+            
+            // Operation 2: Assign Cars and Clients to Bookings
+            assignCarsAndClientsToBookings(bookings);
+            operationResults[operationIndex] = true; // Assume success if no exception
+            messageBuilder.append(" Operation 2: Assigned cars and clients to bookings successfully\n");
+            
+        } catch (Exception e) {
+            // Mark current and remaining operations as failed
+            for (int i = operationIndex; i < 2; i++) {
+                operationResults[i] = false;
+            }
+            messageBuilder.append("Error occurred during operation ").append(operationIndex + 1)
+                         .append(": ").append(e.getMessage()).append("\n");
+        }
+        
+        // Check if all operations succeeded
+        boolean allSuccess = true;
+        for (boolean result : operationResults) {
+            if (!result) {
+                allSuccess = false;
+                break;
+            }
+        }
+        
+        return new PopulateStatus(allSuccess, messageBuilder.toString().trim(), qty);
     }
 
     public List<Booking> generateBookings(int qtyBookings) {
