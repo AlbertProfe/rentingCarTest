@@ -1,4 +1,4 @@
-package dev.app.rentingCar_boot.model;
+package dev.app.rentingCar_boot.utils;
 
 public class PopulateStatus {
 

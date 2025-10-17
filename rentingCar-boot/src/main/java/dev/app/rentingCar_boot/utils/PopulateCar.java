@@ -3,7 +3,6 @@ package dev.app.rentingCar_boot.utils;
 import dev.app.rentingCar_boot.model.Car;
 import dev.app.rentingCar_boot.model.CarExtras;
 import dev.app.rentingCar_boot.model.InssuranceCia;
-import dev.app.rentingCar_boot.model.PopulateStatus;
 import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
