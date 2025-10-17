@@ -187,3 +187,72 @@ Expected attempts for 10th client = 1 / (1 - 9/1,000,000) = 1.000009 attempts
 | **Real-World Concern**           | **No** - More likely to hit hardware failure |
 
 > **Verdict:** While infinite loops are mathematically possible with 1M clients/courses, the probability is so low it's practically impossible. But the `availableClients` approach eliminates even this theoretical risk while providing consistent performance.
+
+You're right, let me fix the formatting issues in my previous answer:
+
+## **Why `while` is the Best Option**
+
+  **Comparison with Alternatives:**
+
+| **Loop Type**            | **Pros**                                                                                      | **Cons**                                                                         | **Verdict** |
+| ------------------------ | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ----------- |
+| **`while` (current)**    | ✅ Flexible termination<br>✅ Handles edge cases<br>✅ Clear conditions<br>✅ No index management | ⚠️ Slightly more verbose                                                         | **🏆 BEST** |
+| **`for` with counter**   | ✅ Simple counter<br>✅ Traditional loop                                                        | ❌ Needs break statement<br>❌ Less readable<br>❌ Counter not meaningful           | **❌ WORSE** |
+| **`for` with condition** | ✅ Same logic as while                                                                         | ❌ Confusing syntax<br>❌ Empty init/increment<br>❌ Unconventional                 | **❌ WORSE** |
+| **`do-while`**           | ✅ Executes at least once                                                                      | ❌ Wrong for this case<br>❌ No pre-condition check<br>❌ Could crash if no clients | **❌ WRONG** |
+
+### **Code Examples:**
+
+**Current `while` approach:**
+
+```java
+while (clientsToAdd.size() < numClientsToAssign && 
+       availableClients.size() > 0) {
+    // selection logic
+}
+```
+
+**Alternative `for` approach:**
+
+```java
+for (int i = 0; i < numClientsToAssign; i++) {
+    if (availableClients.isEmpty()) break;
+    // selection logic
+}
+```
+
+### **Why `while` Excels:**
+
+**1. Dual Exit Conditions**
+
+```java
+// Two independent reasons to stop:
+clientsToAdd.size() < numClientsToAssign  // Haven't reached target
+availableClients.size() > 0               // Still have clients available
+```
+
+**2. Semantic Clarity**
+
+- Reads naturally: "While we need more clients AND have clients available"
+- No manual counter management
+- Self-documenting conditions
+
+**3. Edge Case Handling**
+
+| **Scenario**                  | **What Happens**               | **Why `for` Would Fail**               |
+| ----------------------------- | ------------------------------ | -------------------------------------- |
+| **Only 3 clients in DB**      | Loop stops after 3 iterations  | `for(i=0; i<10; i++)` would need break |
+| **Exactly 10 clients needed** | Loop stops after 10 iterations | Works, but less clear intent           |
+| **Empty client database**     | Loop never executes            | `for` would need pre-check             |
+
+### **Conclusion:**
+
+**`while` is optimal because:**
+
+- **Expresses intent clearly** - "continue while conditions are met"
+- **Handles edge cases naturally** - no special handling needed
+- **No unnecessary variables** - no meaningless counter
+- **Self-documenting** - conditions explain when to stop
+- **Robust** - works in all scenarios without modification
+
+> The `while` loop perfectly matches the problem: "Keep selecting clients while we need more AND have some available."
