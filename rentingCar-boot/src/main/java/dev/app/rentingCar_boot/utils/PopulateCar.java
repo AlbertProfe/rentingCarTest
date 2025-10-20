@@ -8,7 +8,10 @@ import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -246,5 +249,32 @@ public class PopulateCar {
         }
     }
 
+    // ------------------------------ available dates by car and year -------------------
+
+    // Then replace your method with this corrected version:
+    public void initAvailableDatesByCarAndYear(int year, Car car) {
+
+        HashMap<Integer, Boolean> availableDates = new HashMap<>();
+
+        // Calculate days in the specified year (handle leap years)
+        int daysInYear = isLeapYear(year) ? 366 : 365;
+
+        // Create date keys as epoch days for the specified year
+        LocalDate startOfYear = LocalDate.of(year, 1, 1);
+
+        for (int i = 0; i < daysInYear; i++) {
+            LocalDate currentDate = startOfYear.plusDays(i);
+            int epochDay = (int) currentDate.toEpochDay();
+            availableDates.put(epochDay, true); // All dates initially available
+        }
+
+        car.setAvailableDates(availableDates);
+        carRepository.save(car);
+    }
+
+    // Helper method to check leap years
+    private boolean isLeapYear(int year) {
+        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    }
 
 }

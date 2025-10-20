@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -32,6 +33,7 @@ public class Car {
     private List<Booking> bookings = new ArrayList<>();
 
 
+    private HashMap<Integer, Boolean> availableDates = new HashMap<>();
 
     public Car() {
         this.id = GenerateUUID.generateFourDigitUuid();
@@ -127,6 +129,7 @@ public class Car {
         this.inssuranceCia = inssuranceCia;
     }
 
+
     @Override
     public String toString() {
         return "Car{" +
@@ -142,5 +145,14 @@ public class Car {
                 ", bookings=" + bookings.size() + " bookings [" +
                 String.join(", ", bookings.stream().map(Booking::getId).toList()) + "]" +
                 '}';
+    }
+
+
+    public HashMap<Integer, Boolean> getAvailableDates() {
+        return availableDates;
+    }
+
+    public void setAvailableDates(HashMap<Integer, Boolean> availableDates) {
+        this.availableDates = availableDates;
     }
 }
