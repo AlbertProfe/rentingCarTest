@@ -85,7 +85,43 @@ Summary:
 
 - [rentingCarTest/docs/../4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md)
 
+## HashMap
 
+References
+
+- [Java HashMap](https://www.w3schools.com/java/java_hashmap.asp)
+- [HashMap (Java Platform SE 8 )](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)
+- [Java HashMap (With Examples)](https://www.programiz.com/java-programming/hashmap)
+- [What is a Java Hashmap?](https://www.freecodecamp.org/news/what-is-a-java-hashmap/)   
+
+Definition
+
+> In Java, you use a HashMap to store items in **key/value pairs**. You can access items stored in a `HashMap` using the item's key, which is unique for each item.
+
+### What Are the Features of a HashMap in Java?
+
+Before working with HashMaps, it is important to understand how they work.
+
+Here are some of the features of a `HashMap`:
+
+- Items are stored in **key/value pairs.**
+- Items do not maintain **any order when added.** The data is unordered.
+- In a case where there are duplicate keys, the last one will override the other(s).
+- Data types are specified using **wrapper classes instead of primitive data types.**
+
+### How to Create a HashMap in Java
+
+In order to create and use a HashMap, you must first import the `java.util.HashMap` package. That is:
+
+```java
+import java.util.HashMap;
+```
+
+Here's what the syntax looks like for creating a new `HashMap`:
+
+```java
+HashMap<KeyDataType, ValueDataType> HashMapName = new HashMap<>();
+```
 
 ## UML Data Model
 
