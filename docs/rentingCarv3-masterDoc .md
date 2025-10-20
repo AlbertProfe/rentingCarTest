@@ -5,6 +5,8 @@
 ## Goal & Summary
 
 > Rent a car by CLI with client, car, init and ending date, price with Spring Boot
+> 
+> New Feature: define data-model for **availability by car and dates range.**
 
 - Reference project: [Spring Boot: H2 DB and Thymeleaf – albertprofe wiki](https://albertprofe.dev/springboot/boot-what-create-th-h2.html)
 - Microservices: https://spring.io/
@@ -19,8 +21,71 @@
 ## Tree
 
 ```
+[Mon Oct 20 10:30:53] albert@albert-VirtualBox:~/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src (master)
+$ tree
+.
+├── main
+│   ├── java
+│   │   └── dev
+│   │       └── app
+│   │           └── rentingCar_boot
+│   │               ├── controller
+│   │               │   ├── CarController.java
+│   │               │   └── CarRestController.java
+│   │               ├── model
+│   │               │   ├── Booking.java
+│   │               │   ├── CarExtras.java
+│   │               │   ├── Car.java
+│   │               │   ├── Client.java
+│   │               │   ├── DrivingCourse.java
+│   │               │   └── InssuranceCia.java
+│   │               ├── RentingCarBootApplication.java
+│   │               ├── repository
+│   │               │   ├── BookingRepository.java
+│   │               │   ├── CarExtrasRepository.java
+│   │               │   ├── CarRepository.java
+│   │               │   ├── ClientRepository.java
+│   │               │   ├── DrivingCourseRepository.java
+│   │               │   └── InssuranceCiaRepository.java
+│   │               ├── service
+│   │               │   └── CarService.java
+│   │               └── utils
+│   │                   ├── GenerateUUID.java
+│   │                   ├── PopulateAllTables.java
+│   │                   ├── PopulateBooking.java
+│   │                   ├── PopulateCar.java
+│   │                   ├── PopulateClient.java
+│   │                   ├── PopulateDrivingCourse.java
+│   │                   └── PopulateStatus.java
+│   └── resources
+│       ├── application.properties
+│       ├── static
+│       └── templates
+│           ├── cars.html
+│           ├── cars-nocss-data.html
+│           ├── cars-nocss.html
+│           └── cars-relation.html
+└── test
+    └── java
+        └── dev
+            └── app
+                └── rentingCar_boot
+                    ├── BookingTests.java
+                    ├── CarTests.java
+                    ├── ClientTests.java
+                    ├── DrivingCourseTests.java
+                    └── PopulateTests.java
 
+19 directories, 33 files
 ```
+
+## Availability by car/dates range
+
+Summary: 
+
+- [rentingCarTest/docs/../4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md)
+
+
 
 ## UML Data Model
 
