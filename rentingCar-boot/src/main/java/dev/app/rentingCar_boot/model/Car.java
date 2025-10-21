@@ -32,7 +32,10 @@ public class Car {
     @OneToMany(mappedBy= "car" , cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Booking> bookings = new ArrayList<>();
 
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "car_available_dates", joinColumns = @JoinColumn(name = "car_id"))
+    @MapKeyColumn(name = "date_key")
+    @Column(name = "is_available")
     private HashMap<Integer, Boolean> availableDates = new HashMap<>();
 
     public Car() {

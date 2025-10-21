@@ -270,11 +270,66 @@ public class PopulateCar {
 
         car.setAvailableDates(availableDates);
         carRepository.save(car);
+
     }
 
     // Helper method to check leap years
     private boolean isLeapYear(int year) {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
+
+    // Generate available dates for a car in a specific year
+    public void generateAvailableDates(int year, Car car){
+        HashMap<Integer, Boolean> availableDates = new HashMap<>();
+        Random random = new Random();
+
+        // First, populate all dates of the year as available (true)
+        for (int month = 1; month <= 12; month++) {
+            int daysInMonth = getDaysInMonth(month, year);
+            for (int day = 1; day <= daysInMonth; day++) {
+                int dateKey = year * 10000 + month * 100 + day;
+                availableDates.put(dateKey, true);
+            }
+        }
+
+        // Generate 3 to 6 random unavailable date ranges
+        int numberOfRanges = 3 + random.nextInt(4); // 3 to 6 ranges
+
+        for (int i = 0; i < numberOfRanges; i++) {
+            // Random range duration: 2 to 8 days
+            int rangeDuration = 2 + random.nextInt(7); // 2 to 8 days
+
+            // Random start month and day
+            int randomMonth = 1 + random.nextInt(12); // 1 to 12
+            int daysInMonth = getDaysInMonth(randomMonth, year);
+            int randomDay = 1 + random.nextInt(daysInMonth); // 1 to days in month
+
+            // Make sure the range doesn't exceed the month
+            int actualDuration = Math.min(rangeDuration, daysInMonth - randomDay + 1);
+
+            // Mark the range as unavailable (false)
+            for (int j = 0; j < actualDuration; j++) {
+                int currentDay = randomDay + j;
+                if (currentDay <= daysInMonth) {
+                    int dateKey = year * 10000 + randomMonth * 100 + currentDay;
+                    availableDates.put(dateKey, false);
+                }
+            }
+        }
+
+        // Set the generated availability data to the car
+        car.setAvailableDates(availableDates);
+        carRepository.save(car);
+    }
+
+    // Helper method to get days in a specific month
+    private int getDaysInMonth(int month, int year) {
+        switch (month) {
+            case 2: return isLeapYear(year) ? 29 : 28;
+            case 4: case 6: case 9: case 11: return 30;
+            default: return 31;
+        }
+    }
+
 
 }

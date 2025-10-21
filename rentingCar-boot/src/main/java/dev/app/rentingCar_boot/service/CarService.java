@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,22 @@ public class CarService {
     public void updateCar (Car car){
 
         carRepository.save(car);
+    }
+
+    public boolean checkAvailability(Car car, int bookingDate, int qtyDays) {
+        HashMap<Integer, Boolean> availableDates = car.getAvailableDates();
+
+        // Check each day in the requested booking period
+        for (int i = 0; i < qtyDays; i++) {
+            int currentDate = bookingDate + i;
+
+            // If date exists in HashMap and is false (unavailable), return false
+            if (availableDates.containsKey(currentDate) && !availableDates.get(currentDate)) {
+                return false; // Car is not available on this date
+            }
+        }
+
+        return true; // All dates are available
     }
 
 
