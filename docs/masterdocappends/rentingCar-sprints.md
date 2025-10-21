@@ -6,12 +6,12 @@
 
 ### Week #05
 
-| Version | Title                    | Description                                               | Status | Date  |
-| ------- | ------------------------ | --------------------------------------------------------- | ------ | ----- |
-| v3.0    | car Test object creation | JUnitTest                                                 |        | 20/10 |
-| v3.1.1  | car availability 1/3     | Feature, car availability by date: data model and listing |        | 20/10 |
-| v3.1.2  | car availability 2/3     |                                                           |        | 20/10 |
-| v3.1.3  | car availability 3/3     |                                                           |        |       |
+| Version | Title                    | Description                                               | Status   | Date  |
+| ------- | ------------------------ | --------------------------------------------------------- | -------- | ----- |
+| v3.0    | car Test object creation | JUnitTest                                                 | f6d8ad4f | 20/10 |
+| v3.1.1  | car availability 1/3     | Feature, availability by date and car: data model HashMap |          | 21/10 |
+| v3.1.2  | car availability 2/3     | Implement Service                                         |          | 21/10 |
+| v3.1.3  | car availability 3/3     | Test Service                                              |          | 21/10 |
 
 ## Old Sprints Boot Version
 

@@ -1,6 +1,6 @@
 # rentingCar v3
 
-`version document: v3.0`
+`version document: v3.1`
 
 ## Goal & Summary
 
@@ -79,9 +79,15 @@ $ tree
 19 directories, 33 files
 ```
 
-## Availability by car/dates range
+## ## **Car Booking by Date Range Feature**
 
-Summary: 
+### Availability by car/dates range
+
+> A system functionality that allows users to reserve vehicles for specific time periods **by checking car availability against existing bookings.**
+> 
+> The feature validates date conflicts, prevents double-booking, and ensures seamless rental scheduling through real-time availability queries across the booking database for optimal resource management.
+
+Analysis of Four Approaches for Car Availability (SQL/NoSQL): 
 
 - [rentingCarTest/docs/../4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md)
 

@@ -1,13 +1,13 @@
 # Analysis of Four Approaches for Car Availability
 
-## Summary
+## SQL
 
-We have:
+Summary, We have:
 
 - **Car entity** with existing `List<Booking> bookings` relationship
 - **Booking entity** with `bookingDate` (int) and `qtyDays` (int) fields
 
-## **Approach 1: Car has unavailableDates list of BookedDates objects**
+### **Approach 1: Car has unavailableDates list of BookedDates objects**
 
 **Structure:**
 
@@ -38,7 +38,7 @@ private List<BookedDates> unavailableDates = new ArrayList<>();
 - Potential synchronization issues between bookings and unavailable dates
 - More database storage
 
-## **Approach 2: Car has HashMap of availableDates for year 2026**
+### **Approach 2: Car has HashMap of availableDates for year 2026**
 
 **Structure:**
 
@@ -73,7 +73,7 @@ private void initializeYear2026() {
 - Requires manual initialization
 - Not suitable for multi-year bookings
 
-## **Approach 3: Car has list of epochs for unavailable dates**
+#3# **Approach 3: Car has list of epochs for unavailable dates**
 
 **Structure:**
 
@@ -108,7 +108,7 @@ public boolean isAvailable(LocalDate date) {
 - List can become very large for frequently booked cars
 - No built-in date range queries
 
-## **Approach 4: Use existing bookings without new objects**
+### **Approach 4: Use existing bookings without new objects**
 
 **Structure:**
 
@@ -190,7 +190,7 @@ public List<LocalDate> getUnavailableDates(LocalDate startDate, LocalDate endDat
 - Consider caching for frequently accessed cars
 - Use database queries instead of in-memory filtering for large datasets
 
-## **Quick Comparison Summary**
+### Quick Comparison Summary
 
 | Approach               | Storage   | Performance | Scalability | Complexity | Recommendation |
 | ---------------------- | --------- | ----------- | ----------- | ---------- | -------------- |
@@ -200,3 +200,43 @@ public List<LocalDate> getUnavailableDates(LocalDate startDate, LocalDate endDat
 | 4. Existing bookings   | None      | Good        | Excellent   | Low        | ⭐⭐⭐⭐⭐          |
 
 > **Final Recommendation:** Implement **Approach 4** as it provides the best balance of simplicity, efficiency, and maintainability while leveraging your existing architecture.
+
+You're absolutely right to notice this! The comparative tables are identical because I made an error in my analysis. Let me explain why they should be **different** and provide the correct NoSQL comparison.
+
+## NoSQL
+
+The fundamental difference is that **NoSQL databases have different strengths and weaknesses** compared to SQL databases:
+
+### NoSQL Comparison Table:
+
+| **Approach**               | **Storage** | **Performance** | **Scalability** | **Complexity** | **Recommendation** |
+| -------------------------- | ----------- | --------------- | --------------- | -------------- | ------------------ |
+| **1. BookedDates objects** | High        | **Excellent**   | Excellent       | **High**       | ⭐⭐⭐⭐               |
+| **2. HashMap 2026**        | Very High   | Excellent       | **Very Poor**   | Low            | ⭐                  |
+| **3. Epoch list**          | Medium      | **Medium**      | **Excellent**   | Medium         | ⭐⭐⭐                |
+| **4. Existing bookings**   | None        | **Medium**      | Excellent       | **Medium**     | ⭐⭐⭐⭐               |
+
+### **Key Differences in NoSQL Context:**
+
+#### **1. BookedDates Objects:**
+
+- **Performance**: **Excellent** (not Good) - NoSQL excels at nested document queries with proper indexing
+- **Complexity**: **High** (not Medium) - Document structure management is more complex in NoSQL
+
+#### **2. HashMap 2026:**
+
+- **Scalability**: **Very Poor** (not Poor) - Document size limits in MongoDB (16MB) make this approach even worse
+
+#### **3. Epoch List:**
+
+- **Performance**: **Medium** (not Poor) - Array operations in NoSQL are more optimized than SQL equivalents
+- **Scalability**: **Excellent** (not Good) - Arrays scale better in document databases
+
+#### **4. Existing Bookings:**
+
+- **Performance**: **Medium** (not Good) - Cross-collection queries in NoSQL are slower than SQL JOINs
+- **Complexity**: **Medium** (not Low) - Managing references between collections adds complexity
+
+
+
+> The analysis shows that **Approach 1 (BookedDates objects)** actually becomes more competitive in NoSQL environments due to superior nested document performance, while **Approach 4** loses some advantage due to cross-collection query overhead.
