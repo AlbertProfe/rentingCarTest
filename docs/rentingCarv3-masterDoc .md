@@ -79,7 +79,7 @@ $ tree
 19 directories, 33 files
 ```
 
-## ## **Car Booking by Date Range Feature**
+## Car Booking by Date Range Feature
 
 ### Availability by car/dates range
 
@@ -90,6 +90,12 @@ $ tree
 Analysis of Four Approaches for Car Availability (SQL/NoSQL): 
 
 - [rentingCarTest/docs/../4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md)
+
+#### Approach 2: HashMap of availableDates for year 2026
+
+- [rentingCarTest/docs/masterdocappends/4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md#approach-2-car-has-hashmap-of-availabledates-for-year-2026)
+
+- [rentingCarTest/docs/masterdocappends/FakeAvailableDatesHashMap.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/FakeAvailableDatesHashMap.md)
 
 ## HashMap
 
@@ -127,6 +133,38 @@ Here's what the syntax looks like for creating a new `HashMap`:
 
 ```java
 HashMap<KeyDataType, ValueDataType> HashMapName = new HashMap<>();
+```
+
+## JPA Annotations for HashMap Persistence**
+
+Add these annotations above the `availableDates` field in your [Car.java](cci:7://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:0:0-0:0):
+
+```java
+@ElementCollection(fetch = FetchType.LAZY)
+@CollectionTable(name = "car_available_dates", joinColumns = @JoinColumn(name = "car_id"))
+@MapKeyColumn(name = "date_key")
+@Column(name = "is_available")
+private HashMap<Integer, Boolean> availableDates = new HashMap<>();
+```
+
+### **What each annotation does:**
+
+- **`@ElementCollection`**: Tells JPA this is a collection of basic types (not entities)
+- **`@CollectionTable`**: Creates a separate table `car_available_dates` to store the HashMap
+- **`@MapKeyColumn`**: Maps the HashMap keys (Integer timestamps) to column `date_key`
+- **`@Column`**: Maps the HashMap values (Boolean) to column `is_available`
+- **`joinColumns = @JoinColumn(name = "car_id")`**: Foreign key linking back to the Car entity
+
+Resulting H2 Table Structure:
+
+```sql
+CREATE TABLE car_available_dates (
+    car_id VARCHAR(255) NOT NULL,
+    date_key INTEGER NOT NULL,
+    is_available BOOLEAN,
+    PRIMARY KEY (car_id, date_key),
+    FOREIGN KEY (car_id) REFERENCES car(id)
+);
 ```
 
 ## UML Data Model
