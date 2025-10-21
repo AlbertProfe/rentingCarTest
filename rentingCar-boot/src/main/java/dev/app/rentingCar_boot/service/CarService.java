@@ -5,10 +5,7 @@ import dev.app.rentingCar_boot.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CarService {
@@ -60,7 +57,7 @@ public class CarService {
     }
 
     public boolean checkAvailability(Car car, int bookingDate, int qtyDays) {
-        HashMap<Integer, Boolean> availableDates = car.getAvailableDates();
+        Map<Integer, Boolean> availableDates = car.getAvailableDates();
 
         // Check each day in the requested booking period
         for (int i = 0; i < qtyDays; i++) {

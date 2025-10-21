@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 public class Car {
@@ -36,7 +37,7 @@ public class Car {
     @CollectionTable(name = "car_available_dates", joinColumns = @JoinColumn(name = "car_id"))
     @MapKeyColumn(name = "date_key")
     @Column(name = "is_available")
-    private HashMap<Integer, Boolean> availableDates = new HashMap<>();
+    private Map<Integer, Boolean> availableDates = new HashMap<>();
 
     public Car() {
         this.id = GenerateUUID.generateFourDigitUuid();
@@ -151,11 +152,11 @@ public class Car {
     }
 
 
-    public HashMap<Integer, Boolean> getAvailableDates() {
+    public Map<Integer, Boolean> getAvailableDates() {
         return availableDates;
     }
 
-    public void setAvailableDates(HashMap<Integer, Boolean> availableDates) {
+    public void setAvailableDates(Map<Integer, Boolean> availableDates) {
         this.availableDates = availableDates;
     }
 }

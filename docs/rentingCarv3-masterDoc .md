@@ -135,7 +135,7 @@ Here's what the syntax looks like for creating a new `HashMap`:
 HashMap<KeyDataType, ValueDataType> HashMapName = new HashMap<>();
 ```
 
-## JPA Annotations for HashMap Persistence**
+## JPA Annotations for HashMap Persistence
 
 Add these annotations above the `availableDates` field in your [Car.java](cci:7://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:0:0-0:0):
 
@@ -146,6 +146,18 @@ Add these annotations above the `availableDates` field in your [Car.java](cci:7:
 @Column(name = "is_available")
 private HashMap<Integer, Boolean> availableDates = new HashMap<>();
 ```
+
+Use wiht Hibernate Map instead of HashMap:
+
+```java
+private Map<Integer, Boolean> availableDates = new HashMap<>();
+```
+
+we need this because:
+
+1. Hibernate wraps collections with `PersistentMap` proxy objects
+2. Using concrete `HashMap` type in getters/setters causes type mismatch
+3. Using `Map` interface allows Hibernate to inject its proxy objects properly
 
 ### **What each annotation does:**
 
