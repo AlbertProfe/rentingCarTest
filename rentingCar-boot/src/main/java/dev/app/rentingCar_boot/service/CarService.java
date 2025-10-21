@@ -61,7 +61,7 @@ public class CarService {
 
         // Check each day in the requested booking period
         for (int i = 0; i < qtyDays; i++) {
-            int currentDate = bookingDate + i;
+            int currentDate = bookingDate + (i * 86400); // Add 86400 seconds (1 day) per iteration
 
             // If date exists in HashMap and is false (unavailable), return false
             if (availableDates.containsKey(currentDate) && !availableDates.get(currentDate)) {
