@@ -12,7 +12,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import dev.app.rentingCar_boot.service.GenerateBooking;
 
 @SpringBootTest
 class RentingCarBootApplicationTests {
@@ -31,6 +38,9 @@ class RentingCarBootApplicationTests {
 
     @Autowired
     PopulateCar populateCar;
+
+    @Autowired
+    GenerateBooking generateBooking;
 
 	@Test
 	void contextLoads() {
@@ -137,6 +147,50 @@ class RentingCarBootApplicationTests {
     @Test
     void testPopulateCar() {
         populateCar.populateCar(10);
+    }
+
+    @Test
+    void testAssignAvailableDatesToCarByYear() {
+        List<Car> cars = (List<Car>) carRepository.findAll();
+        populateCar.assignAvailableDatesToCarByYear(cars, 2026);
+    }
+
+    @Test
+    void testUnixTimestampAvailability() {
+        // Get first car from repository
+        List<Car> cars = (List<Car>) carRepository.findAll();
+        assertFalse(cars.isEmpty(), "Should have cars in database");
+        Car myCar = cars.get(0);
+
+        System.out.println("Selected car: " + myCar);
+
+        // Clear existing availability data to avoid conflicts from previous test runs
+        //myCar.getAvailableDates().clear();
+        //carRepository.save(myCar);
+        //System.out.println("Selected car after clearing dates: " + myCar);
+
+        // Generate available dates for 2026 using Unix timestamps
+        //populateCar.generateAvailableDates(2026, myCar);
+        //carRepository.save(myCar);
+        //System.out.println("Selected car with Available dates: " + myCar);
+
+        // Test availability check for February 2026 using Unix timestamps
+        // Create Unix timestamp for February 1, 2026 at 00:00:00 GMT
+        LocalDate feb1_2026 = LocalDate.of(2026, 2, 1);
+        long feb1UnixTimestamp = feb1_2026.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+        
+        // Check availability for all February 2026 (28 days)
+        boolean isAvailableFebruary = generateBooking.checkAvailability(myCar, (int) feb1UnixTimestamp, 28);
+        
+        System.out.println("Unix timestamp for Feb 1, 2026: " + feb1UnixTimestamp);
+        System.out.println("Car available for all February 2026: " + isAvailableFebruary);
+
+        // Test specific dates from your table
+        // January 1, 2026 should be 1767225600
+        LocalDate jan1_2026 = LocalDate.of(2026, 1, 1);
+        long jan1UnixTimestamp = jan1_2026.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+        System.out.println("Unix timestamp for Jan 1, 2026: " + jan1UnixTimestamp + " (expected: 1767225600)");
+        assertEquals(1767225600L, jan1UnixTimestamp, "January 1, 2026 should be 1767225600");
     }
 
 
