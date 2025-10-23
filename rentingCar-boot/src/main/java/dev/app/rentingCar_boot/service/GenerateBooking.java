@@ -78,11 +78,24 @@ public class GenerateBooking {
         return result.toString();
     }
 
+    /**
+     * Calculate total amount for the booking
+     * @param car
+     * @param qtyDays
+     * @return
+     */
     public double calculateTotalAmount(Car car, int qtyDays) {
         // Simple calculation: quantity of days * price per day
         return qtyDays * car.getPrice();
     }
 
+    /**
+     * Check if the car is available for the requested booking period
+     * @param car
+     * @param bookingDate
+     * @param qtyDays
+     * @return
+     */
     public boolean checkAvailability(Car car, int bookingDate, int qtyDays) {
         Map<Integer, Boolean> availableDates = car.getAvailableDates();
 
