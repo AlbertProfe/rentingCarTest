@@ -23,12 +23,9 @@ public class GenerateBooking {
 
         // 6. call createBooking and save it with bookingRepository
 
-        // 7. update Car availibalty attribute
+        // 7. update Car availability attribute
 
         // 8  return booking done
-
-
-
 
         return null;
     }

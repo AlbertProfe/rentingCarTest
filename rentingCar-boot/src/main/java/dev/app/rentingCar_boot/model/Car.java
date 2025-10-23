@@ -175,17 +175,20 @@ public class Car {
         }
 
         StringBuilder result = new StringBuilder();
-        List<String> availableRanges = new ArrayList<>();
-        List<String> bookedRanges = new ArrayList<>();
-
+        result.append("\n");
+        
+        // Create a list of all ranges with their start timestamps for chronological sorting
+        List<RangeInfo> allRanges = new ArrayList<>();
+        int rangeCounter = 1;
+        
         // Process dates and group consecutive ones by status
         Integer rangeStart = null;
         Integer rangeEnd = null;
         Boolean currentStatus = null;
-
+        
         for (int currentTimestamp : sortedDates) {
             boolean dateStatus = availableDates.get(currentTimestamp);
-
+            
             if (rangeStart == null) {
                 // First date
                 rangeStart = currentTimestamp;
@@ -195,43 +198,29 @@ public class Car {
                 // Continue current range (consecutive day - 86400 seconds apart)
                 rangeEnd = currentTimestamp;
             } else {
-                // End current range and start new one
+                // End current range and add to list
                 String range = formatDateRange(rangeStart, rangeEnd);
-                if (currentStatus) {
-                    availableRanges.add(range);
-                } else {
-                    bookedRanges.add(range);
-                }
-
+                String status = currentStatus ? "Available" : "Booked";
+                allRanges.add(new RangeInfo(rangeStart, "Range#" + rangeCounter++ + ": " + range + " " + status));
+                
                 // Start new range
                 rangeStart = currentTimestamp;
                 rangeEnd = currentTimestamp;
                 currentStatus = dateStatus;
             }
         }
-
+        
         // Add the last range
         if (rangeStart != null) {
             String range = formatDateRange(rangeStart, rangeEnd);
-            if (currentStatus) {
-                availableRanges.add(range);
-            } else {
-                bookedRanges.add(range);
-            }
+            String status = currentStatus ? "Available" : "Booked";
+            allRanges.add(new RangeInfo(rangeStart, "Range#" + rangeCounter++ + ": " + range + " " + status));
         }
-
-        // Format output with line breaks
-        if (!availableRanges.isEmpty()) {
-            result.append("\nAvailable dates:");
-            for (int i = 0; i < availableRanges.size(); i++) {
-                result.append("\nRange#").append(i + 1).append(": ").append(availableRanges.get(i));
-            }
-        }
-        if (!bookedRanges.isEmpty()) {
-            result.append("\nBooked dates:");
-            for (String bookedRange : bookedRanges) {
-                result.append("\n").append(bookedRange);
-            }
+        
+        // Sort by start timestamp and append to result with line breaks
+        allRanges.sort((a, b) -> Integer.compare(a.startTimestamp, b.startTimestamp));
+        for (RangeInfo rangeInfo : allRanges) {
+            result.append(rangeInfo.formattedRange).append("\n");
         }
 
         return result.toString();
@@ -268,5 +257,18 @@ public class Car {
 
     public void setAvailableDates(Map<Integer, Boolean> availableDates) {
         this.availableDates = availableDates;
+    }
+
+    /**
+     * Helper class for chronological sorting of date ranges
+     */
+    private static class RangeInfo {
+        final int startTimestamp;
+        final String formattedRange;
+        
+        RangeInfo(int startTimestamp, String formattedRange) {
+            this.startTimestamp = startTimestamp;
+            this.formattedRange = formattedRange;
+        }
     }
 }
