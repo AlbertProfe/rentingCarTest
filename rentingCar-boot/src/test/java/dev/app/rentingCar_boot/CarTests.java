@@ -193,5 +193,33 @@ class RentingCarBootApplicationTests {
         assertEquals(1767225600L, jan1UnixTimestamp, "January 1, 2026 should be 1767225600");
     }
 
+    @Test
+    void testUnixTimestampAvailability_Fail() {
+        // Get first car from repository
+        List<Car> cars = (List<Car>) carRepository.findAll();
+        assertFalse(cars.isEmpty(), "Should have cars in database");
+        Car myCar = cars.get(0);
+
+        System.out.println("Selected car: " + myCar);
+
+        // Test availability check for December 2026 using Unix timestamps
+        // Create Unix timestamp for December 1, 2026 at 00:00:00 GMT
+        LocalDate december1_2026 = LocalDate.of(2026, 12, 1);
+        long dec1UnixTimestamp = december1_2026.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+
+        // Check availability for all February 2026 (28 days)
+        boolean isAvailableDecember = generateBooking.checkAvailability(myCar, (int) dec1UnixTimestamp, 31);
+
+        System.out.println("Unix timestamp for Feb 1, 2026: " + dec1UnixTimestamp);
+        System.out.println("Car available for all February 2026: " + isAvailableDecember);
+
+        // Test specific dates from your table
+        // January 1, 2026 should be 1767225600
+        LocalDate jan1_2026 = LocalDate.of(2026, 1, 1);
+        long jan1UnixTimestamp = jan1_2026.atStartOfDay(ZoneOffset.UTC).toEpochSecond();
+        System.out.println("Unix timestamp for Jan 1, 2026: " + jan1UnixTimestamp + " (expected: 1767225600)");
+        assertEquals(1767225600L, jan1UnixTimestamp, "January 1, 2026 should be 1767225600");
+    }
+
 
 }

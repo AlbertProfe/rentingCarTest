@@ -137,6 +137,15 @@ public class Car {
         this.inssuranceCia = inssuranceCia;
     }
 
+    public Map<Integer, Boolean> getAvailableDates() {
+        return availableDates;
+    }
+
+    public void setAvailableDates(Map<Integer, Boolean> availableDates) {
+        this.availableDates = availableDates;
+    }
+
+
 
     @Override
     public String toString() {
@@ -155,6 +164,8 @@ public class Car {
                 ", availabilityRanges=" + formatAvailabilityRanges() +
                 '}';
     }
+
+    // -------------------------- UTIL to formatAvailabilityRanges() ---------------------------------
 
     /**
      * Formats available dates into ranges showing available and booked periods
@@ -248,15 +259,6 @@ public class Car {
         } else {
             return startFormatted + " - " + endFormatted;
         }
-    }
-
-
-    public Map<Integer, Boolean> getAvailableDates() {
-        return availableDates;
-    }
-
-    public void setAvailableDates(Map<Integer, Boolean> availableDates) {
-        this.availableDates = availableDates;
     }
 
     /**
