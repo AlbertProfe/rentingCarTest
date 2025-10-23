@@ -258,7 +258,7 @@ public class PopulateCar {
         }
     }
 
-    // Then replace your method with this corrected version:
+    // Initialize all dates of a year as available using Unix timestamps at 00:00:00 GMT
     public void initAvailableDatesByCarAndYear(int year, Car car) {
 
         HashMap<Integer, Boolean> availableDates = new HashMap<>();
@@ -266,13 +266,14 @@ public class PopulateCar {
         // Calculate days in the specified year (handle leap years)
         int daysInYear = isLeapYear(year) ? 366 : 365;
 
-        // Create date keys as epoch days for the specified year
+        // Create date keys as Unix timestamps for the specified year
         LocalDate startOfYear = LocalDate.of(year, 1, 1);
 
         for (int i = 0; i < daysInYear; i++) {
             LocalDate currentDate = startOfYear.plusDays(i);
-            int epochDay = (int) currentDate.toEpochDay();
-            availableDates.put(epochDay, true); // All dates initially available
+            // Convert to Unix timestamp at 00:00:00 GMT
+            long unixTimestamp = currentDate.atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+            availableDates.put((int) unixTimestamp, true); // All dates initially available
         }
 
         car.setAvailableDates(availableDates);
@@ -285,17 +286,19 @@ public class PopulateCar {
         return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
     }
 
-    // Generate available dates for a car in a specific year
+    // Generate available dates for a car in a specific year using Unix timestamps at 00:00:00 GMT
     public void generateAvailableDates(int year, Car car){
         HashMap<Integer, Boolean> availableDates = new HashMap<>();
         Random random = new Random();
 
-        // First, populate all dates of the year as available (true)
+        // First, populate all dates of the year as available (true) using Unix timestamps
         for (int month = 1; month <= 12; month++) {
             int daysInMonth = getDaysInMonth(month, year);
             for (int day = 1; day <= daysInMonth; day++) {
-                int dateKey = year * 10000 + month * 100 + day;
-                availableDates.put(dateKey, true);
+                LocalDate date = LocalDate.of(year, month, day);
+                // Convert to Unix timestamp at 00:00:00 GMT
+                long unixTimestamp = date.atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                availableDates.put((int) unixTimestamp, true);
             }
         }
 
@@ -314,12 +317,14 @@ public class PopulateCar {
             // Make sure the range doesn't exceed the month
             int actualDuration = Math.min(rangeDuration, daysInMonth - randomDay + 1);
 
-            // Mark the range as unavailable (false)
+            // Mark the range as unavailable (false) using Unix timestamps
             for (int j = 0; j < actualDuration; j++) {
                 int currentDay = randomDay + j;
                 if (currentDay <= daysInMonth) {
-                    int dateKey = year * 10000 + randomMonth * 100 + currentDay;
-                    availableDates.put(dateKey, false);
+                    LocalDate date = LocalDate.of(year, randomMonth, currentDay);
+                    // Convert to Unix timestamp at 00:00:00 GMT
+                    long unixTimestamp = date.atStartOfDay(java.time.ZoneOffset.UTC).toEpochSecond();
+                    availableDates.put((int) unixTimestamp, false);
                 }
             }
         }

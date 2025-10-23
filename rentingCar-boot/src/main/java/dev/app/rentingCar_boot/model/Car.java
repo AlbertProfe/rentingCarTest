@@ -3,10 +3,14 @@ package dev.app.rentingCar_boot.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import dev.app.rentingCar_boot.utils.GenerateUUID;
 import jakarta.persistence.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Entity
 public class Car {
@@ -148,7 +152,113 @@ public class Car {
                 ", carExtras=" + carExtras.size() + " extras" +
                 ", bookings=" + bookings.size() + " bookings [" +
                 String.join(", ", bookings.stream().map(Booking::getId).toList()) + "]" +
+                ", availabilityRanges=" + formatAvailabilityRanges() +
                 '}';
+    }
+
+    /**
+     * Formats available dates into ranges showing available and booked periods
+     * @return String representation of availability ranges
+     */
+    private String formatAvailabilityRanges() {
+        if (availableDates == null || availableDates.isEmpty()) {
+            return "no dates configured";
+        }
+
+        // Sort dates and separate by availability status
+        List<Integer> sortedDates = availableDates.keySet().stream()
+                .sorted()
+                .collect(Collectors.toList());
+
+        if (sortedDates.isEmpty()) {
+            return "no dates";
+        }
+
+        StringBuilder result = new StringBuilder();
+        List<String> availableRanges = new ArrayList<>();
+        List<String> bookedRanges = new ArrayList<>();
+
+        // Process dates and group consecutive ones by status
+        Integer rangeStart = null;
+        Integer rangeEnd = null;
+        Boolean currentStatus = null;
+
+        for (int currentTimestamp : sortedDates) {
+            boolean dateStatus = availableDates.get(currentTimestamp);
+
+            if (rangeStart == null) {
+                // First date
+                rangeStart = currentTimestamp;
+                rangeEnd = currentTimestamp;
+                currentStatus = dateStatus;
+            } else if (dateStatus == currentStatus && currentTimestamp == rangeEnd + 86400) {
+                // Continue current range (consecutive day - 86400 seconds apart)
+                rangeEnd = currentTimestamp;
+            } else {
+                // End current range and start new one
+                String range = formatDateRange(rangeStart, rangeEnd);
+                if (currentStatus) {
+                    availableRanges.add(range);
+                } else {
+                    bookedRanges.add(range);
+                }
+
+                // Start new range
+                rangeStart = currentTimestamp;
+                rangeEnd = currentTimestamp;
+                currentStatus = dateStatus;
+            }
+        }
+
+        // Add the last range
+        if (rangeStart != null) {
+            String range = formatDateRange(rangeStart, rangeEnd);
+            if (currentStatus) {
+                availableRanges.add(range);
+            } else {
+                bookedRanges.add(range);
+            }
+        }
+
+        // Format output with line breaks
+        if (!availableRanges.isEmpty()) {
+            result.append("\nAvailable dates:");
+            for (int i = 0; i < availableRanges.size(); i++) {
+                result.append("\nRange#").append(i + 1).append(": ").append(availableRanges.get(i));
+            }
+        }
+        if (!bookedRanges.isEmpty()) {
+            result.append("\nBooked dates:");
+            for (String bookedRange : bookedRanges) {
+                result.append("\n").append(bookedRange);
+            }
+        }
+
+        return result.toString();
+    }
+
+    /**
+     * Formats a date range from Unix timestamps to readable dd/MM/yyyy format
+     * @param startTimestamp start date in Unix timestamp (seconds)
+     * @param endTimestamp end date in Unix timestamp (seconds)
+     * @return formatted date range string
+     */
+    private String formatDateRange(int startTimestamp, int endTimestamp) {
+        // Convert Unix timestamps to LocalDate
+        LocalDate startDate = Instant.ofEpochSecond(startTimestamp).atZone(ZoneOffset.UTC).toLocalDate();
+        LocalDate endDate = Instant.ofEpochSecond(endTimestamp).atZone(ZoneOffset.UTC).toLocalDate();
+
+        // Format as dd/MM/yyyy
+        String startFormatted = String.format("%02d/%02d/%d", 
+            startDate.getDayOfMonth(), startDate.getMonthValue(), startDate.getYear());
+        String endFormatted = String.format("%02d/%02d/%d", 
+            endDate.getDayOfMonth(), endDate.getMonthValue(), endDate.getYear());
+
+        if (startTimestamp == endTimestamp) {
+            return startFormatted;
+        } else {
+            return startFormatted + " - " + endFormatted;
+        }
     }
 
 
