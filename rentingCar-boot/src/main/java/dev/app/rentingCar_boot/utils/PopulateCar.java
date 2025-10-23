@@ -251,6 +251,13 @@ public class PopulateCar {
 
     // ------------------------------ available dates by car and year -------------------
 
+    // Assign available dates to a car for a specific year
+    public void assignAvailableDatesToCarByYear(List<Car> cars, int year){
+        for (Car car : cars) {
+            generateAvailableDates(year, car);
+        }
+    }
+
     // Then replace your method with this corrected version:
     public void initAvailableDatesByCarAndYear(int year, Car car) {
 
