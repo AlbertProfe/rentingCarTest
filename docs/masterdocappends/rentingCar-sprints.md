@@ -10,8 +10,9 @@
 | ------- | ------------------------ | ----------------------------------------------------------------------- | -------- | ----- |
 | v3.0    | car Test object creation | JUnitTest                                                               | f6d8ad4f | 20/10 |
 | v3.1.1  | car availability 1/3     | Feature, availability by date and car: data model HashMap and fake init | 177fc2c4 | 21/10 |
-| v3.1.2  | car availability 2/3     | Implement Service and annotations tfor HashMap attribute at car         |          | 21/10 |
-| v3.1.3  | car availability 3/3     | Test Service with fake data                                             |          | 21/10 |
+| v3.1.2  | car availability 2/3     | Implement Service and annotations tfor HashMap attribute at car         | 6ae4c077 | 21/10 |
+| v3.1.3  | car availability 3/3     | Test Service with fake data                                             | b744704a | 21/10 |
+| v3.2    | generateBooking          | generateBooking orchestrator                                            | df87e05d | 23/10 |
 
 ## Old Sprints Boot Version
 

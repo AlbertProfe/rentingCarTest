@@ -1,6 +1,6 @@
 # rentingCar v3
 
-`version document: v3.1`
+`version document: v3.2`
 
 ## Goal & Summary
 
@@ -96,6 +96,60 @@ Analysis of Four Approaches for Car Availability (SQL/NoSQL):
 - [rentingCarTest/docs/masterdocappends/4-approaches-availability.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/4-approaches-availability.md#approach-2-car-has-hashmap-of-availabledates-for-year-2026)
 
 - [rentingCarTest/docs/masterdocappends/FakeAvailableDatesHashMap.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/FakeAvailableDatesHashMap.md)
+
+### checkAvailability
+
+```java
+public boolean checkAvailability(Car car, int bookingDate, int qtyDays) {
+        Map<Integer, Boolean> availableDates = car.getAvailableDates();
+
+        // Check each day in the requested booking period
+        for (int i = 0; i < qtyDays; i++) {
+            int currentDate = bookingDate + (i * 86400); // Add 86400 seconds (1 day) per iteration
+
+            // If date exists in HashMap and is false (unavailable), return false
+            if (availableDates.containsKey(currentDate) && !availableDates.get(currentDate)) {
+                return false; // Car is not available on this date
+            }
+        }
+
+        return true; // All dates are available
+    }
+```
+
+## generateBooking
+
+Implementation details for our `Orchestrator`:
+
+| **Step**                 | **Action**              | **Implementation Details**                                                                                                                                                                                                                                                        |
+| ------------------------ | ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **calculateTotalAmount** | Simple calculation      | [qtyDays * car.getPrice()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Car.java:111:4-113:5) - Returns total cost for rental period                                                                 |
+| **Step 1**               | Defensive Programming   | Validates `client != null`, `car != null`, `qtyDays > 0`, `bookingDate > 0` (valid Unix timestamp)                                                                                                                                                                                |
+| **Step 2**               | Check Availability      | Uses existing [checkAvailability()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:10:4-24:5) method - Returns error if car not available for requested dates                   |
+| **Step 3**               | Calculate Total Amount  | Calls [calculateTotalAmount(car, qtyDays)](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:4:4-8:5) - Simple math: days × daily price                                            |
+| **Step 4**               | Create Booking          | Creates new [Booking()](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/model/Booking.java:5:0-105:1) instance with auto-generated ID                                                                         |
+| **Step 5**               | Set Booking Data        | Sets all booking properties with validated data - Marks booking as active (`isActive = true`)                                                                                                                                                                                     |
+| **Step 6**               | Save Booking            | Uses `bookingRepository.save()` to persist booking                                                                                                                                                                                                                                |
+| **Step 7**               | Update Car Availability | Calls [updateCarAvailability()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:101:4-112:5) to mark booked dates as unavailable - Saves updated car with `carRepository.save()` |
+| **Step 8**               | Return Success Message  | Uses `StringBuilder` with all relevant booking data - Includes: Booking ID, Client name, Car details, dates, amount, status                                                                                                                                                       |
+
+**Helper Methods:**
+
+- [updateCarAvailability()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:101:4-112:5): Marks booked dates as `false` in car's availability map
+- [formatUnixTimestamp()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:114:4-121:5): Converts Unix timestamp to `dd/MM/yyyy` format
+
+Example Output:
+
+```
+Booking successfully created!
+Booking ID: 1234
+Client: John Doe
+Car: Toyota Corolla (ABC123)
+Start Date: 15/03/2026
+Duration: 7 days
+Total Amount: €1,652.29
+Status: Active
+```
 
 ## HashMap
 
