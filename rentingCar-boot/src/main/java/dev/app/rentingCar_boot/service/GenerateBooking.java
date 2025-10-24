@@ -22,7 +22,10 @@ public class GenerateBooking {
     @Autowired
     private CarRepository carRepository;
 
+    // Orchestrator commands operations sequentially
     public String generateBooking(Client client, Car car, int bookingDate, int qtyDays) {
+        // StringBuilder to store the result of the booking
+        // StringBuilder is mutable and can be modified
         StringBuilder result = new StringBuilder();
 
         // 1. defensive programming : not null data
