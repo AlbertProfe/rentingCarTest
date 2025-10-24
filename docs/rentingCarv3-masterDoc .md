@@ -117,7 +117,7 @@ public boolean checkAvailability(Car car, int bookingDate, int qtyDays) {
     }
 ```
 
-## generateBooking
+### generateBooking
 
 Implementation details for our `Orchestrator`:
 
@@ -150,6 +150,30 @@ Duration: 7 days
 Total Amount: €1,652.29
 Status: Active
 ```
+
+### GenerateBooking as an Orchestrator Pattern
+
+> The [GenerateBooking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:15:0-135:1) class exemplifies the **Orchestrator pattern** by coordinating multiple business operations in a <mark>centralized, sequential workflow.</mark> It orchestrates the complete booking process through 8 distinct steps: validation, availability checking, price calculation, booking creation, persistence, car availability updates, and response formatting.
+
+Why It's an Orchestrator
+
+- **Centralized Control**: Single point managing the entire booking workflow
+- **Sequential Coordination**: Executes steps in a specific order with clear dependencies
+- **Cross-Domain Integration**: Coordinates between Client, Car, and Booking entities
+- **Transaction Management**: Handles database operations across multiple repositories
+- **Business Logic Encapsulation**: Contains all booking-related rules and validations
+
+#### Pattern Alternatives Comparison
+
+**Command Pattern**: Would encapsulate each booking request as an object but lacks the workflow coordination that [GenerateBooking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:15:0-135:1) provides.
+
+**Saga Pattern**: Better for distributed systems with compensating transactions, but overkill for this monolithic booking process.
+
+**Service Layer Pattern**: [GenerateBooking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:15:0-135:1) could be split into smaller services (ValidationService, AvailabilityService, PricingService), providing better separation of concerns but requiring additional coordination logic.
+
+**Factory Pattern**: Would only handle booking object creation, missing the comprehensive workflow management.
+
+> The Orchestrator pattern fits perfectly here because booking requires strict sequential execution, cross-entity coordination, and centralized business rule enforcement - exactly what this implementation provides.
 
 ## HashMap
 
