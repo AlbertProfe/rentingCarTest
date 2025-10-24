@@ -165,6 +165,12 @@ Why It's an Orchestrator
 
 #### Pattern Alternatives Comparison
 
+Orchestrator-pattern-analysis (with code examples):
+
+- [rentingCarTest/docs/masterdocappends/orchestrator-pattern-analysis.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/orchestrator-pattern-analysis.md)
+
+Orchestrator-pattern-analysis:
+
 **Command Pattern**: Would encapsulate each booking request as an object but lacks the workflow coordination that [GenerateBooking](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:15:0-135:1) provides.
 
 **Saga Pattern**: Better for distributed systems with compensating transactions, but overkill for this monolithic booking process.
