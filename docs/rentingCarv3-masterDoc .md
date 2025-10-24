@@ -175,6 +175,20 @@ Why It's an Orchestrator
 
 > The Orchestrator pattern fits perfectly here because booking requires strict sequential execution, cross-entity coordination, and centralized business rule enforcement - exactly what this implementation provides.
 
+#### StringBuilder Relevance in GenerateBooking
+
+> **StringBuilder** is key in the [GenerateBooking.generateBooking()](cci:1://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-boot/src/main/java/dev/app/rentingCar_boot/service/GenerateBooking.java:10:4-22:27) method because <mark>it efficiently constructs the multi-line booking confirmation response</mark>. Unlike regular string concatenation with `+` operator, StringBuilder uses an internal buffer that dynamically resizes, avoiding the creation of multiple intermediate String objects.
+
+Why It Matters Here
+
+- **Performance**: The method builds 7+ lines of booking details (ID, client name, car info, dates, amount, status). String concatenation would create a new String object for each append operation, causing unnecessary memory allocation and garbage collection.
+
+- **Memory Efficiency**: StringBuilder modifies its internal character array in-place, using approximately 50% less memory than traditional concatenation.
+
+- **Readability**: The `.append()` chain clearly shows the sequential construction of the response message.
+
+- **Scalability**: If booking confirmations expand to include more details (insurance, terms, etc.), StringBuilder maintains optimal performance without code changes.
+
 ## HashMap
 
 References
