@@ -6,6 +6,7 @@ import dev.app.rentingCar_boot.model.InssuranceCia;
 import dev.app.rentingCar_boot.repository.CarExtrasRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.InssuranceCiaRepository;
+import dev.app.rentingCar_boot.service.GenerateBookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -166,8 +167,12 @@ public class PopulateCar {
             double price = 50.0 + (random.nextDouble() * 450.0); // Price between 50-500
 
             Car car = new Car(brand, model, plate, year, price);
+            // Generate available dates for the car and SAVE car
+            generateAvailableDates(2026,car);
+
+            // Add car to the list
             generatedCars.add(car);
-            carRepository.save(car);
+            //carRepository.save(car);
         }
 
         //return "Successfully generated " + qtyCars + " cars. Total cars in database: " + carRepository.count();
