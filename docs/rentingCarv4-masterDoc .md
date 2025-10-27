@@ -293,6 +293,8 @@ Error: Car is not available for the requested dates
 
 ### Example: Using `generateBooking` in a Test Class
 
+- [rentingCarTest/docs/masterdocappends/Junit-mock-testing-guide.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/junit-mock-testing-guide.md)
+
 If you want to test the `generateBooking` method directly, you could use a unit test with mocked repositories:
 
 ```java
@@ -413,8 +415,6 @@ Based on the memories about car availability and booking management, this interf
 - **Service Layer Pattern**: Fits well with Spring Boot architecture
 - **Transaction Management**: Each method can be wrapped in appropriate transactions
 - **Error Handling**: Consistent approach to handling modification failures
-
-
 
 ### Code
 
