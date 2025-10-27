@@ -14,7 +14,7 @@ import java.time.ZoneOffset;
 import java.util.Map;
 
 @Service
-public class GenerateBooking {
+public class GenerateBooking implements GenerateBookingService  {
 
     @Autowired
     private BookingRepository bookingRepository;
@@ -114,6 +114,13 @@ public class GenerateBooking {
 
         return true; // All dates are available
     }
+
+    public boolean checkClient(Client client) {
+        // todo: check client premium status
+        return false;
+    }
+
+    // ------------------------- utils and private methods ---------
 
     /**
      * Updates car availability by marking booked dates as unavailable
