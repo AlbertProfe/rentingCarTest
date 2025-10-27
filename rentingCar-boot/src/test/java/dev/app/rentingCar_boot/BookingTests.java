@@ -6,16 +6,25 @@ import dev.app.rentingCar_boot.model.Client;
 import dev.app.rentingCar_boot.repository.BookingRepository;
 import dev.app.rentingCar_boot.repository.CarRepository;
 import dev.app.rentingCar_boot.repository.ClientRepository;
+import dev.app.rentingCar_boot.service.GenerateBookingService;
 import dev.app.rentingCar_boot.utils.PopulateAllTables;
 import dev.app.rentingCar_boot.utils.PopulateBooking;
-import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+
+import java.util.HashMap;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,13 +33,19 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BookingTests {
 
     @Autowired
-    BookingRepository bookingRepository;
+    private GenerateBookingService generateBookingService;
+
+    //@MockBean
+    @MockitoBean
+    private BookingRepository bookingRepository;
+
+    //@MockBean
+    @MockitoBean
+    private CarRepository carRepository;
+
 
     @Autowired
     ClientRepository clientRepository;
-
-    @Autowired
-    CarRepository carRepository;
 
     @Autowired
     PopulateBooking populateBooking;
@@ -141,7 +156,40 @@ public class BookingTests {
 
         System.out.println("Test completed successfully - Booking created after PopulateAllTables execution");
     }
-    
+
+    @Test
+    public void testGenerateBooking() {
+        // Setup test data
+        Client client = new Client();
+        client.setId("client123");
+        client.setName("John");
+        client.setLastName("Doe");
+
+        Car car = new Car();
+        car.setId("car456");
+        car.setBrand("Toyota");
+        car.setModel("Corolla");
+        car.setPlate("ABC123");
+        car.setPrice(50.0);
+        car.setAvailableDates(new HashMap<>());
+
+        Booking booking = new Booking();
+        booking.setId("booking789");
+
+        // Mock repository behavior
+        when(bookingRepository.save(any(Booking.class))).thenReturn(booking);
+        when(carRepository.save(any(Car.class))).thenReturn(car);
+
+        // Call the service
+        String result = generateBookingService.generateBooking(client, car, 1767225600, 3);
+
+        // Verify the result
+        assertTrue(result.contains("Booking successfully created"));
+        assertTrue(result.contains("Booking ID: booking789"));
+        assertTrue(result.contains("Client: John Doe"));
+        assertTrue(result.contains("Car: Toyota Corolla (ABC123)"));
+        assertTrue(result.contains("Total Amount: €150.00"));
+    }
 
 
 }
