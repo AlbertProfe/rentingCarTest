@@ -1,18 +1,18 @@
 # rentingCar sprints
 
-`version document: v3.1`
+`version document: v4.1`
 
 ## Current sprint
 
-### Week #05
+### Week #06
 
-| Version | Title                    | Description                                                             | Status   | Date  |
-| ------- | ------------------------ | ----------------------------------------------------------------------- | -------- | ----- |
-| v3.0    | car Test object creation | JUnitTest                                                               | f6d8ad4f | 20/10 |
-| v3.1.1  | car availability 1/3     | Feature, availability by date and car: data model HashMap and fake init | 177fc2c4 | 21/10 |
-| v3.1.2  | car availability 2/3     | Implement Service and annotations tfor HashMap attribute at car         | 6ae4c077 | 21/10 |
-| v3.1.3  | car availability 3/3     | Test Service with fake data                                             | b744704a | 21/10 |
-| v3.2    | generateBooking          | generateBooking orchestrator                                            | df87e05d | 23/10 |
+| Version | Title                            | Description                                   | Status  | Date  |
+| ------- | -------------------------------- | --------------------------------------------- | ------- | ----- |
+| v4.0    | interface GenerateBookingService | crete `interface`                             | e8fe2a9 | 27/10 |
+| v4.1    | ModifyBookingService             | create `inteface` and draft implemented class | 5ca859b | 27/10 |
+|         |                                  |                                               |         |       |
+|         |                                  |                                               |         |       |
+|         |                                  |                                               |         |       |
 
 ## Old Sprints Boot Version
 
@@ -42,6 +42,16 @@
 | v2.7.4  | assignClientsToDrivingCourses                         | implement                                                              | b006f597 | 16/10 |
 | v2.7.5  | Client with List<String>                              | @ElementCollection                                                     | 252f3238 | 17/10 |
 | v2.7.6  | populate all tables: populateCarStatus                | populateStatus to return status after populatoin operations            | 5f4354d0 | 17/10 |
+
+### Week #05
+
+| Version | Title                    | Description                                                             | Status   | Date  |
+| ------- | ------------------------ | ----------------------------------------------------------------------- | -------- | ----- |
+| v3.0    | car Test object creation | JUnitTest                                                               | f6d8ad4f | 20/10 |
+| v3.1.1  | car availability 1/3     | Feature, availability by date and car: data model HashMap and fake init | 177fc2c4 | 21/10 |
+| v3.1.2  | car availability 2/3     | Implement Service and annotations tfor HashMap attribute at car         | 6ae4c077 | 21/10 |
+| v3.1.3  | car availability 3/3     | Test Service with fake data                                             | b744704a | 21/10 |
+| v3.2    | generateBooking          | generateBooking orchestrator                                            | df87e05d | 23/10 |
 
 ## Old Sprints Quickstart Maven Version
 
