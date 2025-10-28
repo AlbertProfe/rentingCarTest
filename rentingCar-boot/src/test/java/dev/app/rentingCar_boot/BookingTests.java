@@ -9,15 +9,13 @@ import dev.app.rentingCar_boot.repository.ClientRepository;
 import dev.app.rentingCar_boot.service.GenerateBookingService;
 import dev.app.rentingCar_boot.utils.PopulateAllTables;
 import dev.app.rentingCar_boot.utils.PopulateBooking;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
-import java.util.HashMap;
-import java.util.Optional;
-import java.util.Arrays;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -25,7 +23,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -37,14 +34,11 @@ public class BookingTests {
     @Autowired
     private GenerateBookingService generateBookingService;
 
-    //@MockBean
-    @MockitoBean
+    @Autowired
     private BookingRepository bookingRepository;
 
-    //@MockBean
-    @MockitoBean
+    @Autowired
     private CarRepository carRepository;
-
 
     @Autowired
     ClientRepository clientRepository;
@@ -193,38 +187,22 @@ public class BookingTests {
         assertTrue(result.contains("Total Amount: €150.00"));
     }
 
+
     @Test
-    public void testFindByBookingDateLessThan() {
-        // Arrange - Setup test data
-        Booking booking1 = new Booking();
-        booking1.setId("booking001");
-        booking1.setBookingDate(1767225600); // Jan 1, 2026
-        booking1.setQtyDays(3);
-        booking1.setTotalAmount(150.0);
-        booking1.setActive(true);
+    public void testFindByBookingDateLessThan_DB(){
 
-        Booking booking2 = new Booking();
-        booking2.setId("booking002");
-        booking2.setBookingDate(1767312000); // Jan 2, 2026
-        booking2.setQtyDays(5);
-        booking2.setTotalAmount(250.0);
-        booking2.setActive(true);
+        List<Booking> result = (List<Booking>) bookingRepository.findAll();
+        System.out.println("Result size: " + result.size());
 
-        List<Booking> expectedBookings = Arrays.asList(booking1, booking2);
+        List<Booking> resultQuery =  bookingRepository.findByBookingDateLessThan(1707609600); //  February 11 2024
+        //
+        //System.out.println("resultQuery: " + result);
+        System.out.println("resultQuery Size: " + resultQuery.size());
+        for (Booking booking : resultQuery){
+            String date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date(booking.getBookingDate() * 1000L));
+            System.out.println("Booking dates: " + booking.getBookingDate() + " / " + date);
+        }
 
-        // When - Mock repository behavior
-        when(bookingRepository.findByBookingDateLessThan(anyInt())).thenReturn(expectedBookings);
-
-        // Execute - Call the repository method
-        List<Booking> result = bookingRepository.findByBookingDateLessThan(1767398400); // Jan 3, 2026
-
-        // Assert - Verify the results
-        assertNotNull(result);
-        assertEquals(2, result.size());
-        assertEquals("booking001", result.get(0).getId());
-        assertEquals("booking002", result.get(1).getId());
-        assertEquals(1767225600, result.get(0).getBookingDate());
-        assertEquals(1767312000, result.get(1).getBookingDate());
     }
 
 
