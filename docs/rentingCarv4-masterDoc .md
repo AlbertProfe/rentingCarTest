@@ -441,6 +441,7 @@ public interface ModifyBookingService {
 - [rentingCarTest/docs/masterdocappends/BookingRepository_Queries.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/BookingRepository_Queries.md)
 - [JPA Query Methods :: Spring Data JPA](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.query-creation)
 - [Spring Boot: JPA Queries – albertprofe wiki](https://albertprofe.dev/springboot/boot-concepts-jpa-4.html)
+- [rentingCarTest/docs/masterdocappends/DerivedQueryStructure.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/DerivedQueryStructure.md)
 
 ### Definition: Query Derived
 
@@ -492,8 +493,6 @@ SELECT * FROM booking WHERE car_fk = ? AND is_active = true
 ```
 
 > The grammar is specifically designed for **JPA entities** and follows **JavaBean property naming conventions**.
-
-
 
 ## UML Data Model
 
