@@ -1,18 +1,21 @@
 # rentingCar sprints
 
-`version document: v4.1`
+`version document: v4.4`
 
 ## Current sprint
 
 ### Week #06
 
-| Version | Title                             | Description                                   | Status   | Date  |
-| ------- | --------------------------------- | --------------------------------------------- | -------- | ----- |
-| v4.0    | interface GenerateBookingService  | crete `interface`                             | e8fe2a9  | 27/10 |
-| v4.1    | ModifyBookingService              | create `inteface` and draft implemented class | 5ca859b  | 27/10 |
-| v4.2    | generateAvailableDates(2026,car); | at  PopulateCar                               | 05e5989a | 27/10 |
-| v4.3    | testGenerateBooking               | at bookingTest                                | 554f2c2e | 27/10 |
-|         |                                   |                                               |          |       |
+| Version | Title                                                                            | Description                                   | Status   | Date  |
+| ------- | -------------------------------------------------------------------------------- | --------------------------------------------- | -------- | ----- |
+| v4.0    | interface GenerateBookingService                                                 | crete `interface`                             | e8fe2a9  | 27/10 |
+| v4.1    | ModifyBookingService                                                             | create `inteface` and draft implemented class | 5ca859b  | 27/10 |
+| v4.2    | generateAvailableDates(2026,car);                                                | at  PopulateCar                               | 05e5989a | 27/10 |
+| v4.3    | testGenerateBooking mock                                                         | at bookingTest                                | 554f2c2e | 27/10 |
+| v4.4    | mock BookingTests INTERCEPTOR no real daata at db, testFindByBookingDateLessThan | query at mock bookingTest                     | 2286ecfc | 28/10 |
+| v4.4.1  | BookingTests testFindByBookingDateLessThan_DB                                    | query at bookingTest                          | cb8dd61e | 28/10 |
+| v4.5    |                                                                                  |                                               |          | 30/10 |
+| v4.6    |                                                                                  |                                               |          | 31/10 |
 
 ## Old Sprints Boot Version
 
