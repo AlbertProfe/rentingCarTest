@@ -436,6 +436,65 @@ public interface ModifyBookingService {
 }
 ```
 
+## Spring Data JPA Query Derived/Creation Methods
+
+- [rentingCarTest/docs/masterdocappends/BookingRepository_Queries.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/BookingRepository_Queries.md)
+- [JPA Query Methods :: Spring Data JPA](https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html#jpa.query-methods.query-creation)
+- [Spring Boot: JPA Queries – albertprofe wiki](https://albertprofe.dev/springboot/boot-concepts-jpa-4.html)
+
+### Definition: Query Derived
+
+> **Spring Data JPA Query Creation** is a mechanism that automatically generates database queries from method names in repository interfaces. 
+> 
+> By following naming conventions, developers can create queries without writing SQL or JPQL code. The framework parses method names like `findByEmailAddressAndLastname` and translates them into equivalent queries: `select u from User u where u.emailAddress = ?1 and u.lastname = ?2`. 
+
+Supported keywords include `And`, `Or`, `Between`, `LessThan`, `GreaterThan`, `Like`, `IsNull`, `OrderBy`, and many others. Each keyword maps to specific SQL operations, enabling complex queries through descriptive method names. This approach reduces boilerplate code, improves readability, and leverages Spring's property traversal for nested object queries, making database operations more intuitive and maintainable.
+
+JPA Connection:
+
+- **JPA (Java Persistence API)** is the specification
+- **Spring Data JPA** implements derived queries on top of JPA
+- Derived queries get translated to **JPQL (Java Persistence Query Language)** or **Criteria API** calls
+- The syntax and grammar used in derived queries is called:
+  - **"Spring Data JPA Query Derivation DSL"** (Domain Specific Language)
+- Key Components:
+  - **Query Subject**: `find`, `read`, `get`, `query`, `stream`
+  - **Predicate Keywords**: `By`, `And`, `Or` 
+  - **Property Expressions**: Entity property names
+  - **Condition Keywords**: `LessThan`, `GreaterThan`, `Between`, `Like`, `IsNull`
+  - **Modifiers**: `Distinct`, `Top`, `First`
+  - **Ordering**: `OrderBy`
+
+### Grammar Pattern
+
+```
+[QuerySubject][Distinct][Top/First][PropertyExpression][Predicate][OrderBy]
+```
+
+ **Examples from Our Repository**
+
+```java
+findByIsActiveTrue()              // find + By + IsActive + True
+findByBookingDateBetween()        // find + By + BookingDate + Between  
+findTop10ByOrderByTotalAmountDesc() // find + Top10 + By + OrderBy + TotalAmount + Desc
+```
+
+**Translation Process**
+
+Derived Query → **JPQL** → **SQL**
+
+```
+findByCarAndIsActiveTrue(Car car) 
+↓
+SELECT b FROM Booking b WHERE b.car = ?1 AND b.isActive = true
+↓  
+SELECT * FROM booking WHERE car_fk = ? AND is_active = true
+```
+
+> The grammar is specifically designed for **JPA entities** and follows **JavaBean property naming conventions**.
+
+
+
 ## UML Data Model
 
 #### CLASS Car
