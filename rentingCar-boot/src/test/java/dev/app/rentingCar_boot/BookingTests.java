@@ -17,9 +17,11 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import java.util.HashMap;
 import java.util.Optional;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
@@ -189,6 +191,40 @@ public class BookingTests {
         assertTrue(result.contains("Client: John Doe"));
         assertTrue(result.contains("Car: Toyota Corolla (ABC123)"));
         assertTrue(result.contains("Total Amount: €150.00"));
+    }
+
+    @Test
+    public void testFindByBookingDateLessThan() {
+        // Arrange - Setup test data
+        Booking booking1 = new Booking();
+        booking1.setId("booking001");
+        booking1.setBookingDate(1767225600); // Jan 1, 2026
+        booking1.setQtyDays(3);
+        booking1.setTotalAmount(150.0);
+        booking1.setActive(true);
+
+        Booking booking2 = new Booking();
+        booking2.setId("booking002");
+        booking2.setBookingDate(1767312000); // Jan 2, 2026
+        booking2.setQtyDays(5);
+        booking2.setTotalAmount(250.0);
+        booking2.setActive(true);
+
+        List<Booking> expectedBookings = Arrays.asList(booking1, booking2);
+
+        // When - Mock repository behavior
+        when(bookingRepository.findByBookingDateLessThan(anyInt())).thenReturn(expectedBookings);
+
+        // Execute - Call the repository method
+        List<Booking> result = bookingRepository.findByBookingDateLessThan(1767398400); // Jan 3, 2026
+
+        // Assert - Verify the results
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("booking001", result.get(0).getId());
+        assertEquals("booking002", result.get(1).getId());
+        assertEquals(1767225600, result.get(0).getBookingDate());
+        assertEquals(1767312000, result.get(1).getBookingDate());
     }
 
 
