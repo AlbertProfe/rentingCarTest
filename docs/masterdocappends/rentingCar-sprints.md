@@ -1,6 +1,6 @@
 # rentingCar sprints
 
-`version document: v4.4`
+`version document: v4.5`
 
 ## Current sprint
 
@@ -14,8 +14,7 @@
 | v4.3    | testGenerateBooking mock                                                         | at bookingTest                                | 554f2c2e | 27/10 |
 | v4.4    | mock BookingTests INTERCEPTOR no real daata at db, testFindByBookingDateLessThan | query at mock bookingTest                     | 2286ecfc | 28/10 |
 | v4.4.1  | BookingTests testFindByBookingDateLessThan_DB                                    | query at bookingTest                          | cb8dd61e | 28/10 |
-| v4.5    |                                                                                  |                                               |          | 30/10 |
-| v4.6    |                                                                                  |                                               |          | 31/10 |
+| v4.5    | reat controller + postman                                                        | generateBooking                               | f5131ea2 | 31/10 |
 
 ## Old Sprints Boot Version
 
