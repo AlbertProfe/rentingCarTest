@@ -494,6 +494,20 @@ SELECT * FROM booking WHERE car_fk = ? AND is_active = true
 
 > The grammar is specifically designed for **JPA entities** and follows **JavaBean property naming conventions**.
 
+## Addressing the circular reference in Car <> CarExtras
+
+A **circular reference** occurs when two objects reference each other, creating an endless loop during serialization.
+
+In our example:
+
+- `Car` contains a list of `CarExtras`
+
+- Each `CarExtras` has a `carFK` field pointing back to its parent `Car`
+
+Check this document to see how we address this issue:
+
+- [rentingCarTest/docs/masterdocappends/circular-reference.md at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/circular-reference.md)
+
 ## UML Data Model
 
 #### CLASS Car
