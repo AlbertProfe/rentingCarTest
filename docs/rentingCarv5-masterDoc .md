@@ -14,7 +14,7 @@
   - Basic project  [Spring Boot: H2 DB and Thymeleaf – albertprofe wiki](https://albertprofe.dev/springboot/boot-what-create-th-h2.html)
   - [Sculptures Wiki](https://github.com/AlbertProfe/sculptures/wiki)
   - [spaceX codesandbox launches](https://codesandbox.io/p/sandbox/fetch-data-example-vqk726)
-- Extra documens:
+- Extra documents:
   - Web stack parsing: [Web Stack Parsing](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/WebStackParsing.md)
   - [Web Application JavaBasic Architectures](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/WebApplicationJavaBasicArchitectures.md) 
 - Spring Boot Project:
@@ -348,33 +348,7 @@ The response is surprisingly small because of smart optimizations in our [Car](c
 3. **`bookings` are `@JsonIgnore`** (line 40) - Prevents lazy loading issues and reduces payload
 4. **Range compression** - Groups consecutive dates into readable ranges instead of individual timestamps
 
-## @RestController to populate
-
-```java
-@RestController
-@RequestMapping("/api")
-@CrossOrigin(origins = "*")
-public class PopulateRestController {
-
-    @Autowired
-    private PopulateAllTables populateAllTables;
-
-    @PostMapping("/populate")
-    public String populateAllTables(@RequestParam int qty) {
-        try {
-            return populateAllTables.populateAllTables(qty);
-        } catch (Exception e) {
-            return "Error populating tables: " + e.getMessage();
-        }
-    }
-}
-```
-
-PopulateRestController purpose:
-
-> The [PopulateRestController](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-vaadin/src/main/java/dev/app/rentingcartestvaadin/controller/PopulateRestController.java:6:0-22:1) provides a **data seeding endpoint** for development and testing purposes. It exposes a `/api/populate` POST endpoint that accepts a `qty` parameter to generate sample data for the car rental system.
-
-## Cars: Vaadin @Endpoint & .tsx
+## UI Cars: Vaadin @Endpoint & .tsx
 
 > Vaadin Hilla’s `@Endpoint` feature offers an efficient way to bridge backend and frontend development, significantly reducing integration time between Java and React. Instead of manually creating REST controllers, defining routes, and writing fetch logic, we can directly expose backend methods as type-safe APIs.
 > 
@@ -420,7 +394,7 @@ React view to show cars just needs to call the Java class `@Endpoint CarsEndpoin
   }, []);
 ```
 
-## GenerateBooking: Vaadin @Endpoint & .tsx
+## UI GenerateBooking: Vaadin @Endpoint & .tsx
 
 > The [@index.tsx](cci:7://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-vaadin/src/main/frontend/views/@index.tsx:0:0-0:0) file is the home view component and serves as the main booking interface where users can create car reservations.
 
@@ -459,7 +433,7 @@ export const config: ViewConfig = {}
 
 // Hardcoded client
 const hardcodedClient: Client = {}
- 
+
 
 export default function HomeView() {
   const [cars, setCars] = useState<Car[]>([]);
@@ -493,7 +467,14 @@ export default function HomeView() {
   };
 
   if (loading) {return ( <p>Loading cars...</p>);}
-  if (error && !cars.length) {return (<p className="text-red-500">{error}</p> ); }
+  if (error && !cars.length) {return (<p className="text-red-500">{error}</p> ); 
+
+  // map cars from cars to carItems, 
+  // carsItems will be placed as value select
+  // with label/value
+  const carItems = cars.map((car) => ({
+    label: ``, value: ''
+  }));
 
   return (
      <>
@@ -501,10 +482,10 @@ export default function HomeView() {
         <p><strong>Name:</strong> {hardcodedClient.name} {hardcodedClient.lastName}</p>
         <p><strong>Email:</strong> {hardcodedClient.email}</p>
         <p><strong>Client subscription:</strong> {hardcodedClient.premium ? "Premium" : "Standard"}</p>
-      
+
       {/* Error Display */}
       {error && (<div>{error}</div>)}
-      
+
       {/* Booking Form */}
       <form onSubmit={handleSubmit}>
         {/* Car Selection */}
@@ -559,8 +540,39 @@ export default function HomeView() {
     </>
   );
 }
-
 ```
+
+### Decoupling
+
+- [rentingCarTest/rentingCar-vaadin/src/main/frontend/views/@index.tsx at 7e2d652841eaa550862fdf1dd803bb4b5cceecdd · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/7e2d652841eaa550862fdf1dd803bb4b5cceecdd/rentingCar-vaadin/src/main/frontend/views/%40index.tsx)
+
+- [Decoupling GenerateBookingView](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/DecouplingGenerateBookingView.md)
+
+## @RestController to populate
+
+```java
+@RestController
+@RequestMapping("/api")
+@CrossOrigin(origins = "*")
+public class PopulateRestController {
+
+    @Autowired
+    private PopulateAllTables populateAllTables;
+
+    @PostMapping("/populate")
+    public String populateAllTables(@RequestParam int qty) {
+        try {
+            return populateAllTables.populateAllTables(qty);
+        } catch (Exception e) {
+            return "Error populating tables: " + e.getMessage();
+        }
+    }
+}
+```
+
+PopulateRestController purpose:
+
+> The [PopulateRestController](cci:2://file:///home/albert/MyProjects/Sandbox/rentingCarTest/rentingCar-vaadin/src/main/java/dev/app/rentingcartestvaadin/controller/PopulateRestController.java:6:0-22:1) provides a **data seeding endpoint** for development and testing purposes. It exposes a `/api/populate` POST endpoint that accepts a `qty` parameter to generate sample data for the car rental system.
 
 ## Screenshot
 
