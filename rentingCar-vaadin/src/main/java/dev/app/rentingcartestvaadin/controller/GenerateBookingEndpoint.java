@@ -24,6 +24,9 @@ public class GenerateBookingEndpoint {
 
     public String generateBooking(String clientId, String carId, int bookingDate, int qtyDays) {
         try {
+            // Add 1,5 seconds delay
+            Thread.sleep(6500);
+            
             // Fetch managed entities from database
             // and check if they exist, throw exception if not
             Client client = clientRepository.findById(clientId)

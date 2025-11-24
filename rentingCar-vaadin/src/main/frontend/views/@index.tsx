@@ -1,20 +1,10 @@
 import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
-import { useEffect, useState } from 'react';
-import { CarEndpoint } from 'Frontend/generated/endpoints';
-import { GenerateBookingEndpoint } from 'Frontend/generated/endpoints';
-import Car from 'Frontend/generated/dev/app/rentingcartestvaadin/model/Car';
-import Client from 'Frontend/generated/dev/app/rentingcartestvaadin/model/Client';
 import { VerticalLayout } from '@vaadin/react-components/VerticalLayout.js';
 import { HorizontalLayout } from '@vaadin/react-components/HorizontalLayout.js';
-import { FormLayout } from '@vaadin/react-components/FormLayout.js';
-import { Select } from '@vaadin/react-components/Select.js';
-import { DatePicker } from '@vaadin/react-components/DatePicker.js';
-import { IntegerField } from '@vaadin/react-components/IntegerField.js';
 import { Button } from '@vaadin/react-components/Button.js';
-import { Details } from '@vaadin/react-components/Details.js';
-import { Notification } from '@vaadin/react-components/Notification.js';
-import { ProgressBar } from '@vaadin/react-components/ProgressBar.js';
-
+import { Card } from '@vaadin/react-components/Card.js';
+import { Icon } from '@vaadin/react-components/Icon.js';
+import '@vaadin/icons';
 
 export const config: ViewConfig = {
     menu: {
@@ -23,178 +13,113 @@ export const config: ViewConfig = {
     title: 'Home'
     };
 
-// Hardcoded client
-const hardcodedClient: Client = {
-  id: '4782',
-  name: 'Emma',
-  lastName: 'Smith',
-  email: 'emma.smith@gmail.com',
-  age: 73,
-  password: 'pass7032',
-  premium: true
-};
-
 export default function HomeView() {
-  const [cars, setCars] = useState<Car[]>([]);
-  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
-  const [bookingDate, setBookingDate] = useState<string>('');
-  const [qtyDays, setQtyDays] = useState<number>(1);
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [bookingResult, setBookingResult] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchCars = async () => {
-      try {
-        setLoading(true);
-        const carsData = await CarEndpoint.getAllCars();
-        setCars(carsData ? Array.from(carsData).filter((car): car is Car => car !== undefined) : []);
-      } catch (err) {
-        setError('Failed to fetch cars: ' + (err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCars();
-  }, []);
-
-
-  if (loading) {
-    return (
-      <VerticalLayout style={{ margin: '100px' }}>
-        <h1>Generate Booking</h1>
-        <p>Loading cars...</p>
-        <ProgressBar indeterminate />
-        <img style={{ width: '800px' }} src="https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/ui/create_booking.drawio.png" />
-      </VerticalLayout>
-    );
-  }
-
-  if (error && !cars.length) {
-    return (
-      <VerticalLayout style={{ margin: '100px' }}>
-        <h1>Generate Booking</h1>
-        <p>{error}</p>
-        <img style={{ width: '800px' }} src="https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/ui/create_booking.drawio.png" />
-      </VerticalLayout>
-    );
-  }
-
-  const showError = (message: string) => {
-    Notification.show(message, { theme: 'error' });
+  const handleLogin = () => {
+    // Navigate to login or show login dialog
+    console.log('Login clicked');
   };
 
-  const showSuccess = (message: string) => {
-    Notification.show(message, { theme: 'success' });
+  const handleRentCar = () => {
+    // Navigate to GenerateBookingView
+    window.location.href = '/GenereateBookingView';
   };
-
-  const handleSubmitInternal = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!selectedCar) {
-      showError('Please select a car');
-      return;
-    }
-
-    if (!bookingDate) {
-      showError('Please select a booking date');
-      return;
-    }
-
-    try {
-      setSubmitting(true);
-      setError(null);
-      setBookingResult(null);
-
-      // Convert date string to Unix timestamp (epoch seconds at 00:00:00 GMT)
-      const dateObj = new Date(bookingDate + 'T00:00:00.000Z');
-      const bookingDateEpoch = Math.floor(dateObj.getTime() / 1000);
-
-      // Call GenerateBookingEndpoint with IDs instead of full objects
-      const result = await GenerateBookingEndpoint.generateBooking(
-        hardcodedClient.id!,
-        selectedCar.id!,
-        bookingDateEpoch,
-        qtyDays
-      );
-
-      // Set the string result from the endpoint
-      setBookingResult(result || null);
-      if (result) {
-        showSuccess('Booking created successfully!');
-      }
-
-    } catch (err) {
-      const errorMessage = 'Failed to create booking: ' + (err as Error).message;
-      setError(errorMessage);
-      showError(errorMessage);
-    } finally {
-      setSubmitting(false);
-    }
-  };
-
-  const carItems = cars.map((car) => ({
-    label: `${car.brand} ${car.model} - ${car.plate} (€${car.price}/day)`,
-    value: car.id?.toString() || ''
-  }));
 
   return (
-    <VerticalLayout style={{ margin: '100px' }}>
-      <h1>Generate Booking</h1>
+    <VerticalLayout className="home-container">
+      {/* Hero Section */}
+      <VerticalLayout className="hero-section">
+        <h1 className="hero-title">
+          Premium Car Rental
+        </h1>
+        <p className="hero-description">
+          Experience luxury and comfort with our premium fleet. 
+          Book your perfect ride today and drive with confidence.
+        </p>
+        
+        <HorizontalLayout className="hero-buttons">
+          <Button 
+            theme="primary large"
+            onClick={handleLogin}
+            className="login-button"
+          >
+            <Icon icon="vaadin:sign-in" slot="prefix" />
+            Login
+          </Button>
+          
+          <Button 
+            theme="primary large"
+            onClick={handleRentCar}
+            className="rent-button"
+          >
+            <Icon icon="vaadin:car" slot="prefix" />
+            Rent a Car
+          </Button>
+        </HorizontalLayout>
+      </VerticalLayout>
 
-      <Details summary="Client Information" opened>
-        <VerticalLayout style={{ margin: '10px' }}>
-          <p><strong>Name:</strong> {hardcodedClient.name} {hardcodedClient.lastName}</p>
-          <p><strong>Email:</strong> {hardcodedClient.email}</p>
-          <p><strong>Client subscription:</strong> {hardcodedClient.premium ? "Premium" : "Standard"}</p>
-        </VerticalLayout>
-      </Details>
+      {/* Features Section */}
+      <VerticalLayout className="features-section">
+        <h2 className="features-title">
+          Why Choose Us?
+        </h2>
+        
+        <HorizontalLayout className="features-container">
+          <Card className="feature-card">
+            <Icon 
+              icon="vaadin:car" 
+              className="feature-icon-safety"
+            />
+            <h3 className="feature-card-title">Premium Safety</h3>
+            <p className="feature-card-text">
+              All our vehicles undergo rigorous safety checks and maintenance 
+              to ensure your peace of mind on every journey.
+            </p>
+          </Card>
 
-      <FormLayout>
-        <Select
-          label="Select Car"
-          placeholder="Choose a car..."
-          items={carItems}
-          value={selectedCar?.id?.toString() || ''}
-          onValueChanged={(e) => {
-            const carId = parseInt(e.detail.value);
-            const car = cars.find(c => c.id?.toString() === carId.toString()) || null;
-            setSelectedCar(car);
-          }}
-          disabled={submitting}
-        />
+          <Card className="feature-card">
+            <Icon 
+              icon="vaadin:clock" 
+              className="feature-icon-support"
+            />
+            <h3 className="feature-card-title">24/7 Support</h3>
+            <p className="feature-card-text">
+              Our dedicated customer support team is available around the clock 
+              to assist you with any questions or concerns.
+            </p>
+          </Card>
 
-        <DatePicker
-          label="Booking Date"
-          value={bookingDate}
-          onValueChanged={(e) => setBookingDate(e.detail.value)}
-          disabled={submitting}
-        />
+          <Card className="feature-card">
+            <Icon 
+              icon="vaadin:dollar" 
+              className="feature-icon-price"
+            />
+            <h3 className="feature-card-title">Best Prices</h3>
+            <p className="feature-card-text">
+              Competitive rates with no hidden fees. Get the best value 
+              for your money with our transparent pricing.
+            </p>
+          </Card>
+        </HorizontalLayout>
+      </VerticalLayout>
 
-        <IntegerField
-          label="Quantity of Days"
-          value={qtyDays.toString()}
-          min={1}
-          onValueChanged={(e) => setQtyDays(parseInt(e.detail.value) || 1)}
-          disabled={submitting}
-        />
-
-        <Button
-          theme="primary"
-          onClick={handleSubmitInternal}
-          disabled={submitting}
+      {/* Call to Action Section */}
+      <VerticalLayout className="cta-section">
+        <h2 className="cta-title">
+          Ready to Hit the Road?
+        </h2>
+        <p className="cta-description">
+          Join thousands of satisfied customers who trust us with their travel needs.
+        </p>
+        
+        <Button 
+          theme="primary large"
+          onClick={handleRentCar}
+          className="cta-button"
         >
-          {submitting ? 'Creating Booking...' : 'Generate Booking'}
+          <Icon icon="vaadin:rocket" slot="prefix" />
+          Start Your Journey
         </Button>
-      </FormLayout>
-
-      {bookingResult && (
-        <Details summary="Booking Result" opened>
-          <pre>{bookingResult}</pre>
-        </Details>
-      )}
+      </VerticalLayout>
     </VerticalLayout>
   );
 }

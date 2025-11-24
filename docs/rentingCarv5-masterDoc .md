@@ -576,6 +576,8 @@ PopulateRestController purpose:
 
 ## Screenshot
 
+- [rentingCarTest/docs/ui/ui-scrrenshots at master · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/tree/master/docs/ui/ui-scrrenshots)
+
 First render:
 
 ![](https://albertprofe.dev/images/ifcd0021-1-25/hilla-first-render.png)
