@@ -35,10 +35,14 @@ const hardcodedClient: Client = {
 };
 
 export default function GenerateBookingView() {
+  // hooks definition
+  // booking hooks
   const [cars, setCars] = useState<Car[]>([]);
   const [selectedCar, setSelectedCar] = useState<Car | null>(null);
   const [bookingDate, setBookingDate] = useState<string>('');
   const [qtyDays, setQtyDays] = useState<number>(1);
+  // booking state request and response
+
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,11 +60,11 @@ export default function GenerateBookingView() {
         setLoading(false);
       }
     };
-
+    // function calling
     fetchCars();
   }, []);
 
-
+  // conditional rendering for loading
   if (loading) {
     return (
       <VerticalLayout style={{ margin: '100px' }}>
@@ -71,7 +75,7 @@ export default function GenerateBookingView() {
       </VerticalLayout>
     );
   }
-
+  // conditional render for error
   if (error && !cars.length) {
     return (
       <VerticalLayout style={{ margin: '100px' }}>
@@ -82,14 +86,19 @@ export default function GenerateBookingView() {
     );
   }
 
+  // functions to show notifications
   const showError = (message: string) => {
     Notification.show(message, { theme: 'error' });
   };
-
+  // function to show success notification
   const showSuccess = (message: string) => {
     Notification.show(message, { theme: 'success' });
   };
 
+  // handler function:
+  // to handle the form submission
+  // mange states and call the endpoint
+  // parsing epoch for date booking
   const handleSubmitInternal = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -131,10 +140,19 @@ export default function GenerateBookingView() {
       setError(errorMessage);
       showError(errorMessage);
     } finally {
+      // Reset form to default values
+      // when the handler finishes its job
+      // whatever it is:  booking or not booking
       setSubmitting(false);
+      setQtyDays(1);
+      setSelectedCar(null);
+      setBookingDate('');
     }
   };
 
+  // Map cars to Select items
+  // to have label and value properties
+  //for the Select component
   const carItems = cars.map((car) => ({
     label: `${car.brand} ${car.model} - ${car.plate} (€${car.price}/day)`,
     value: car.id?.toString() || ''
