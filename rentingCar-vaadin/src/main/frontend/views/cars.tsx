@@ -2,6 +2,11 @@ import { ViewConfig } from '@vaadin/hilla-file-router/types.js';
 import { useEffect, useState } from 'react';
 import { CarEndpoint } from 'Frontend/generated/endpoints';
 import Car from 'Frontend/generated/dev/app/rentingcartestvaadin/model/Car';
+import { VerticalLayout } from '@vaadin/react-components/VerticalLayout.js';
+import { HorizontalLayout } from '@vaadin/react-components/HorizontalLayout.js';
+import { Card } from '@vaadin/react-components/Card.js';
+import { Details } from '@vaadin/react-components/Details.js';
+import { ProgressBar } from '@vaadin/react-components/ProgressBar.js';
 
 export const config: ViewConfig = { menu: { order: 1, icon: 'line-awesome/svg/car-side-solid.svg' }, title: 'Cars' };
 
@@ -28,55 +33,81 @@ export default function CarsView() {
 
   if (loading) {
     return (
-      <div className="flex flex-col h-full items-center justify-center p-4">
+      <VerticalLayout style={{ height: '100%', alignItems: 'center', justifyContent: 'center', padding: 'var(--lumo-space-l)' }}>
         <h1>Cars</h1>
         <p>Loading cars...</p>
-      </div>
+        <ProgressBar indeterminate />
+      </VerticalLayout>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col h-full items-center justify-center p-4">
+      <VerticalLayout style={{ height: '100%', alignItems: 'center', justifyContent: 'center', padding: 'var(--lumo-space-l)' }}>
         <h1>Cars</h1>
-        <p className="text-red-500">{error}</p>
-      </div>
+        <p style={{ color: 'var(--lumo-error-text-color)' }}>{error}</p>
+      </VerticalLayout>
     );
   }
 
   return (
-    <div className="flex flex-col h-full p-4">
-      <h1 className="text-2xl font-bold mb-4">Cars ({cars.length})</h1>
+    <VerticalLayout style={{ height: '100%', padding: 'var(--lumo-space-l)' }}>
+      <h1>Cars ({cars.length})</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div style={{ 
+        display: 'grid', 
+        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+        gap: 'var(--lumo-space-m)',
+        width: '100%'
+      }}>
         {cars.map((car) => (
-          <div key={car.id} className="border rounded-lg p-4 shadow-md">
-            <h3 className="text-lg font-semibold">{car.brand} {car.model}</h3>
-            <div className="mt-2 space-y-1">
-              <p><strong>Plate:</strong> {car.plate}</p>
-              <p><strong>Year:</strong> {car.year}</p>
-              <p><strong>Price:</strong> ${car.price}</p>
-              {car.inssuranceCia && (
-                <p><strong>Insurance:</strong> {car.inssuranceCia.name}</p>
-              )}
-              {car.availabilityRanges && (
-                <div>
-                  <strong>Availability:</strong>
-                  <pre className="text-xs mt-1 bg-gray-100 p-2 rounded">
-                    {car.availabilityRanges}
-                  </pre>
-                </div>
-              )}
-            </div>
-          </div>
+          <Card key={car.id} style={{ padding: 'var(--lumo-space-m)' }}>
+            <VerticalLayout style={{ gap: 'var(--lumo-space-s)' }}>
+              <h3 style={{ margin: '0' }}>{car.brand} {car.model}</h3>
+              <VerticalLayout style={{ gap: 'var(--lumo-space-xs)' }}>
+                <HorizontalLayout>
+                  <span style={{ fontWeight: 'bold' }}>Plate:</span>
+                  <span>{car.plate}</span>
+                </HorizontalLayout>
+                <HorizontalLayout>
+                  <span style={{ fontWeight: 'bold' }}>Year:</span>
+                  <span>{car.year}</span>
+                </HorizontalLayout>
+                <HorizontalLayout>
+                  <span style={{ fontWeight: 'bold' }}>Price:</span>
+                  <span>${car.price}</span>
+                </HorizontalLayout>
+                {car.inssuranceCia && (
+                  <HorizontalLayout>
+                    <span style={{ fontWeight: 'bold' }}>Insurance:</span>
+                    <span>{car.inssuranceCia.name}</span>
+                  </HorizontalLayout>
+                )}
+                {car.availabilityRanges && (
+                  <Details summary="Availability">
+                    <pre style={{ 
+                      fontSize: 'var(--lumo-font-size-xs)', 
+                      backgroundColor: 'var(--lumo-contrast-5pct)', 
+                      padding: 'var(--lumo-space-s)', 
+                      borderRadius: 'var(--lumo-border-radius-s)',
+                      margin: '0',
+                      whiteSpace: 'pre-wrap'
+                    }}>
+                      {car.availabilityRanges}
+                    </pre>
+                  </Details>
+                )}
+              </VerticalLayout>
+            </VerticalLayout>
+          </Card>
         ))}
       </div>
 
       {cars.length === 0 && (
-        <div className="text-center mt-8">
+        <VerticalLayout style={{ alignItems: 'center', marginTop: 'var(--lumo-space-xl)' }}>
           <p>No cars found. Try populating the database first.</p>
-        </div>
+        </VerticalLayout>
       )}
-    </div>
+    </VerticalLayout>
   );
 }
