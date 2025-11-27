@@ -556,6 +556,10 @@ Second version to decouple:
 
 - [Generate Booking Component Structure](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/GenerateBookingComponentStructure.md)
 
+![](https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/screenshots/GenerateBooking-tree/component-tre-generateBooking.png)
+
+![](https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/screenshots/GenerateBooking-tree/component-legend-generateBooking.png)
+
 This second decoupled version improves a lot cause: 
 
 1. Simplicity: All components at same level eliminates complex import paths and reduces cognitive overhead when navigating the codebase.
