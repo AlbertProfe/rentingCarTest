@@ -544,9 +544,26 @@ export default function HomeView() {
 
 ### Decoupling
 
+Original `GenerateBooking.tsx` coupled component:
+
 - [rentingCarTest/rentingCar-vaadin/src/main/frontend/views/@index.tsx at 7e2d652841eaa550862fdf1dd803bb4b5cceecdd · AlbertProfe/rentingCarTest · GitHub](https://github.com/AlbertProfe/rentingCarTest/blob/7e2d652841eaa550862fdf1dd803bb4b5cceecdd/rentingCar-vaadin/src/main/frontend/views/%40index.tsx)
 
+First version to decouple:
+
 - [Decoupling GenerateBookingView](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/DecouplingGenerateBookingView.md)
+
+Second version to decouple:
+
+- [Generate Booking Component Structure](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/GenerateBookingComponentStructure.md)
+
+This second decoupled version improves a lot cause: 
+
+1. Simplicity: All components at same level eliminates complex import paths and reduces cognitive overhead when navigating the codebase.
+2. Flexibility: Components can be easily reused across different contexts without being tied to specific parent-child relationships.
+3. Maintainability: Adding, removing, or modifying components doesn't require restructuring multiple directory levels or updating cascading import paths.
+4. Discoverability: Developers can quickly find any component in a single directory rather than drilling down through nested folders.
+5. Vaadin Compatibility: The flat structure cleanly solves the routing issue without complex workarounds.
+6. Scalability: As the application grows, flat organization prevents deeply nested structures that become unwieldy and hard to navigate.
 
 ## @RestController to populate
 
