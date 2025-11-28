@@ -71,7 +71,7 @@ export default function GenerateBookingFlow(props: GenerateBookingFlowProps) {
 }
 ```
 
-**Data Flow**: `cars` (fetched from API) and `hardcodedClient` flow down from parent to child.
+**Data Flow**: `cars` (fetched from API) and `hardcodedClient` <mark>flow down from parent to child.</mark>
 
 ## 2. **GenerateBookingFlow ↔ BookingForm**
 
