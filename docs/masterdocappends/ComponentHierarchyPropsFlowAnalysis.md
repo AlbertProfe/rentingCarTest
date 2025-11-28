@@ -35,6 +35,8 @@ function MyComponent({ cars, client }: Props) {
 
 ## Component Hierarchy GenerateBooking
 
+![](https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/screenshots/GenerateBooking-tree/component-tree-generateBooking-Carselect.png)
+
 ```
 GenerateBooking (Root Parent)
 └── GenerateBookingFlow (Middle Component)
