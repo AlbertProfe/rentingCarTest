@@ -2,9 +2,13 @@
 
 ## Summary
 
+- [React JS ES6: destructuring – albertprofe wiki](https://albertprofe.dev/reactjs/reactjs-es6-destructuring.html)
+
+- [React ES6 Destructuring](https://www.w3schools.com/react/react_es6_destructuring.asp)
+
 Destructuring in JavaScript/TypeScript:
 
-> **Destructuring** is a syntax that allows you to extract values from arrays or properties from objects into distinct variables in a single statement. Instead of accessing properties individually, you can "unpack" them directly.
+> **Destructuring** is a syntax that allows us to extract values from arrays or properties from objects into distinct variables in a single statement. Instead of accessing properties individually, <mark>we can "unpack" them directly.</mark>
 
 **Object Destructuring Examples:**
 
@@ -27,7 +31,7 @@ function MyComponent({ cars, client }: Props) {
 - Cleaner, more readable code
 - Reduces repetitive property access
 - Enables default values: `{ disabled = false }`
-- Perfect for React component props
+- Perfect for `React` component props
 
 ## Component Hierarchy GenerateBooking
 
@@ -38,9 +42,9 @@ GenerateBooking (Root Parent)
         └── CarSelect (Grandchild Component)
 ```
 
-## 1. **GenerateBooking → GenerateBookingFlow** (Parent to Child)
+## 1. **GenerateBooking → GenerateBookingFlow**
 
-### Interface Definition
+Interface Definition
 
 ```typescript
 // In GenerateBookingFlow.tsx
@@ -50,21 +54,26 @@ interface GenerateBookingFlowProps {
 }
 ```
 
-### Props Passing with Destructuring
+Props Passing with Destructuring
 
 ```typescript
 // Parent passes props
 <GenerateBookingFlow cars={cars} client={hardcodedClient} />
 
 // Child receives with destructuring
-export default function GenerateBookingFlow({ cars, client }: GenerateBookingFlowProps) {
+export default function GenerateBookingFlow({ cars, client }: GenerateBookingFlowProps) {}
+
+// Child receives without destructuring
+export default function GenerateBookingFlow(props: GenerateBookingFlowProps) {
+// Then you'd need to access: props.cars and props.client
+}
 ```
 
 **Data Flow**: `cars` (fetched from API) and `hardcodedClient` flow down from parent to child.
 
-## 2. **GenerateBookingFlow → BookingForm** (Parent to Child + Functions)
+## 2. **GenerateBookingFlow ↔ BookingForm**
 
-### Interface Definition
+Interface Definition
 
 ```typescript
 // In BookingForm.tsx
@@ -81,7 +90,7 @@ interface BookingFormProps {
 }
 ```
 
-### Props Passing with Destructuring
+Props Passing with Destructuring
 
 ```typescript
 // Parent passes both data and functions
@@ -116,9 +125,9 @@ export default function BookingForm({
 - **Down**: State values (`cars`, `selectedCar`, etc.) flow from parent to child
 - **Up**: Functions (`onCarChange`, `onSubmit`, etc.) allow child to communicate back to parent
 
-## 3. **BookingForm → CarSelect** (Parent to Child + Function)
+## 3. **BookingForm ↔ CarSelect**
 
-### Interface Definition
+Interface Definition
 
 ```typescript
 // In CarSelect.tsx
@@ -130,7 +139,7 @@ interface CarSelectProps {
 }
 ```
 
-### Props Passing with Destructuring
+Props Passing with Destructuring
 
 ```typescript
 // Parent passes props
@@ -154,6 +163,25 @@ export default function CarSelect({
 
 - **Down**: `cars`, `selectedCar`, `disabled` flow from parent to child
 - **Up**: `onCarChange` function allows child to notify parent of selection changes
+
+**Default Parameter Values in Destructuring**
+
+The `disabled = false` syntax sets a **default value** during destructuring. If the parent component doesn't pass a `disabled` prop or passes `undefined`, the parameter automatically defaults to `false`.
+
+**How it works:**
+
+```typescript
+// If parent passes disabled={true}
+<CarSelect disabled={submitting} />  // disabled gets true/false from submitting
+
+// If parent omits disabled prop
+<CarSelect cars={cars} />  // disabled defaults to false
+
+// The destructuring assignment
+{ disabled = false }  // Uses false only when disabled is undefined
+```
+
+**Key point:** The default value is **only used when the prop is missing or undefined**. When the parent explicitly passes a value (even `false`), that value **overwrites** the default.
 
 ## Key Patterns Used
 
