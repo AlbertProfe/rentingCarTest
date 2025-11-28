@@ -555,6 +555,7 @@ First version to decouple:
 Second version to decouple:
 
 - [Generate Booking Component Structure](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/GenerateBookingComponentStructure.md)
+- [Component Hierarchy & Props Flow Analysis](https://github.com/AlbertProfe/rentingCarTest/blob/master/docs/masterdocappends/ComponentHierarchyPropsFlowAnalysis.md)
 
 ![](https://raw.githubusercontent.com/AlbertProfe/rentingCarTest/refs/heads/master/docs/screenshots/GenerateBooking-tree/component-tre-generateBooking.png)
 
